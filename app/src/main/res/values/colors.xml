@@ -252,4 +252,19 @@
     <color name="profileBackground">#fff</color>
     <color name="blackTextColor">#000</color>
     <color name="profileEditTextColor">#707070</color>
+    <array name="array_dot_active">
+        <item>#f98da5</item>
+        <item>#8cf9eb</item>
+        <item>#93c6fd</item>
+        <item>#FFC28B</item>
+        <!--<item>#e4b5fc</item>-->
+    </array>
+
+    <array name="array_dot_inactive">
+        <item>#d1395c</item>
+        <item>#14a895</item>
+        <item>#2278d4</item>
+        <item>#AF681F</item>
+        <!--<item>#c873f4</item>-->
+    </array>
 </resources>

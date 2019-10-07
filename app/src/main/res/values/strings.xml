@@ -2,4 +2,6 @@
     <string name="app_name">Attendance System</string>
     <string name="password">Password</string>
     <string name="someone_somethin_com">Someone@somethin.com</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_Close">Close navigation drawer</string>
 </resources>

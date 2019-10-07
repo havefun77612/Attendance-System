@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group>
+        <item
+            android:id="@+id/menufirstitem"
+            android:icon="@drawable/menu_chat"
+            android:title="First item" />
+        <item
+            android:id="@+id/menuseconditem"
+            android:icon="@drawable/menu_mail"
+            android:title="Second item" />
+        <item
+            android:id="@+id/menuthirditem"
+            android:icon="@drawable/menu_phone"
+            android:title="Third item" />
+    </group>
+    <item android:title="Main Feature" />
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/menushare"
+                android:icon="@drawable/menu_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/menusend"
+                android:icon="@drawable/menu_send"
+                android:title="Send" />
+        </menu>
+
+    </item>
+
+</menu>

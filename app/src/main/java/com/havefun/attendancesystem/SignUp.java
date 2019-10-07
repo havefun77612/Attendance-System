@@ -176,4 +176,11 @@ public class SignUp extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         mAuth = FirebaseAuth.getInstance();
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(),MainPage.class));
+        finish();
+        super.onBackPressed();
+    }
 }

@@ -1,6 +1,7 @@
 package com.havefun.attendancesystem;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -162,6 +163,12 @@ public class Login extends AppCompatActivity {
                 GetData();
             }
         });
+        gotosginupbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), SignUp.class));
+            }
+        });
     }
 
     private void initializeVars() {
@@ -171,5 +178,12 @@ public class Login extends AppCompatActivity {
         loginbtn = (FrameLayout) findViewById(R.id.loginbtn);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         mAuth = FirebaseAuth.getInstance();
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(),MainPage.class));
+        finish();
+        super.onBackPressed();
     }
 }
