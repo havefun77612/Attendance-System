@@ -11,10 +11,20 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -25,11 +35,18 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -43,13 +60,17 @@ public class SignUp extends AppCompatActivity {
     SignInButton google;
     GoogleSignInClient mGoogleSignInClient;
     FirebaseUser user;
-
+    CallbackManager callbackManager;
+    LoginButton loginButton;
+    String TAG = "SignUp: ";
+    private static final String EMAIL = "email";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up);
         initializeVars();
         addVarsListner();
+        facebookConnecton();
     }
 
     /*
@@ -70,14 +91,14 @@ public class SignUp extends AppCompatActivity {
                 ErrorMessage = "Week Password ! Your Pass should contain special character " +
                         "\nlower case , upper case ,numbers & No spaces";
                 password.setError(ErrorMessage);
-              // disable The progressbar
+                // disable The progressbar
                 disableProgressBar();
             }
         } else {
             ErrorMessage = "Sorry! Invalid Email";
             email.setError(ErrorMessage);
             // disable the progressbar
-             disableProgressBar();
+            disableProgressBar();
         }
 
         ErrorMessage = "";
@@ -152,16 +173,19 @@ public class SignUp extends AppCompatActivity {
     /*
         +++  Google Sign in Methods
  */
-    private void  googleSignIn() {
+    private void googleSignIn() {
 
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, 101);
     }
+
     /*
 ====== To Listen For teh Result OF Google Sined in User
    */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Pass the activity result back to the Facebook SDK
+        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
@@ -171,18 +195,20 @@ public class SignUp extends AppCompatActivity {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                if(account!=null) {
+                if (account != null) {
                     firebaseAuthWithGoogle(account);
                 }
                 //   progressBar.setVisibility(View.INVISIBLE);
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
-                FancyToast.makeText(getApplicationContext(),"Google sign in failed",FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show();
+                FancyToast.makeText(getApplicationContext(), "Google sign in failed", FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
                 // ...
 
                 Log.w("mMessage", "Google sign in failed", e);
                 //   progressBar.setVisibility(View.INVISIBLE);
             }
+
+
 
         }
 
@@ -201,14 +227,14 @@ public class SignUp extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            FancyToast.makeText(getApplicationContext(),"signIn succefully"
-                                    ,FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
+                            FancyToast.makeText(getApplicationContext(), "signIn succefully"
+                                    , FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
                             user = mAuth.getCurrentUser();
 
                         } else {
                             // If sign in fails, display a message to the user.
-                            FancyToast.makeText(getApplicationContext(),"signIn failed ",FancyToast.LENGTH_LONG,FancyToast.ERROR
-                                    ,true).show();
+                            FancyToast.makeText(getApplicationContext(), "signIn failed ", FancyToast.LENGTH_LONG, FancyToast.ERROR
+                                    , true).show();
 
                         }
 
@@ -218,6 +244,64 @@ public class SignUp extends AppCompatActivity {
     }
 
 
+
+    /*
+     *** Login with facebook
+     */
+// Initialize Facebook Login button
+
+    void facebookConnecton() {
+
+        loginButton.setReadPermissions(Arrays.asList("email","public_profile"));
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                FancyToast.makeText(getApplicationContext(),"Facbook proccessing",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
+                handleFacebookAccessToken(loginResult.getAccessToken());
+
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d(TAG, "facebook:onCancel");
+                FancyToast.makeText(getApplicationContext(),"Facbook Login Canceled",FancyToast.LENGTH_LONG,FancyToast.INFO,true).show();
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d(TAG, "facebook:onError", error);
+                FancyToast.makeText(getApplicationContext(),"Facbook ERROR"+error.getMessage(),FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show();
+
+            }
+        });
+    }
+
+    private void handleFacebookAccessToken(AccessToken token) {
+        Log.d(TAG, "handleFacebookAccessToken:" + token);
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithCredential:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            FancyToast.makeText(getApplicationContext(), "Facbook Signup succed", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            FancyToast.makeText(getApplicationContext(), "Facbook Signup Failed", FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
+
+
+                        }
+
+                    }
+                });
+    }
 
     /*
     :::: Disable The Progress View
@@ -258,13 +342,14 @@ public class SignUp extends AppCompatActivity {
                 googleSignIn();
             }
         });
+
     }
 
     private void initializeVars() {
         gotologinbtn = (TextView) findViewById(R.id.gotologinbtn);
         password = (EditText) findViewById(R.id.password);
         email = (EditText) findViewById(R.id.email);
-        google=findViewById(R.id.google);
+        google = findViewById(R.id.google);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -273,11 +358,15 @@ public class SignUp extends AppCompatActivity {
         sginupbtn = (FrameLayout) findViewById(R.id.sginupbtn);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         mAuth = FirebaseAuth.getInstance();
+        callbackManager = CallbackManager.Factory.create();
+        loginButton = (LoginButton) findViewById(R.id.login_button);
+
+
     }
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(getApplicationContext(),MainPage.class));
+        startActivity(new Intent(getApplicationContext(), MainPage.class));
         finish();
         super.onBackPressed();
     }

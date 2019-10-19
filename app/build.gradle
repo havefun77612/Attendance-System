@@ -47,6 +47,8 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.0.1'
     // toast fancy Custom Attractive Toast
     implementation 'com.github.Shashank02051997:FancyToast-Android:0.1.6'
+    // facebook login
+    implementation 'com.facebook.android:facebook-login:5.8.0'
 
 
 }
