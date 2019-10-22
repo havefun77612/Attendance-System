@@ -172,15 +172,15 @@
                 <com.google.android.gms.common.SignInButton
                     android:id="@+id/google"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
+                    android:layout_height="37dp"
+                    android:layout_gravity="start"
                     android:layout_marginTop="20dp"
 
                     />
 
                 <com.facebook.login.widget.LoginButton
                     android:id="@+id/login_button"
-                    android:layout_width="match_parent"
+                    android:layout_width="256dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
