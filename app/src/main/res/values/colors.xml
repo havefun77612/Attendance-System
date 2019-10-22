@@ -3,8 +3,7 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-<<<<<<< HEAD
-=======
+
     <color name="transparentBlue">#10311B92</color>
     <color name="red50">#FFEBEE</color>
     <color name="red100">#FFCDD2</color>
@@ -269,5 +268,4 @@
         <item>#AF681F</item>
         <!--<item>#c873f4</item>-->
     </array>
->>>>>>> eca78f09a8a23c5aeacf8f8bcd1c29cc4e982bf4
 </resources>

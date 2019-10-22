@@ -7,20 +7,17 @@ buildscript {
         maven {
             url 'https://jitpack.io'
         }
-<<<<<<< HEAD
 
 
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.0'
         
-=======
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.0'
         classpath 'com.google.gms:google-services:4.2.0'
 
->>>>>>> eca78f09a8a23c5aeacf8f8bcd1c29cc4e982bf4
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -33,12 +30,9 @@ allprojects {
         maven {
             url 'https://jitpack.io'
         }
-<<<<<<< HEAD
 
 
-=======
-        
->>>>>>> eca78f09a8a23c5aeacf8f8bcd1c29cc4e982bf4
+
     }
 }
 
