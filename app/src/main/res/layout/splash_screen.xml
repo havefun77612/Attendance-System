@@ -15,7 +15,7 @@
         android:textSize="50dp"
         android:textColor="@color/blue900"
         android:textScaleX="2"
-        android:src="@drawable/logo_transparent"
+        app:srcCompat="@drawable/logo_transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
