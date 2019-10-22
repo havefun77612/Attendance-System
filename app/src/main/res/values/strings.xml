@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Attendance System</string>
+    <string name="scan_now">Scan Now</string>
+    <string name="qr_scanner">Qr Scanner</string>
+</resources>
