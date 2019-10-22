@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">Attendance System</string>
+<<<<<<< HEAD
     <string name="scan_now">Scan Now</string>
     <string name="qr_scanner">Qr Scanner</string>
+=======
+    <string name="password">Password</string>
+    <string name="someone_somethin_com">Someone@somethin.com</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_Close">Close navigation drawer</string>
+    <string name="facebook_app_id">404803516860794</string>
+    <string name="fb_login_protocol_scheme">fb404803516860794</string>
+>>>>>>> eca78f09a8a23c5aeacf8f8bcd1c29cc4e982bf4
 </resources>
