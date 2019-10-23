@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.appsnipp.profiledesigns.ProfileActivity"
+    tools:showIn="@layout/activity_profile">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+            <TextView
+                android:id="@+id/accountinfo"
+                style="@style/headerText"
+                android:layout_marginBottom="20dp"
+                android:text="Account Info" />
+
+            <RelativeLayout style="@style/profileDetailsLayout">
+                <ImageView
+                    android:id="@+id/name_image"
+                    android:src="@drawable/user"
+                    style="@style/profileDetailsImage" />
+
+                <TextView
+                    android:id="@+id/nametext1"
+                    android:text="Name"
+                    android:layout_toRightOf="@id/name_image"
+                style="@style/profileDetailsTextMain" />
+
+                <TextView
+                    android:id="@+id/nametext2"
+                    style="@style/profileDetailsMiniText"
+                    android:layout_toRightOf="@id/name_image"
+                    android:text="developer" />
+
+            </RelativeLayout>
+
+            <View style="@style/proifleDetailsView" />
+            <RelativeLayout style="@style/profileDetailsLayout">
+                <ImageView
+                    android:id="@+id/mobile_image"
+                    android:src="@drawable/phone2"
+                    style="@style/profileDetailsImage" />
+
+                <TextView
+                    android:id="@+id/mobiletext1"
+                    style="@style/profileDetailsTextMain"
+                    android:layout_toRightOf="@id/mobile_image"
+                    android:text="Mobile" />
+
+                <TextView
+                    android:id="@+id/mobiletext2"
+                    style="@style/profileDetailsMiniText"
+                    android:layout_toRightOf="@id/mobile_image"
+                    android:text="+201117558633" />
+
+            </RelativeLayout>
+
+            <View style="@style/proifleDetailsView" />
+            <RelativeLayout style="@style/profileDetailsLayout">
+                <ImageView
+                    android:id="@+id/email_image"
+                    android:src="@drawable/email"
+                    style="@style/profileDetailsImage" />
+
+                <TextView
+                    android:id="@+id/emailtext1"
+                    style="@style/profileDetailsTextMain"
+                    android:layout_toRightOf="@id/email_image"
+                    android:text="Email" />
+
+                <TextView
+                    android:id="@+id/emailtext2"
+                    style="@style/profileDetailsMiniText"
+                    android:layout_toRightOf="@id/email_image"
+                    android:text="a.hamdy_fci16@suezuni.edu.eg" />
+
+            </RelativeLayout>
+
+            <View style="@style/proifleDetailsView" />
+            <RelativeLayout style="@style/profileDetailsLayout">
+                <ImageView
+                    android:id="@+id/address_image"
+                    android:src="@drawable/place"
+                    style="@style/profileDetailsImage" />
+
+                <TextView
+                    android:id="@+id/addresstext1"
+                    style="@style/profileDetailsTextMain"
+                    android:layout_toRightOf="@id/address_image"
+                    android:text="Address" />
+
+                <TextView
+                    android:id="@+id/addresstext2"
+                    style="@style/profileDetailsMiniText"
+                    android:layout_toRightOf="@id/address_image"
+                    android:text="Suez" />
+
+            </RelativeLayout>
+
+            <View style="@style/proifleDetailsView" />
+            <RelativeLayout style="@style/profileDetailsLayout">
+                <ImageView
+                    android:id="@+id/date_image"
+                    android:src="@drawable/calender"
+                    style="@style/profileDetailsImage" />
+
+                <TextView
+                    android:id="@+id/datetext1"
+                    style="@style/profileDetailsTextMain"
+                    android:layout_toRightOf="@id/date_image"
+                    android:text="D.O.B" />
+
+                <TextView
+                    android:id="@+id/datetext2"
+                    style="@style/profileDetailsMiniText"
+                    android:layout_toRightOf="@id/date_image"
+                    android:text="20/10/2019" />
+
+            </RelativeLayout>
+
+            <View style="@style/proifleDetailsView" />
+
+        </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
