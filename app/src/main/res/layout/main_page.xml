@@ -75,7 +75,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/seconditem"
+                    android:id="@+id/profile_page"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
                     android:layout_marginLeft="2dp"

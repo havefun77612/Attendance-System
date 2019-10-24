@@ -152,19 +152,7 @@ public class SignUp extends AppCompatActivity {
         return matcher.matches();
     }
 
-    /*
-     **** Check The Device State OF internet Connection
-     */
-    private boolean isonline() {
-        ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
 
-        if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
     /*
         ///////// Google Sign in part
      */
@@ -312,6 +300,19 @@ public class SignUp extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
         email.setEnabled(true);
         password.setEnabled(true);
+    }
+    /*
+     **** Check The Device State OF internet Connection
+     */
+    private boolean isonline() {
+        ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
+
+        if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /*

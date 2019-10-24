@@ -6,11 +6,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.hardware.camera" />
     <uses-permission android:name="android.hardware.camera.autofocus" />
-
-
-
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -25,6 +21,7 @@
         <activity android:name=".FirstOpen"></activity>
         <activity android:name=".MainPage"
             />
+        <activity android:name=".ProfileActivity"/>
         <activity android:name=".SignUp" />
         <activity android:name=".Login" />
         <activity android:name=".SplashScreen">
