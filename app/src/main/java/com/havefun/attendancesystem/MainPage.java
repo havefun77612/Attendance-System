@@ -18,7 +18,7 @@ public class MainPage extends AppCompatActivity {
     Toolbar toolbar;
     DrawerLayout drawer;
     ActionBarDrawerToggle toggle;
-    LinearLayout loginactivity;
+    LinearLayout loginactivity,profile_page;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,7 @@ public class MainPage extends AppCompatActivity {
      */
     private void initializeVars() {
         loginactivity=(LinearLayout)findViewById(R.id.loginactivity);
+        profile_page=(LinearLayout)findViewById(R.id.profile_page);
         toolbar =(Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -49,6 +50,14 @@ public class MainPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),Login.class));
+                finish();
+            }
+        });
+
+        profile_page.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
                 finish();
             }
         });
