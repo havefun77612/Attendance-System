@@ -11,4 +11,7 @@
     <string name="fb_login_protocol_scheme">fb404803516860794</string>
     <string name="title_activity_profile">Profile</string>
     <string name="action_settings">Settings</string>
+    <string name="login_signup_hint">Don\'t have an account? Sign Up</string>
+    <string name="login_email_hint">Email</string>
+    <string name="login_password_hint">Password</string>
 </resources>
