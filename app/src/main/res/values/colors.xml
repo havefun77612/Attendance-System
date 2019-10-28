@@ -260,6 +260,7 @@
     <color name="profileBackground">#fff</color>
     <color name="blackTextColor">#000</color>
     <color name="profileEditTextColor">#707070</color>
+    <color name="primaryTextColor">#00a5ff</color>
     <array name="array_dot_active">
         <item>#f98da5</item>
         <item>#8cf9eb</item>
