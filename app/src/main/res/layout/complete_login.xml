@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/background_light"
-    tools:context=".MainActivity">
+    tools:context=".complete_login">
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -17,7 +17,7 @@
         app:layout_constraintGuide_begin="355dp" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/username"
         android:layout_width="265dp"
         android:layout_height="80dp"
         android:layout_margin="10dp"
@@ -27,13 +27,13 @@
         android:hint="username"
         android:inputType="textPersonName"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/editText5"
+        app:layout_constraintBottom_toTopOf="@+id/email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.609"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/email"
         android:layout_width="265dp"
         android:layout_height="80dp"
         android:layout_margin="10dp"
@@ -43,13 +43,13 @@
         android:hint="email"
         android:inputType="textEmailAddress"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/editText6"
+        app:layout_constraintBottom_toTopOf="@+id/phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.623"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editText6"
+        android:id="@+id/phone"
         android:layout_width="265dp"
         android:layout_height="80dp"
         android:layout_margin="10dp"
@@ -59,13 +59,13 @@
         android:hint="Phone"
         android:inputType="phone"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/editText7"
+        app:layout_constraintBottom_toTopOf="@+id/address"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.623"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editText7"
+        android:id="@+id/address"
         android:layout_width="265dp"
         android:layout_height="80dp"
         android:layout_margin="10dp"
@@ -75,13 +75,13 @@
         android:hint="Address"
         android:inputType="textPostalAddress"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/editText8"
+        app:layout_constraintBottom_toTopOf="@+id/dateofbirth"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.623"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editText8"
+        android:id="@+id/dateofbirth"
         android:layout_width="265dp"
         android:layout_height="80dp"
         android:layout_margin="10dp"
@@ -91,13 +91,13 @@
         android:hint="Date"
         android:inputType="date"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.623"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/submit"
         android:layout_width="183dp"
         android:layout_height="58dp"
         android:text="Submit"
@@ -115,14 +115,14 @@
         android:layout_marginBottom="40dp"
         android:background="@drawable/background_style"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/editText4"
+        app:layout_constraintBottom_toTopOf="@+id/username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/image_profile"
             android:layout_width="329dp"
             android:layout_height="155dp"
             android:layout_marginTop="70dp"
@@ -132,64 +132,64 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/username_icon"
         android:layout_width="50dp"
         android:layout_height="69dp"
         android:layout_marginTop="332dp"
-        app:layout_constraintEnd_toStartOf="@+id/editText4"
+        app:layout_constraintEnd_toStartOf="@+id/username"
         app:layout_constraintHorizontal_bias="0.648"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/linearLayout"
         app:srcCompat="@drawable/username" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/email_icon"
         android:layout_width="50dp"
         android:layout_height="59dp"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="100dp"
-        app:layout_constraintEnd_toEndOf="@+id/editText5"
+        app:layout_constraintEnd_toEndOf="@+id/email"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="@+id/username_icon"
         app:srcCompat="@drawable/email1" />
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/phone_icon"
         android:layout_width="50dp"
         android:layout_height="59dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="280dp"
         android:layout_marginRight="280dp"
-        app:layout_constraintEnd_toEndOf="@+id/editText6"
+        app:layout_constraintEnd_toEndOf="@+id/phone"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/email_icon"
         app:srcCompat="@drawable/phone1" />
 
     <ImageView
-        android:id="@+id/imageView10"
+        android:id="@+id/address_icon"
         android:layout_width="50dp"
         android:layout_height="59dp"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="@+id/editText7"
+        app:layout_constraintEnd_toEndOf="@+id/address"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView8"
+        app:layout_constraintTop_toBottomOf="@+id/phone_icon"
         app:srcCompat="@drawable/address" />
 
     <ImageView
-        android:id="@+id/imageView11"
+        android:id="@+id/date_icon"
         android:layout_width="50dp"
         android:layout_height="59dp"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="28dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView10"
+        app:layout_constraintTop_toBottomOf="@+id/address_icon"
         app:srcCompat="@drawable/date" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
