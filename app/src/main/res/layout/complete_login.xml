@@ -102,6 +102,7 @@
         android:layout_height="58dp"
         android:text="Submit"
         android:textSize="30dp"
+        app:layout_goneMarginBottom="5dp"
         android:background="@drawable/button_style"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

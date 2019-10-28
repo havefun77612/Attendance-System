@@ -19,13 +19,12 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".FirstOpen"></activity>
-        <activity android:name=".MainPage"
-            />
+        <activity android:name=".MainPage" />
+        <activity android:name=".complete_login"/>
         <activity android:name=".ProfileActivity"/>
         <activity android:name=".SignUp" />
         <activity android:name=".Login" />
         <activity android:name=".SplashScreen">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
