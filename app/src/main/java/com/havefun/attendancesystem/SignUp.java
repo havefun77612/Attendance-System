@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,8 +19,6 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -39,13 +36,13 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -64,6 +61,7 @@ public class SignUp extends AppCompatActivity {
     LoginButton loginButton;
     String TAG = "SignUp: ";
     private static final String EMAIL = "email";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,13 +90,13 @@ public class SignUp extends AppCompatActivity {
                         "\nlower case , upper case ,numbers & No spaces";
                 password.setError(ErrorMessage);
                 // disable The progressbar
-                disableProgressBar();
+                returnContentControle();
             }
         } else {
             ErrorMessage = "Sorry! Invalid Email";
             email.setError(ErrorMessage);
             // disable the progressbar
-            disableProgressBar();
+            returnContentControle();
         }
 
         ErrorMessage = "";
@@ -116,6 +114,7 @@ public class SignUp extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             FancyToast.makeText(getApplicationContext(), "Signed up Success", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
                             FirebaseUser user = mAuth.getCurrentUser();
+                            checkifUserCompeletLoginOrNot();
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -127,7 +126,7 @@ public class SignUp extends AppCompatActivity {
 
                         }
 //Disable the Progressbar
-                        disableProgressBar();
+                        returnContentControle();
                     }
                 });
     }
@@ -197,7 +196,6 @@ public class SignUp extends AppCompatActivity {
             }
 
 
-
         }
 
     }
@@ -218,6 +216,7 @@ public class SignUp extends AppCompatActivity {
                             FancyToast.makeText(getApplicationContext(), "signIn succefully"
                                     , FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
                             user = mAuth.getCurrentUser();
+                            checkifUserCompeletLoginOrNot();
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -225,8 +224,7 @@ public class SignUp extends AppCompatActivity {
                                     , true).show();
 
                         }
-
-                        // ...
+                        
                     }
                 });
     }
@@ -240,31 +238,31 @@ public class SignUp extends AppCompatActivity {
 
     void facebookConnecton() {
 
-        loginButton.setReadPermissions(Arrays.asList("email","public_profile"));
+        loginButton.setReadPermissions(Arrays.asList("email", "public_profile"));
         LoginManager.getInstance().registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                FancyToast.makeText(getApplicationContext(),"Facbook proccessing",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
-                handleFacebookAccessToken(loginResult.getAccessToken());
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                        FancyToast.makeText(getApplicationContext(), "Facbook proccessing", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
+                        handleFacebookAccessToken(loginResult.getAccessToken());
 
-            }
+                    }
 
-            @Override
-            public void onCancel() {
-                Log.d(TAG, "facebook:onCancel");
-                FancyToast.makeText(getApplicationContext(),"Facbook Login Canceled",FancyToast.LENGTH_LONG,FancyToast.INFO,true).show();
+                    @Override
+                    public void onCancel() {
+                        Log.d(TAG, "facebook:onCancel");
+                        FancyToast.makeText(getApplicationContext(), "Facbook Login Canceled", FancyToast.LENGTH_LONG, FancyToast.INFO, true).show();
 
-            }
+                    }
 
-            @Override
-            public void onError(FacebookException error) {
-                Log.d(TAG, "facebook:onError", error);
-                FancyToast.makeText(getApplicationContext(),"Facbook ERROR"+error.getMessage(),FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show();
+                    @Override
+                    public void onError(FacebookException error) {
+                        Log.d(TAG, "facebook:onError", error);
+                        FancyToast.makeText(getApplicationContext(), "Facbook ERROR" + error.getMessage(), FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
 
-            }
-        });
+                    }
+                });
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
@@ -279,6 +277,7 @@ public class SignUp extends AppCompatActivity {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             FancyToast.makeText(getApplicationContext(), "Facbook Signup succed", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
+                            checkifUserCompeletLoginOrNot();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -292,15 +291,31 @@ public class SignUp extends AppCompatActivity {
     }
 
     /*
-    :::: Disable The Progress View
+    ::::::
      */
+void checkifUserCompeletLoginOrNot(){
+    Query query = FirebaseDatabase.getInstance().getReference("Users").orderByChild("UserId").equalTo(user.getUid());
+    query.addListenerForSingleValueEvent(new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            if (dataSnapshot.exists()){
+                finish();
+                startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+            }else {
+            finish();
+            startActivity(new Intent(getApplicationContext(),CompleteLogin.class));
+            }
 
-    private void disableProgressBar() {
-        sginupbtn.setEnabled(true);
-        progressBar.setVisibility(View.GONE);
-        email.setEnabled(true);
-        password.setEnabled(true);
-    }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    });
+
+}
+
     /*
      **** Check The Device State OF internet Connection
      */
@@ -330,17 +345,18 @@ public class SignUp extends AppCompatActivity {
         sginupbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sginupbtn.setEnabled(false);
-                email.setEnabled(false);
-                password.setEnabled(false);
-                progressBar.setVisibility(View.VISIBLE);
+
+                disableBtns();
                 GetData();
+                returnContentControle();
             }
         });
         google.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                disableBtns();
                 googleSignIn();
+                returnContentControle();
             }
         });
 
@@ -363,6 +379,21 @@ public class SignUp extends AppCompatActivity {
         loginButton = (LoginButton) findViewById(R.id.login_button);
 
 
+    }
+
+    void disableBtns() {
+        progressBar.setVisibility(View.VISIBLE);
+        google.setEnabled(false);
+        sginupbtn.setEnabled(false);
+        loginButton.setEnabled(false);
+
+    }
+
+    void returnContentControle() {
+        progressBar.setVisibility(View.GONE);
+        google.setEnabled(true);
+        sginupbtn.setEnabled(true);
+        loginButton.setEnabled(true);
     }
 
     @Override

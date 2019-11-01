@@ -42,7 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initializeVars();
@@ -80,7 +80,7 @@ public class ProfileActivity extends AppCompatActivity {
                             user.setUserId(data.child("UserId").getValue().toString());
                             user.setUserName(data.child("UserName").getValue().toString());
                             user.setUserPhoneNumber(data.child("UserPhoneNumber").getValue().toString());
-                            user.setDateofBirth(data.child("DateOfBith").getValue().toString());
+                          //  user.setDateofBirth(data.child("DateOfBith").getValue().toString());
                             UserInfoList.add(user);
                         }
                         Log.i("Getting user data:", "succedded");
@@ -112,12 +112,13 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void getUserImage() {
         if (Boolean.parseBoolean(UserInfoList.get(0).getUserCompleteInfo())) {
-            StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://attendance-system-29656.appspot.com/userImages/" + UserInfoList.get(0).UserId + ".jpg");
+            StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://attendance-system-29656.appspot.com/userImages/" + UserInfoList.get(0).getUserId() + ".jpg");
             storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
-                        setUri(uri.toString());
                     Log.i("Mainprofile:::", "The Uri=  " + uri.toString());
+                        setUri(uri.toString());
+
                 }
             });
         } else {
@@ -143,7 +144,7 @@ public class ProfileActivity extends AppCompatActivity {
             userEmail.setText(UserInfoList.get(0).getUserEmail());
             mobileText2.setText(UserInfoList.get(0).getUserPhoneNumber());
             addressText2.setText(UserInfoList.get(0).getUserAddress());
-            dateText2.setText(UserInfoList.get(0).getDateofBirth());
+           // dateText2.setText(UserInfoList.get(0).getDateofBirth());
             Picasso.get().load(UserInfoList.get(0).getUserProfileUri()).placeholder(R.drawable.profile5).into(profile_image);
         }else if (user!=null){
             nameText2.setText(user.getDisplayName());
@@ -183,7 +184,7 @@ public class ProfileActivity extends AppCompatActivity {
         dateText2 = (TextView) findViewById(R.id.datetext2);
         userName = (TextView) findViewById(R.id.username);
         userEmail = (TextView) findViewById(R.id.useremail);
-        profile_image = (ImageView) findViewById(R.id.profile_image);
+        profile_image = (ImageView) findViewById(R.id.userImage);
         back_to_home=(Button) findViewById(R.id.back_to_home);
         // firebase part
         user = FirebaseAuth.getInstance().getCurrentUser();

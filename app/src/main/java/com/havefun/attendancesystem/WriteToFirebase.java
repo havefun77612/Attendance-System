@@ -1,6 +1,8 @@
 package com.havefun.attendancesystem;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +23,8 @@ public class WriteToFirebase {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     private FirebaseUser firebaseUser;
+    private String TAG="Write To FireBase ";
+    private  HashMap<String, String> usermaMap;
     /*
      ** Needed Data
      */
@@ -39,33 +43,32 @@ public class WriteToFirebase {
     ::::::: User Data Structuring Models
      */
 
-    public void addNewUserinfo(String DateOfBith, String OwnerEmail, String OwnerID, String userName, String password, String phoneNumber) {
+    public void addNewUserinfo(HashMap<String,String> userData, final Bitmap profileImage, String UserCompleteInfo) {
+        setReferance("Users");
         String PhotoURi;
-        String UserCompleteInfo;
-        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-        StorageReference UserImagesReference = firebaseStorage.getReference().child("userImages/" + firebaseUser.getUid() + ".jpg");
-        if (firebaseUser.getPhotoUrl() == null || firebaseUser.getPhotoUrl().toString().equals("")) {
+        usermaMap = new HashMap<String, String>();
+        usermaMap=userData;
+        final FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+        StorageReference UserImagesReference = firebaseStorage.getReference().child("userImages/" + usermaMap.get("UserId") + ".jpg");
+        if (UserCompleteInfo.equals("true")) {
             PhotoURi = String.valueOf(UserImagesReference.getDownloadUrl());
-            UserCompleteInfo="true";
         } else {
-            PhotoURi = firebaseUser.getPhotoUrl().toString();
-            UserCompleteInfo="false";
+            PhotoURi = usermaMap.get("UserProfileUri");
         }
-        HashMap<String, String> usermaMap = new HashMap<String, String>();
-        usermaMap.put("DateOfBith", DateOfBith);
+
+
         usermaMap.put("UserCompleteInfo", UserCompleteInfo);
-        usermaMap.put("UserEmail", OwnerEmail);
-        usermaMap.put("UserId", OwnerID);
-        usermaMap.put("UserName", userName);
-        usermaMap.put("UserPassword", password);
-        usermaMap.put("UserPhoneNumber", phoneNumber);
         usermaMap.put("UserProfileUri", PhotoURi);
 
         myRef.push().setValue(usermaMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    FancyToast.makeText(context, "Your Data Updated successfully", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
+                    Log.i(TAG, "Your Data Updated successfully");
+                    if (profileImage!=null){
+                        FireBaseStorage firebaseStorage1=new FireBaseStorage(context,appCompatActivity);
+                        firebaseStorage1.uploadUserImage(profileImage,usermaMap.get("UserId"));
+                    }
                 } else {
                     FancyToast.makeText(context, String.valueOf(task.getException()), FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
                 }
