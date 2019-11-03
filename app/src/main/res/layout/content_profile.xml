@@ -95,7 +95,8 @@
                     android:id="@+id/addresstext1"
                     style="@style/profileDetailsTextMain"
                     android:layout_toRightOf="@id/address_image"
-                    android:text="Address" />
+                    android:text="Address"
+                    />
 
                 <TextView
                     android:id="@+id/addresstext2"

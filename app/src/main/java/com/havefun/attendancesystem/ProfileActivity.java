@@ -122,7 +122,14 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             });
         } else {
-            setUri(user.getPhotoUrl().toString());
+            try {
+                setUri(user.getPhotoUrl().toString());
+            }catch (Exception e)
+            {
+                updateUiComponent();
+                Log.i("null photo url", e.getMessage());
+            }
+
         }
     }
 

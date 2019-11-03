@@ -13,12 +13,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.havefun.attendancesystem.QR.ScanQr;
+
 
 public class MainPage extends AppCompatActivity {
     Toolbar toolbar;
     DrawerLayout drawer;
     ActionBarDrawerToggle toggle;
-    LinearLayout loginactivity,profile_page;
+    LinearLayout loginactivity,profile_page,Scaner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class MainPage extends AppCompatActivity {
     private void initializeVars() {
         loginactivity=(LinearLayout)findViewById(R.id.loginactivity);
         profile_page=(LinearLayout)findViewById(R.id.profile_page);
+        Scaner=(LinearLayout)findViewById(R.id.Scaner);
         toolbar =(Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -58,6 +61,13 @@ public class MainPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+                finish();
+            }
+        });
+        Scaner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), ScanQr.class));
                 finish();
             }
         });

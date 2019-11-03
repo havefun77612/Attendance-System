@@ -36,7 +36,7 @@ public class CompleteLogin extends AppCompatActivity {
     ImageView image_profile;
     final int imagePcode = 50;
     final int prCode = 51;//must be final for onRequestPermissionsResult
-    Bitmap bitmap;
+    Bitmap bitmap=null;
     //end of image vals
     final HashMap<String, String> hash = new HashMap<String, String>();
     FirebaseUser firebaseUser;
@@ -228,12 +228,13 @@ public class CompleteLogin extends AppCompatActivity {
                     phone.setError("please check your phone number");
                 }
                 if (allOk()) {
+                    disableControllers();
                     hash.put("UserName", user);
                     hash.put("UserPhoneNumber", phoon);
                     hash.put("UserEmail", emailf);
                     hash.put("UserId", firebaseUser.getUid());
                     hash.put("UserAddress", userAddress);
-                    if (!firebaseUser.getPhotoUrl().toString().isEmpty() && !firebaseUser.getPhotoUrl().toString().equals("")) {
+                    if (firebaseUser.getPhotoUrl() != null && !firebaseUser.getPhotoUrl().toString().equals("")) {
                         hash.put("UserProfileUri", firebaseUser.getPhotoUrl().toString());
                     } else {
                         hash.put("UserProfileUri", "");
@@ -247,6 +248,16 @@ public class CompleteLogin extends AppCompatActivity {
         });
 
 
+    }
+
+    private void disableControllers() {
+        image_profile.setEnabled(false);
+        submit.setEnabled(false);
+        username.setEnabled(false);
+        email.setEnabled(false);
+        phone.setEnabled(false);
+        address.setEnabled(false);
+        dateofbirth.setEnabled(false);
     }
 
 }

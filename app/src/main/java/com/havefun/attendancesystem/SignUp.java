@@ -113,7 +113,7 @@ public class SignUp extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FancyToast.makeText(getApplicationContext(), "Signed up Success", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            user = mAuth.getCurrentUser();
                             checkifUserCompeletLoginOrNot();
 
                         } else {
@@ -224,7 +224,7 @@ public class SignUp extends AppCompatActivity {
                                     , true).show();
 
                         }
-                        
+
                     }
                 });
     }
@@ -275,8 +275,8 @@ public class SignUp extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            FancyToast.makeText(getApplicationContext(), "Facbook Signup succed", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
+                             user = mAuth.getCurrentUser();
+                            FancyToast.makeText(getApplicationContext(), "Facbook Signup succeded", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
                             checkifUserCompeletLoginOrNot();
                         } else {
                             // If sign in fails, display a message to the user.

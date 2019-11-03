@@ -1,6 +1,7 @@
 package com.havefun.attendancesystem;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
 
@@ -65,10 +66,17 @@ public class WriteToFirebase {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Log.i(TAG, "Your Data Updated successfully");
-                    if (profileImage!=null){
-                        FireBaseStorage firebaseStorage1=new FireBaseStorage(context,appCompatActivity);
-                        firebaseStorage1.uploadUserImage(profileImage,usermaMap.get("UserId"));
-                    }
+                   try{
+                       int c=profileImage.getWidth();
+                       if (profileImage!=null){
+                           FireBaseStorage firebaseStorage1=new FireBaseStorage(context,appCompatActivity);
+                           firebaseStorage1.uploadUserImage(profileImage,usermaMap.get("UserId"));
+                       }
+                   }catch (Exception w){
+                       appCompatActivity.finish();
+                       appCompatActivity.startActivity(new Intent(context,ProfileActivity.class));
+                   }
+
                 } else {
                     FancyToast.makeText(context, String.valueOf(task.getException()), FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
                 }
