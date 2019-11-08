@@ -28,6 +28,10 @@
                 android:id="@+id/menusend"
                 android:icon="@drawable/menu_send"
                 android:title="Send" />
+            <item
+                android:id="@+id/menulogout"
+                android:icon="@drawable/menu_logout"
+                android:title="Log out" />
         </menu>
 
     </item>

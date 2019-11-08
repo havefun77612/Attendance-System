@@ -138,7 +138,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="20dp"
-                        android:text="Join us"
+                        android:text="Scan Qr"
                         android:textColor="@color/blackTextColor"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -148,7 +148,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="10dp"
-                        android:text="Login or sgin up \n now is the time"
+                        android:text="You should be \n Authorized to use"
                         android:textAlignment="center"
                         android:textColor="@color/blackTextColor"
                         android:textSize="15sp"
@@ -199,6 +199,7 @@
         <!-- your content layout -->
 
         <com.google.android.material.navigation.NavigationView
+            android:id="@+id/draw_dev"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"

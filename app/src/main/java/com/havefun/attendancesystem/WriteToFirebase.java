@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -85,6 +86,19 @@ public class WriteToFirebase {
 
     }
 
+    /*
+    ::::::: update existing user
+     */
+    public void updateUserCompleteInfo(String key,Boolean status){
+        setReferance("Users");
+        myRef.child(key).child("UserCompleteInfo").setValue(String.valueOf(status)).addOnSuccessListener(new OnSuccessListener<Void>() {
+        @Override
+        public void onSuccess(Void aVoid) {
+       FancyToast.makeText(context,"updated Success",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
+        }
+
+    });
+    }
 
     /*
      ** Method used to determinde the instance of the firebase = Determined the root

@@ -2,10 +2,13 @@ package com.havefun.attendancesystem;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -29,6 +33,7 @@ import com.google.firebase.storage.StorageReference;
 import com.shashank.sony.fancytoastlib.FancyToast;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +43,7 @@ public class ProfileActivity extends AppCompatActivity {
     FirebaseUser user;
     List<UserInfo> UserInfoList;
     Button back_to_home;
+    Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +139,52 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+
+    /*
+image intent section
+ */
+    private void pickM() {
+        Intent intt = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intt.setType("image/*");
+        startActivityForResult(intt, 101);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 101: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    pickM();
+                } else {
+                    FancyToast.makeText(getApplicationContext(), "We Need Storage Permission", FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
+                }
+            }
+            break;
+
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 101 && resultCode == RESULT_OK && null != data) {//the IF statement was WRONG
+            Uri i = data.getData();
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), i);
+
+                profile_image.setImageBitmap(bitmap);
+               FireBaseStorage uploadUserImage=new FireBaseStorage(getApplicationContext(),this);
+               uploadUserImage.uploadUserImage(bitmap,user.getUid());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+    }
+
     private void setUri(String toString) {
         Log.i("Setting Uri :", toString);
         UserInfoList.get(0).setUserProfileUri(toString);
@@ -204,6 +256,15 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),MainPage.class));
                 finish();
+            }
+        });
+
+        profile_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            if (user!=null){
+                pickM();
+            }
             }
         });
     }
