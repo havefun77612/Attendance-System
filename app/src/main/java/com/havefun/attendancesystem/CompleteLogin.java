@@ -1,6 +1,7 @@
 package com.havefun.attendancesystem;
 
 import android.Manifest;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -13,12 +14,15 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,10 +31,11 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class CompleteLogin extends AppCompatActivity {
-    Button submit;
+    Button submit,date;
     EditText username, email, phone, address, dateofbirth;
     Animation animate1, animate2;
     ImageView image_profile;
@@ -42,10 +47,12 @@ public class CompleteLogin extends AppCompatActivity {
     FirebaseUser firebaseUser;
     String TAG = "CompleteLogin Page", UserCompleteInfo = "false";
     ProgressBar progressBar;
+    String userDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.complete_login);
         initializeVars();
         setAvailableData();
@@ -92,9 +99,16 @@ public class CompleteLogin extends AppCompatActivity {
             return false;
         }
     }
+    public boolean dateOK(){
+        if(userDate!=null){
+            return true;
+        }else {
+            return false;
+        }
+    }
 
     public boolean allOk() {
-        if (emailOK() && userOK() && phoneOk()) {
+        if (emailOK() && userOK() && phoneOk()&&dateOK()) {
             return true;
         } else {
             return false;
@@ -168,13 +182,16 @@ public class CompleteLogin extends AppCompatActivity {
     private void initializeVars() {
         username = (EditText) findViewById(R.id.username);
         email = (EditText) findViewById(R.id.email);
+
         phone = (EditText) findViewById(R.id.phone);
         address = (EditText) findViewById(R.id.address);
         dateofbirth = (EditText) findViewById(R.id.dateofbirth);
+        dateofbirth.setEnabled(false);//to stop the user from adding something to the date
         submit = (Button) findViewById(R.id.submit);
         image_profile = (ImageView) findViewById(R.id.profileImage);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         progressBar = (ProgressBar) findViewById(R.id.progressBar2);
+        date=findViewById(R.id.date);
 
 
     }
@@ -186,6 +203,7 @@ public class CompleteLogin extends AppCompatActivity {
         email.startAnimation(animate1);
         phone.startAnimation(animate1);
         address.startAnimation(animate1);
+        date.startAnimation(animate1);
         dateofbirth.startAnimation(animate1);
 
     }
@@ -227,6 +245,9 @@ public class CompleteLogin extends AppCompatActivity {
                 if (!phoneOk()) {
                     phone.setError("please check your phone number");
                 }
+                if(!dateOK()){
+                    dateofbirth.setError("please set a date");
+                }
                 if (allOk()) {
                     disableControllers();
                     hash.put("UserName", user);
@@ -234,6 +255,8 @@ public class CompleteLogin extends AppCompatActivity {
                     hash.put("UserEmail", emailf);
                     hash.put("UserId", firebaseUser.getUid());
                     hash.put("UserAddress", userAddress);
+                    hash.put("UserDate",userDate);
+                    Toast.makeText(CompleteLogin.this,hash.get("UserDate"),Toast.LENGTH_LONG).show();
                     if (firebaseUser.getPhotoUrl() != null && !firebaseUser.getPhotoUrl().toString().equals("")) {
                         hash.put("UserProfileUri", firebaseUser.getPhotoUrl().toString());
                     } else {
@@ -243,6 +266,29 @@ public class CompleteLogin extends AppCompatActivity {
                     writeToFirebase.addNewUserinfo(hash, bitmap, UserCompleteInfo);
 
                 }
+
+            }
+        });
+        date.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+
+            public void onClick(View v) {
+                //Calendar calendar = Calendar.getInstance();//defining a calendar
+                int year =1990;//the year
+                int month =1; //calendar.get(Calendar.MONTH);//the month
+                int day =1; //calendar.get(Calendar.DAY_OF_MONTH);//the day
+                //the date picker
+                DatePickerDialog dateBD=new DatePickerDialog(CompleteLogin.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        userDate=Integer.toString(day)+"/"+Integer.toString(month+1)+"/"+Integer.toString(year);//month is set to 0 so we need to add 1
+                        dateofbirth.setText(userDate);
+
+                    }
+                }, year, month, day);
+                dateBD.show();
+
 
             }
         });
