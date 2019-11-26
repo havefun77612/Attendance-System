@@ -269,6 +269,8 @@ public class CompleteLogin extends AppCompatActivity {
 
             }
         });
+
+        // data pickicking
         date.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -282,7 +284,8 @@ public class CompleteLogin extends AppCompatActivity {
                 DatePickerDialog dateBD=new DatePickerDialog(CompleteLogin.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        userDate=Integer.toString(day)+"/"+Integer.toString(month+1)+"/"+Integer.toString(year);//month is set to 0 so we need to add 1
+                        //month is set to 0 so we need to add 1
+                        userDate=Integer.toString(day)+"/"+Integer.toString(month+1)+"/"+Integer.toString(year);
                         dateofbirth.setText(userDate);
 
                     }
@@ -295,7 +298,7 @@ public class CompleteLogin extends AppCompatActivity {
 
 
     }
-
+    // Disable controllers For protecting from diplicated data
     private void disableControllers() {
         image_profile.setEnabled(false);
         submit.setEnabled(false);
@@ -304,6 +307,7 @@ public class CompleteLogin extends AppCompatActivity {
         phone.setEnabled(false);
         address.setEnabled(false);
         dateofbirth.setEnabled(false);
+        date.setEnabled(false);
     }
 
 }

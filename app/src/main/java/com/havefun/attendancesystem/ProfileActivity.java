@@ -86,7 +86,7 @@ public class ProfileActivity extends AppCompatActivity {
                             user.setUserId(data.child("UserId").getValue().toString());
                             user.setUserName(data.child("UserName").getValue().toString());
                             user.setUserPhoneNumber(data.child("UserPhoneNumber").getValue().toString());
-                          //  user.setDateofBirth(data.child("DateOfBith").getValue().toString());
+                            user.setDateofBirth(data.child("UserDate").getValue().toString());
                             UserInfoList.add(user);
                         }
                         Log.i("Getting user data:", "succedded");
@@ -203,7 +203,7 @@ image intent section
             userEmail.setText(UserInfoList.get(0).getUserEmail());
             mobileText2.setText(UserInfoList.get(0).getUserPhoneNumber());
             addressText2.setText(UserInfoList.get(0).getUserAddress());
-           // dateText2.setText(UserInfoList.get(0).getDateofBirth());
+            dateText2.setText(UserInfoList.get(0).getDateofBirth());
             Picasso.get().load(UserInfoList.get(0).getUserProfileUri()).placeholder(R.drawable.profile5).into(profile_image);
         }else if (user!=null){
             nameText2.setText(user.getDisplayName());
