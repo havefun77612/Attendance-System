@@ -3,7 +3,7 @@ package com.havefun.attendancesystem;
 public class UserInfo {
         public String UserAddress, UserCompleteInfo, UserEmail, UserId, UserName, UserPassword, UserPhoneNumber, UserProfileUri,DateofBirth;
 
-        UserInfo() {
+        public UserInfo() {
 
         }
 

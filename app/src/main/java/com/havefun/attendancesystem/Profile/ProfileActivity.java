@@ -1,4 +1,4 @@
-package com.havefun.attendancesystem;
+package com.havefun.attendancesystem.Profile;
 
 import android.content.Context;
 import android.content.Intent;
@@ -30,6 +30,10 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.havefun.attendancesystem.FireBaseStorage;
+import com.havefun.attendancesystem.MainPage;
+import com.havefun.attendancesystem.R;
+import com.havefun.attendancesystem.UserInfo;
 import com.shashank.sony.fancytoastlib.FancyToast;
 import com.squareup.picasso.Picasso;
 
@@ -79,7 +83,7 @@ public class ProfileActivity extends AppCompatActivity {
                     //UserInfoList.clear();
                     if (dataSnapshot.exists()) {
                         for (DataSnapshot data : dataSnapshot.getChildren()) {
-                            final UserInfo user = new UserInfo();
+                            final  UserInfo user = new UserInfo();
                             user.setUserAddress(data.child("UserAddress").getValue().toString());
                             user.setUserCompleteInfo(data.child("UserCompleteInfo").getValue().toString());
                             user.setUserEmail(data.child("UserEmail").getValue().toString());
@@ -254,7 +258,7 @@ image intent section
         back_to_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),MainPage.class));
+                startActivity(new Intent(getApplicationContext(), MainPage.class));
                 finish();
             }
         });

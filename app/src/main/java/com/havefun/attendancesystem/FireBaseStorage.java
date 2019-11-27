@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.havefun.attendancesystem.Profile.ProfileActivity;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.io.ByteArrayOutputStream;
@@ -37,14 +38,14 @@ public class FireBaseStorage {
     AppCompatActivity appCompatActivity;
     String pushedId="";
 
-    FireBaseStorage(Context context, AppCompatActivity appCompatActivity) {
+  public  FireBaseStorage(Context context, AppCompatActivity appCompatActivity) {
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReference();
         this.appCompatActivity = appCompatActivity;
         this.context = context;
     }
 
-    void uploadUserImage(Bitmap bitmap, String fileName) {
+   public void uploadUserImage(Bitmap bitmap, String fileName) {
         // Create a reference to "mountains.jpg"
         StorageReference mountainsRef = storageRef.child(fileName + ".jpg");
         setReferance("userImages");

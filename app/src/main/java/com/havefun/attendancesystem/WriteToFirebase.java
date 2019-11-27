@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.havefun.attendancesystem.Profile.ProfileActivity;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.HashMap;
@@ -27,6 +28,7 @@ public class WriteToFirebase {
     private FirebaseUser firebaseUser;
     private String TAG="Write To FireBase ";
     private  HashMap<String, String> usermaMap;
+    private  HashMap<String,String> attendStudentForCourse;
     /*
      ** Needed Data
      */
@@ -75,7 +77,7 @@ public class WriteToFirebase {
                        }
                    }catch (Exception w){
                        appCompatActivity.finish();
-                       appCompatActivity.startActivity(new Intent(context,ProfileActivity.class));
+                       appCompatActivity.startActivity(new Intent(context, ProfileActivity.class));
                    }
 
                 } else {
@@ -84,6 +86,28 @@ public class WriteToFirebase {
             }
         });
 
+    }
+    /*
+    **** add attendance info for spacific courses
+     */
+    public void addNewAttendanceData(String courseCode,HashMap <String,String> attendUsersInCourse){
+        setReferance(courseCode);
+        attendStudentForCourse=new HashMap<>();
+        attendStudentForCourse=attendUsersInCourse;
+myRef.push().setValue(attendStudentForCourse).addOnCompleteListener(new OnCompleteListener<Void>() {
+    @Override
+    public void onComplete(@NonNull Task<Void> task) {
+        if (task.isSuccessful()){
+            FancyToast.makeText(context,"Course attendance saved sccuffully",FancyToast.LENGTH_LONG,FancyToast
+                    .SUCCESS,true).show();
+        }else {
+            FancyToast.makeText(context,"Course attendance not saved",FancyToast.LENGTH_LONG,FancyToast
+                    .ERROR,true).show();
+            FancyToast.makeText(context,"we'll try again when internet exist",FancyToast.LENGTH_LONG,FancyToast
+                    .INFO,true).show();
+        }
+    }
+});
     }
 
     /*

@@ -18,8 +18,8 @@
         <activity android:name=".QR.ScanQr"></activity>
         <activity android:name=".FirstOpen" />
         <activity android:name=".MainPage" />
-        <activity android:name=".CompleteLogin" />
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".Profile.CompleteLogin" />
+        <activity android:name=".Profile.ProfileActivity" />
         <activity android:name=".SignUp" />
         <activity android:name=".Login" />
         <activity android:name=".SplashScreen">

@@ -41,6 +41,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.havefun.attendancesystem.Profile.CompleteLogin;
+import com.havefun.attendancesystem.Profile.ProfileActivity;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.Arrays;
@@ -300,10 +302,10 @@ void checkifUserCompeletLoginOrNot(){
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             if (dataSnapshot.exists()){
                 finish();
-                startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+                startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
             }else {
             finish();
-            startActivity(new Intent(getApplicationContext(),CompleteLogin.class));
+            startActivity(new Intent(getApplicationContext(), CompleteLogin.class));
             }
 
         }
