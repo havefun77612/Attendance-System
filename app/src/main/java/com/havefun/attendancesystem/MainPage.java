@@ -17,6 +17,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.havefun.attendancesystem.Chat.MainChat;
 import com.havefun.attendancesystem.Profile.ProfileActivity;
 import com.havefun.attendancesystem.QR.ScanQr;
 
@@ -25,7 +26,7 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
     Toolbar toolbar;
     DrawerLayout drawer;
     ActionBarDrawerToggle toggle;
-    LinearLayout loginactivity,profile_page,Scaner;
+    LinearLayout loginactivity,profile_page,Scaner,waiting;
     FirebaseUser user;
 
     @Override
@@ -63,6 +64,7 @@ private void logOut(){
         loginactivity=(LinearLayout)findViewById(R.id.loginactivity);
         profile_page=(LinearLayout)findViewById(R.id.profile_page);
         Scaner=(LinearLayout)findViewById(R.id.Scaner);
+        waiting=(LinearLayout)findViewById(R.id.waiting);
         toolbar =(Toolbar) findViewById(R.id.toolbar);
         user= FirebaseAuth.getInstance().getCurrentUser();
         setSupportActionBar(toolbar);
@@ -93,6 +95,13 @@ private void logOut(){
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), ScanQr.class));
+                finish();
+            }
+        });
+        waiting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), MainChat.class));
                 finish();
             }
         });

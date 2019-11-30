@@ -85,12 +85,12 @@ public class ProfileActivity extends AppCompatActivity {
                         for (DataSnapshot data : dataSnapshot.getChildren()) {
                             final  UserInfo user = new UserInfo();
                             user.setUserAddress(data.child("UserAddress").getValue().toString());
-                            user.setUserCompleteInfo(data.child("UserCompleteInfo").getValue().toString());
+                            user.setUserCompleteInfo(Boolean.parseBoolean(data.child("UserCompleteInfo").getValue().toString()));
                             user.setUserEmail(data.child("UserEmail").getValue().toString());
                             user.setUserId(data.child("UserId").getValue().toString());
                             user.setUserName(data.child("UserName").getValue().toString());
                             user.setUserPhoneNumber(data.child("UserPhoneNumber").getValue().toString());
-                            user.setDateofBirth(data.child("UserDate").getValue().toString());
+                            user.setDateOfBirth(data.child("UserDate").getValue().toString());
                             UserInfoList.add(user);
                         }
                         Log.i("Getting user data:", "succedded");
@@ -192,7 +192,7 @@ image intent section
     private void setUri(String toString) {
         Log.i("Setting Uri :", toString);
         UserInfoList.get(0).setUserProfileUri(toString);
-        Log.i("Mainprofile::::", "setting uri to UserInfoList is " + UserInfoList.get(0).UserProfileUri);
+        Log.i("Mainprofile::::", "setting uri to UserInfoList is " + UserInfoList.get(0).getUserProfileUri());
 
         updateUiComponent();
     }
@@ -207,7 +207,7 @@ image intent section
             userEmail.setText(UserInfoList.get(0).getUserEmail());
             mobileText2.setText(UserInfoList.get(0).getUserPhoneNumber());
             addressText2.setText(UserInfoList.get(0).getUserAddress());
-            dateText2.setText(UserInfoList.get(0).getDateofBirth());
+            dateText2.setText(UserInfoList.get(0).getDateOfBirth());
             Picasso.get().load(UserInfoList.get(0).getUserProfileUri()).placeholder(R.drawable.profile5).into(profile_image);
         }else if (user!=null){
             nameText2.setText(user.getDisplayName());

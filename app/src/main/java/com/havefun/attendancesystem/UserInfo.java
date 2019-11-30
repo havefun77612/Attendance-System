@@ -1,81 +1,77 @@
 package com.havefun.attendancesystem;
 
 public class UserInfo {
-        public String UserAddress, UserCompleteInfo, UserEmail, UserId, UserName, UserPassword, UserPhoneNumber, UserProfileUri,DateofBirth;
+        private String UserAddress, UserCompleteInfo, UserEmail, UserId, UserName, UserPhoneNumber, UserProfileUri,DateOfBirth;
 
         public UserInfo() {
 
         }
 
-        public String getDateofBirth() {
-            return DateofBirth;
-        }
+    public String getUserAddress() {
+        return UserAddress;
+    }
 
-        public void setDateofBirth(String dateofBirth) {
-            DateofBirth = dateofBirth;
-        }
+    public void setUserAddress(String userAddress) {
+        UserAddress = userAddress;
+    }
 
-        public String getUserAddress() {
-            return UserAddress;
-        }
+    public String getUserCompleteInfo() {
+        return UserCompleteInfo;
+    }
 
-        public void setUserAddress(String userAddress) {
-            UserAddress = userAddress;
-        }
+    public void setUserCompleteInfo(Boolean userCompleteInfo) {
+        UserCompleteInfo = String.valueOf(userCompleteInfo);
+    }
 
-        public String getUserCompleteInfo() {
-            return UserCompleteInfo;
-        }
+    public String getUserEmail() {
+        return UserEmail;
+    }
 
-        public void setUserCompleteInfo(String userCompleteInfo) { UserCompleteInfo = userCompleteInfo; }
+    public void setUserEmail(String userEmail) {
+        UserEmail = userEmail;
+    }
 
-        public String getUserEmail() {
-            return UserEmail;
-        }
+    public String getUserId() {
+        return UserId;
+    }
 
-        public void setUserEmail(String userEmail) {
-            UserEmail = userEmail;
-        }
+    public void setUserId(String userId) {
+        UserId = userId;
+    }
 
-        public String getUserId() {
-            return UserId;
-        }
+    public String getUserName() {
+        return UserName;
+    }
 
-        public void setUserId(String userId) {
-            UserId = userId;
-        }
+    public void setUserName(String userName) {
+        UserName = userName;
+    }
 
-        public String getUserName() {
-            return UserName;
-        }
+    public String getUserPhoneNumber() {
+        return UserPhoneNumber;
+    }
 
-        public void setUserName(String userName) {
-            UserName = userName;
-        }
+    public void setUserPhoneNumber(String userPhoneNumber) {
+        UserPhoneNumber = userPhoneNumber;
+    }
 
-        public String getUserPassword() {
-            return UserPassword;
-        }
+    public String getUserProfileUri() {
+        return UserProfileUri;
+    }
 
-        public void setUserPassword(String userPassword) {
-            UserPassword = userPassword;
-        }
+    public void setUserProfileUri(String userProfileUri) {
+        UserProfileUri = userProfileUri;
+    }
 
-        public String getUserPhoneNumber() {
-            return UserPhoneNumber;
-        }
+    public String getDateOfBirth() {
+        return DateOfBirth;
+    }
 
-        public void setUserPhoneNumber(String userPhoneNumber) { UserPhoneNumber = userPhoneNumber; }
+    public void setDateOfBirth(String dateofBirth) {
+        DateOfBirth = dateofBirth;
+    }
 
-        public String getUserProfileUri() {
-            return UserProfileUri;
-        }
-
-        public void setUserProfileUri(String userProfileUri) {
-            UserProfileUri = userProfileUri;
-        }
-
-        @Override
+    @Override
         public String toString() {
             return "UserInfo{" +
                     "UserAddress='" + UserAddress + '\'' +
@@ -83,10 +79,9 @@ public class UserInfo {
                     ", UserEmail='" + UserEmail + '\'' +
                     ", UserId='" + UserId + '\'' +
                     ", UserName='" + UserName + '\'' +
-                    ", UserPassword='" + UserPassword + '\'' +
                     ", UserPhoneNumber='" + UserPhoneNumber + '\'' +
                     ", UserProfileUri='" + UserProfileUri + '\'' +
-                    ", DateofBirth='" + DateofBirth + '\'' +
+                    ", DateofBirth='" + DateOfBirth + '\'' +
                     '}';
         }
 }
