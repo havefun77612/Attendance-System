@@ -80,7 +80,7 @@ private void logOut(){
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),Login.class));
-                finish();
+
             }
         });
 
@@ -88,21 +88,21 @@ private void logOut(){
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-                finish();
+
             }
         });
         Scaner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), ScanQr.class));
-                finish();
+
             }
         });
         waiting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), MainChat.class));
-                finish();
+               
             }
         });
 

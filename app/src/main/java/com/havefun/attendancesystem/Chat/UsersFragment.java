@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.havefun.attendancesystem.ChatUser;
 import com.havefun.attendancesystem.R;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,17 +53,21 @@ private View view;
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                userInfos.clear();
-                for (DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    ChatUser user= snapshot.getValue(ChatUser.class);
-                    assert user != null;
-                    assert firebaseUser != null;
-                    if (!user.getUserId().equals(firebaseUser.getUid())){
-                        userInfos.add(user);
+                if(dataSnapshot.exists()) {
+                    userInfos.clear();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        ChatUser user = snapshot.getValue(ChatUser.class);
+                        assert user != null;
+                        assert firebaseUser != null;
+                        if (!user.getUserId().equals(firebaseUser.getUid())) {
+                            userInfos.add(user);
+                        }
                     }
+                    recycleAdapter = new RecycleAdapter(getContext(), userInfos);
+                    recyclerView.setAdapter(recycleAdapter);
+                }else {
+                    FancyToast.makeText(getContext(),"Error Getting User Data Please Cheack Your Internet",FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show();
                 }
-                recycleAdapter =new RecycleAdapter(getContext(),userInfos);
-                recyclerView.setAdapter(recycleAdapter);
             }
 
             @Override
