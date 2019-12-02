@@ -1,12 +1,22 @@
 package com.havefun.attendancesystem;
 
+import android.graphics.Bitmap;
+
 public class UserInfo {
         private String UserAddress, UserCompleteInfo, UserEmail, UserId, UserName, UserPhoneNumber, UserProfileUri,DateOfBirth;
-
+        private Bitmap bitmap;
         public UserInfo() {
 
         }
-
+    public UserInfo( Bitmap bitmap) {
+        this.UserId = "";
+        this.UserName = "";
+        this.UserEmail = "";
+        this.UserAddress = "";
+        this.UserPhoneNumber = "";
+        this.DateOfBirth = "";
+        this.bitmap = bitmap;
+    }
     public String getUserAddress() {
         return UserAddress;
     }
@@ -71,6 +81,9 @@ public class UserInfo {
         DateOfBirth = dateofBirth;
     }
 
+    public Bitmap getBitmap() { return bitmap; }
+
+    public void setBitmap(Bitmap bitmap) { this.bitmap = bitmap; }
     @Override
         public String toString() {
             return "UserInfo{" +

@@ -28,6 +28,7 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
     ActionBarDrawerToggle toggle;
     LinearLayout loginactivity,profile_page,Scaner,waiting;
     FirebaseUser user;
+    DBManager offlineDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +51,11 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
         return true;
     }
     /*
-**** User info Handling
- */
+    **** User info Handling
+    */
 
 private void logOut(){
+    offlineDB.deleteAllRecordProf();
     Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
     FirebaseAuth.getInstance().signOut();
 }
@@ -67,6 +69,7 @@ private void logOut(){
         waiting=(LinearLayout)findViewById(R.id.waiting);
         toolbar =(Toolbar) findViewById(R.id.toolbar);
         user= FirebaseAuth.getInstance().getCurrentUser();
+        offlineDB=new DBManager(getApplicationContext());
         setSupportActionBar(toolbar);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_Close);
@@ -102,7 +105,7 @@ private void logOut(){
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), MainChat.class));
-               
+
             }
         });
 

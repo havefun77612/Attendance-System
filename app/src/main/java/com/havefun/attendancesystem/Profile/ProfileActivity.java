@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,6 +32,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.havefun.attendancesystem.DBManager;
 import com.havefun.attendancesystem.FireBaseStorage;
 import com.havefun.attendancesystem.MainPage;
 import com.havefun.attendancesystem.R;
@@ -45,9 +48,10 @@ public class ProfileActivity extends AppCompatActivity {
     TextView nameText1, nameText2, mobileText1, mobileText2, emailText1, emailText2, addressText1, addressText2, dateText1, dateText2, userName, userEmail;
     ImageView profile_image;
     FirebaseUser user;
-    List<UserInfo> UserInfoList;
+    ArrayList<UserInfo> UserInfoList;
     Button back_to_home;
     Bitmap bitmap;
+    DBManager offlineDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         initializeVars();
         addListners();
-        checkDataSource();
-
+        checkDataAvailability();
     }
 
 
@@ -93,6 +96,7 @@ public class ProfileActivity extends AppCompatActivity {
                             user.setDateOfBirth(data.child("UserDate").getValue().toString());
                             UserInfoList.add(user);
                         }
+
                         Log.i("Getting user data:", "succedded");
                         FancyToast.makeText(getApplicationContext(), "Data fetched", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
                         getUserImage();
@@ -121,6 +125,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void getUserImage() {
+
         if (Boolean.parseBoolean(UserInfoList.get(0).getUserCompleteInfo())) {
             StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://attendance-system-29656.appspot.com/userImages/" + UserInfoList.get(0).getUserId() + ".jpg");
             storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -197,7 +202,7 @@ image intent section
         updateUiComponent();
     }
 /*
-::::::::::::::::::::::::::::::: Setting Up The User Information :::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::: Setting Up The User Information  if Data came from online source :::::::::::::::::::::::::::::::::::::::
  */
     private void updateUiComponent() {
         if(UserInfoList.get(0).getUserId()!=null&&!UserInfoList.get(0).getUserId().isEmpty()) {
@@ -219,7 +224,53 @@ image intent section
         }else {
             Log.i("Profile Activity", "updateUiComponent: No User Exist ");
         }
+
+        try {
+            if (offlineDB.isEmptyTableProf()){
+                Bitmap bitmap = ((BitmapDrawable)profile_image.getDrawable()).getBitmap();
+                offlineDB.insertProfileTable(UserInfoList,bitmap);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+        }
+
+        private void updateUiWithOfflineData(){
+            if(UserInfoList.get(0).getUserId()!=null&&!UserInfoList.get(0).getUserId().isEmpty()) {
+                nameText2.setText(UserInfoList.get(0).getUserName());
+                userName.setText(UserInfoList.get(0).getUserName());
+                emailText2.setText(UserInfoList.get(0).getUserEmail());
+                userEmail.setText(UserInfoList.get(0).getUserEmail());
+                mobileText2.setText(UserInfoList.get(0).getUserPhoneNumber());
+                addressText2.setText(UserInfoList.get(0).getUserAddress());
+                dateText2.setText(UserInfoList.get(0).getDateOfBirth());
+                try {
+                    profile_image.setImageBitmap(UserInfoList.get(0).getBitmap());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }else if (user!=null){
+                nameText2.setText(user.getDisplayName());
+                userName.setText(user.getDisplayName());
+                emailText2.setText(user.getEmail());
+                userEmail.setText(user.getEmail());
+                Picasso.get().load(user.getPhotoUrl()).placeholder(R.drawable.profile5).into(profile_image);
+
+            }else {
+                Log.i("Profile Activity", "updateUiComponent: No User Exist ");
+            }
+
+            try {
+                if (offlineDB.isEmptyTableProf()){
+                    Bitmap bitmap = ((BitmapDrawable)profile_image.getDrawable()).getBitmap();
+                    offlineDB.insertProfileTable(UserInfoList,bitmap);
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+    }
+
 
     /*
      **** Check The Device State OF internet Connection
@@ -252,6 +303,8 @@ image intent section
         // firebase part
         user = FirebaseAuth.getInstance().getCurrentUser();
         UserInfoList = new ArrayList<>();
+        offlineDB =new DBManager(getApplicationContext());
+
     }
 
     private void addListners() {
@@ -272,7 +325,17 @@ image intent section
             }
         });
     }
+    // Checking if the data exist offline or not
+    private void checkDataAvailability() {
+        if (offlineDB.isEmptyTableProf()){
+            checkDataSource();
+        }else {
+        UserInfoList=offlineDB.getProfileTable();
+        updateUiWithOfflineData();
+            Toast.makeText(this, "Data Exist", Toast.LENGTH_SHORT).show();
+        }
 
+    }
     @Override
     public void onBackPressed() {
 

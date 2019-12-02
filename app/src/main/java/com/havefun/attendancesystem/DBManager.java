@@ -30,6 +30,8 @@ public class DBManager {
 
     public DBManager(Context c) {
         context = c;
+        open();
+        createProfileTable();
     }
 /////////////////////////////////////  Before Using any Function In the DBManager Call Method Open() Frist //////////
     public DBManager open() throws SQLException {
@@ -311,10 +313,12 @@ public class DBManager {
 */
 
     ////////////////////////////////////////////////////////////////// Important Functions //////////////////////////////////////////////////
-    public void createTableProf (){
+    public void createProfileTable (){
         database.execSQL(dbHelper.CREATE_TABLE2);System.out.println(" Created Table Profile OR Exists ");
     }
-    public void insertTableProf(ArrayList<ProfileModel>  x)  {
+
+
+    public void insertProfileTable(ArrayList<UserInfo>  x,Bitmap bitmap)  {
        // createTableProf();
 
 
@@ -330,16 +334,18 @@ public class DBManager {
             for (int i=0 ; i<x.size();i++) {
                 // Convert the image into byte array
 
-                x.get(i).getBitmap().compress(Bitmap.CompressFormat.PNG, 100, out);
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
                 byte[] buffer=out.toByteArray();
 
                 values = new ContentValues();
+
                 values.put("img", buffer);
-                values.put("name", x.get(i).getName());
-                values.put("email", x.get(i).getEmail());
-                values.put("age", x.get(i).getAge());
-                values.put("address", x.get(i).getAddress());
-                values.put("mobile", x.get(i).getMobile());
+                values.put("UserId", x.get(i).getUserId());
+                values.put("UserName", x.get(i).getUserName());
+                values.put("UserEmail", x.get(i).getUserEmail());
+                values.put("DateOfBirth", x.get(i).getDateOfBirth());
+                values.put("UserAddress", x.get(i).getUserAddress());
+                values.put("UserPhoneNumber", x.get(i).getUserPhoneNumber());
 
                 // Insert Row
                  k = db.insert(dbHelper.TABLE_NAME2, null, values);
@@ -363,14 +369,16 @@ public class DBManager {
             // Close database
         }
     }
-    public ArrayList<ProfileModel> getTableProf(){
+
+
+    public ArrayList<UserInfo> getProfileTable(){
         Bitmap bitmap = null;
         // Open the database for reading
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         // Start the transaction.
         db.beginTransaction();
-        ProfileModel pr;
-        ArrayList<ProfileModel> prArr=new ArrayList<>();
+        UserInfo pr;
+        ArrayList<UserInfo> prArr=new ArrayList<>();
         try
         {
             String selectQuery = "SELECT * FROM "+ dbHelper.TABLE_NAME2;
@@ -386,13 +394,13 @@ public class DBManager {
                     byte[] blob = cursor.getBlob(cursor.getColumnIndex("img"));
                     // Convert the byte array to Bitmap
                     bitmap= BitmapFactory.decodeByteArray(blob, 0, blob.length);
-                    pr=new ProfileModel();
-                    pr.setId(cursor.getString(0));
-                    pr.setName(cursor.getString(1));
-                    pr.setMobile(cursor.getString(2));
-                    pr.setEmail(cursor.getString(3));
-                    pr.setAddress(cursor.getString(4));
-                    pr.setAge(cursor.getString(5));
+                    pr=new UserInfo();
+                    pr.setUserId(cursor.getString(0));
+                    pr.setUserName(cursor.getString(1));
+                    pr.setUserPhoneNumber(cursor.getString(2));
+                    pr.setUserEmail(cursor.getString(3));
+                    pr.setUserAddress(cursor.getString(4));
+                    pr.setDateOfBirth(cursor.getString(5));
                     pr.setBitmap(bitmap);
                     prArr.add(i,pr);
                 }
@@ -417,8 +425,8 @@ public class DBManager {
 
     }
     public boolean isEmptyTableProf(){
-        ArrayList<ProfileModel> prArr = new ArrayList<>();
-        prArr=getTableProf();
+        ArrayList<UserInfo> prArr = new ArrayList<>();
+        prArr=getProfileTable();
         if (prArr.size()==0)return true;
         else return false;
     }

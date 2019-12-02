@@ -40,8 +40,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //            "(id INTEGER PRIMARY KEY AUTOINCREMENT, img BLOB NOT NULL, description TEXT )";
 
     public static final String CREATE_TABLE2 = "CREATE TABLE IF NOT EXISTS "+ TABLE_NAME2+
-            "(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, mobile TEXT, email TEXT," +
-            " address TEXT, age TEXT, img BLOB NOT NULL )";
+            "(id INTEGER PRIMARY KEY AUTOINCREMENT,UserName TEXT,UserPhoneNumber TEXT,UserEmail TEXT,UserAddress TEXT, " +
+            "  DateOfBirth TEXT,UserId Text ,  img BLOB NOT NULL )";
 
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
