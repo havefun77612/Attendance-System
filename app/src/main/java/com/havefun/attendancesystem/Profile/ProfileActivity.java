@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -52,7 +54,8 @@ public class ProfileActivity extends AppCompatActivity {
     Button back_to_home;
     Bitmap bitmap;
     DBManager offlineDB;
-
+    Animation Animate1;
+    TextView accountinfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +65,10 @@ public class ProfileActivity extends AppCompatActivity {
         initializeVars();
         addListners();
         checkDataAvailability();
+        addanimation();
     }
+
+
 
 
 
@@ -300,13 +306,20 @@ image intent section
         userEmail = (TextView) findViewById(R.id.useremail);
         profile_image = (ImageView) findViewById(R.id.userImage);
         back_to_home=(Button) findViewById(R.id.back_to_home);
+        accountinfo = (TextView)findViewById( R.id.accountinfo );
         // firebase part
         user = FirebaseAuth.getInstance().getCurrentUser();
         UserInfoList = new ArrayList<>();
         offlineDB =new DBManager(getApplicationContext());
 
     }
+    public void addanimation(){
+        Animate1 = AnimationUtils.loadAnimation( com.havefun.attendancesystem.Profile.ProfileActivity.this,R.anim.lefttoright );
+        back_to_home.startAnimation( Animate1 );
+        profile_image.startAnimation( Animate1 );
+        accountinfo.startAnimation( Animate1 );
 
+    }
     private void addListners() {
         back_to_home.setOnClickListener(new View.OnClickListener() {
             @Override

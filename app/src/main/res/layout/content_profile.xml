@@ -30,9 +30,9 @@
 
                 <TextView
                     android:id="@+id/nametext1"
-                    android:text="Name"
+                    style="@style/profileDetailsTextMain"
                     android:layout_toRightOf="@id/name_image"
-                style="@style/profileDetailsTextMain" />
+                    android:text="Name" />
 
                 <TextView
                     android:id="@+id/nametext2"
