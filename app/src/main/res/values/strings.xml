@@ -13,8 +13,17 @@
     <string name="action_settings">Settings</string>
     <string name="login_signup_hint">Don\'t have an account? Sign Up</string>
     <string name="login_email_hint">Email</string>
+    <string name="username_hint">Username</string>
+    <string name="id_hint">ID</string>
+    <string name="phone_hint">Phone number</string>
+    <string name="address_hint">Address</string>
+    <string name="date_hint">date</string>
+
+
     <string name="login_password_hint">Password</string>
     <string name="register">REGISTER</string>
+    <string name="login_hint">Login</string>
+
     <string name="signup_login_hint">Already have an account? Sign In</string>
     <string name="username">chatusername</string>
     <string name="user_email">chat user email</string>

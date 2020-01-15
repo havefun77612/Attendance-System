@@ -1,6 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/loginCard"
+    app:cardCornerRadius="@dimen/loginCardRadius"
+    android:elevation="5dp"
+    android:layout_gravity="center"
+    android:layout_marginTop="200dp"
+    android:layout_marginBottom="@dimen/loginViewsMargin"
+    android:layout_marginRight="5dp"
+    android:layout_marginLeft="5dp"
 
-</LinearLayout>
+    tools:showIn="@layout/qr_image"
+    android:background="@drawable/centre_background">
+
+
+
+    <LinearLayout
+        style="@style/linearParent"
+        android:layout_gravity="center"
+        android:padding="@dimen/loginViewsMargin"
+        android:background="#ffffff"
+
+        android:layout_margin="5dp"
+
+        >
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/Inputusername"
+            style="@style/parent"
+            >
+
+            <EditText
+                android:id="@+id/username"
+                style="@style/modifiedEditText"
+                android:maxLines="1"
+                android:hint="@string/username_hint"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/Inputid"
+            style="@style/parent"
+            >
+
+            <EditText
+                android:id="@+id/id"
+                style="@style/modifiedEditText"
+                android:maxLines="1"
+                android:hint="@string/id_hint"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputEmail"
+            style="@style/parent"
+            >
+
+            <EditText
+                android:id="@+id/email"
+                style="@style/modifiedEditText"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:hint="@string/login_email_hint"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/Inputphone"
+            style="@style/parent"
+            >
+
+            <EditText
+                android:id="@+id/phone"
+                style="@style/modifiedEditText"
+                android:hint="@string/phone_hint"
+                android:maxLines="1"
+                android:inputType="textPassword"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/Inputaddress"
+            style="@style/parent"
+            >
+
+            <EditText
+                android:id="@+id/address"
+                style="@style/modifiedEditText"
+                android:hint="@string/address_hint"
+                android:maxLines="1"
+                android:inputType="textPassword"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/Inputdate"
+            style="@style/parent"
+            >
+
+            <EditText
+                android:id="@+id/I_date"
+                style="@style/modifiedEditText"
+                android:hint="@string/date_hint"
+                android:maxLines="1"
+                android:inputType="textPassword"/>
+
+            <Button
+                android:id="@+id/dateset"
+                style="@style/loginButton"
+                android:layout_width="138dp"
+
+
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="130dp"
+                android:layout_marginLeft="100dp"
+                android:text="Date set" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/generatebtn"
+            style="@style/loginButton"
+            android:layout_width="138dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="5dp"
+
+
+            android:text="Genarate" />
+
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

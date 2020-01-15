@@ -6,8 +6,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -23,11 +23,10 @@ import java.util.regex.Pattern;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 public class Login extends AppCompatActivity {
     EditText password, email;
     TextView gotosginupbtn;
-    FrameLayout loginbtn;
+    Button loginbtn;
     String ErrorMessage = "";
     ProgressBar progressBar;
     FirebaseAuth mAuth;
@@ -36,7 +35,7 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        setContentView(R.layout.image_main);
         initializeVars();
         addVarsListner();
     }
@@ -175,7 +174,7 @@ public class Login extends AppCompatActivity {
         gotosginupbtn = (TextView) findViewById(R.id.gotosginupbtn);
         password = (EditText) findViewById(R.id.password);
         email = (EditText) findViewById(R.id.email);
-        loginbtn = (FrameLayout) findViewById(R.id.loginbtn);
+        loginbtn =  findViewById(R.id.loginbtn);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         mAuth = FirebaseAuth.getInstance();
     }

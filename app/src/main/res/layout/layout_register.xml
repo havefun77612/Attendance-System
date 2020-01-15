@@ -16,10 +16,10 @@
     <LinearLayout
         style="@style/linearParent"
         android:layout_gravity="center"
-        android:padding="@dimen/loginViewsMargin"
+        android:layout_marginLeft="10dp"
 
-android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_marginRight="10dp"
+        android:padding="@dimen/loginViewsMargin">
 
         <TextView
             android:id="@+id/registertext"
@@ -57,7 +57,7 @@ android:layout_marginLeft="10dp"
             android:layout_marginTop="@dimen/signup_text_margin_top">
 
             <EditText
-                android:id="@+id/editEmail"
+                android:id="@+id/email"
                 style="@style/modifiedEditText"
                 android:hint="@string/login_email_hint"
                 android:inputType="textEmailAddress"
@@ -69,27 +69,53 @@ android:layout_marginLeft="10dp"
             android:layout_marginTop="@dimen/signup_text_margin_top">
 
             <EditText
-                android:id="@+id/editPassword"
+                android:id="@+id/password"
                 style="@style/modifiedEditText"
                 android:hint="@string/login_password_hint"
                 android:inputType="textPassword"
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
+
+
+
+
+
+
+
         <Button
-            android:id="@+id/Register"
+
+            android:id="@+id/sginupbtn"
             style="@style/loginButton"
             android:layout_gravity="center"
             android:text="Register" />
 
+    <RelativeLayout android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        >
+        <ImageView
+           android:paddingTop="15dp"
+            android:id="@+id/login_button"
+            style="@style/profileDetailsImage"
+            android:src="@drawable/facebook2" />
+        <ImageView
+            android:paddingTop="15dp"
+            android:layout_marginLeft="40dp"
+            android:id="@+id/google"
+            style="@style/profileDetailsImage"
+
+            android:src="@drawable/gmail1" />
+
         <TextView
-            android:id="@+id/noRegistered"
+            android:id="@+id/gotologinbtn"
             style="@style/parent"
+            android:layout_marginLeft="60dp"
             android:layout_marginTop="@dimen/loginViewsMargin"
             android:text="@string/signup_login_hint"
             android:textAlignment="center"
             android:textColor="@color/primaryTextColor"
             android:textStyle="bold" />
+    </RelativeLayout>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
