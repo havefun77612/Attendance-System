@@ -1,6 +1,7 @@
 package com.havefun.attendancesystem.Chat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,11 +38,19 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.username.setText(users.get(position).getUserName());
         if (!users.get(position).getUserProfileUri().isEmpty()) {
             getUserImage(position,holder);
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context,Messaging.class);
+                intent.putExtra("userID",users.get(position).getUserId());
+                context.startActivity(intent);
+            }
+        });
 
     }
 

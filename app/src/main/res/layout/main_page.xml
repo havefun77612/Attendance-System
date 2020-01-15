@@ -174,7 +174,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="20dp"
-                        android:text="Third item"
+                        android:text="Chatting"
                         android:textColor="@color/blackTextColor"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -184,7 +184,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="10dp"
-                        android:text="Start the second \n item now "
+                        android:text="Start Chatting \n with friends "
                         android:textAlignment="center"
                         android:textColor="@color/blackTextColor"
                         android:textSize="15sp"
