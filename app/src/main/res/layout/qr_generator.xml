@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/loginCard"
     app:cardCornerRadius="@dimen/loginCardRadius"
-    android:elevation="5dp"
-    android:layout_gravity="center"
-    android:layout_marginTop="220dp"
-    android:layout_marginBottom="@dimen/loginViewsMargin"
-    android:layout_marginRight="5dp"
-    android:layout_marginLeft="5dp"
 
-    tools:showIn="@layout/qr_image"
-    android:background="@drawable/centre_background">
+
+
+ >
+
 
 
 
@@ -71,7 +67,7 @@
                 style="@style/modifiedEditText"
                 android:hint="@string/phone_hint"
                 android:maxLines="1"
-                android:inputType="textPassword"/>
+                android:inputType="text"/>
 
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
@@ -84,7 +80,7 @@
                 style="@style/modifiedEditText"
                 android:hint="@string/address_hint"
                 android:maxLines="1"
-                android:inputType="textPassword"/>
+                android:inputType="text"/>
 
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
@@ -97,41 +93,71 @@
                 style="@style/modifiedEditText"
                 android:hint="@string/date_hint"
                 android:maxLines="1"
-                android:inputType="textPassword"/>
+                android:inputType="text"/>
 
 
         </com.google.android.material.textfield.TextInputLayout>
+        <!-- main layout-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <!-- start of horizental layout-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="2">
 
-        <Button
-            android:id="@+id/dateset"
-            style="@style/loginButton"
-            android:layout_width="138dp"
-
-
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
-            android:text="Date set" />
-
-
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="168dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="180dp"
-            android:layout_marginTop="-50dp"
-
-            app:srcCompat="@drawable/frame" />
-
-        <Button
-            android:id="@+id/generatebtn"
-            style="@style/loginButton"
-            android:layout_width="138dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="-80dp"
+                <Button
+                    android:id="@+id/dateset"
+                    style="@style/loginButton"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
 
 
-            android:text="Genarate" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Date set" />
+
+                 <Button
+                android:id="@+id/generatebtn"
+                style="@style/loginButton"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="80dp"
+                android:text="Genarate" />
+            </LinearLayout>
+            <!-- end of horizontal layout-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="2"
+                >
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+
+
+                    app:srcCompat="@drawable/frame"
+                   />
+
+            </LinearLayout>
+
+            <!-- end of main vertical layout-->
+        </LinearLayout>
+
+
+
+
+
 
 
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+
+
+</LinearLayout>
