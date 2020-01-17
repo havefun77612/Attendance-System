@@ -22,6 +22,7 @@
         <activity android:name=".QR.ScanQr" />
         <activity android:name=".FirstOpen" />
         <activity android:name=".MainPage" />
+        <activity android:name=".QR.QrGen"/>
         <activity android:name=".Profile.CompleteLogin" />
         <activity android:name=".Profile.ProfileActivity" />
         <activity android:name=".SignUp" />
