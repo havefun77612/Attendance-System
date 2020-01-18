@@ -4,10 +4,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,14 +17,26 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.google.zxing.Result;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.havefun.attendancesystem.MainPage;
 import com.havefun.attendancesystem.R;
 
-public class ScanQr extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class ScanQr extends AppCompatActivity implements ZXingScannerView.ResultHandler {
     TextView QrText;
-    Button scan_btn;
+    Button scan_btn,send;
+    ZXingScannerView zx;
+    static ArrayList<String> array=new ArrayList<String>();
+    MediaPlayer mp;
+    Intent intent;
+    String[]qrRes;
+    final HashMap<String, HashMap<String,String>> hashMap=new HashMap<String, HashMap<String, String>>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,32 +68,94 @@ public class ScanQr extends AppCompatActivity {
      */
     public void initialVariabels() {
         scan_btn = (Button) findViewById(R.id.scan_btn);
-        QrText = (TextView) findViewById(R.id.QrText);
+        //QrText = (TextView) findViewById(R.id.QrText);
+        send = (Button) findViewById(R.id.send);
+        mp=MediaPlayer.create(ScanQr.this,R.raw.beep);
+
+
 
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 11);
-        } else {
-            scan_btn.setOnClickListener(new View.OnClickListener() {
+        } else {scan_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                scane();
+
+
+            }
+        });
+            send.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    IntentIntegrator integrator = new IntentIntegrator(ScanQr.this);
-                    integrator.setBeepEnabled(false);
-                    integrator.setPrompt("Attendance System Scan");
-                    integrator.setOrientationLocked(false);
-                    integrator.setCameraId(0);
-                    integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-                    integrator.setBarcodeImageEnabled(false);
-                    integrator.initiateScan();
+                public void onClick(View view) {
+                    if(!array.isEmpty()){
+                        for(int i=0;i<array.size();i++){
+                            //split(array.get(i));
+                            qrRes=array.get(i).split("/");
+                            final HashMap<String, String> hash = new HashMap<String, String>();
+                            hash.put("UserName",qrRes[0]);
+                            hash.put("UserID",qrRes[1]);
+                            hash.put("UserEmail",qrRes[2]);
+                            hash.put("UserPhone",qrRes[3]);
+                            hash.put("UserAddress",qrRes[4]);
+                            hash.put("UserDate",qrRes[5]);
+                            hashMap.put("hash"+i,hash);
+
+
+                        }
+                    }else {
+                        Toast.makeText(getApplicationContext(),"you didn't scan any thing",Toast.LENGTH_LONG).show();
+                    }//Toast.makeText(getApplicationContext(),hashMap.get("hash1").get("UserName"),Toast.LENGTH_LONG).show();
+
                 }
             });
+
         }
+    }
+    public void scane(){
+        zx=new ZXingScannerView(getApplicationContext());
+        setContentView(zx);
+        zx.setResultHandler(this);
+        zx.startCamera();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(zx!=null){zx.stopCamera();}
+
+
+
     }
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(getApplicationContext(), MainPage.class));
-        finish();
-        super.onBackPressed();
+        if(zx!=null){
+            zx.removeAllViews();//here comes the crash
+            startActivity(new Intent(getApplicationContext(),ScanQr.class));
+            finish();
+
+
+
+
+            super.onBackPressed();
+        }else{
+            super.onBackPressed();
+        }
+
+
+
+    }
+
+    @Override
+    public void handleResult(Result result) {
+        if(!array.contains(result.getText())){
+            array.add(result.getText());
+            mp.start();
+            Toast.makeText(getApplicationContext(),result.getText(),Toast.LENGTH_LONG).show();
+            zx.resumeCameraPreview(this);
+        }else {
+            zx.resumeCameraPreview(this);
+        }
     }
 }

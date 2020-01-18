@@ -21,12 +21,31 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+<<<<<<< HEAD
+||||||| merged common ancestors
+import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.havefun.attendancesystem.Chat.MainChat;
+import com.havefun.attendancesystem.Profile.ProfileActivity;
+import com.havefun.attendancesystem.QR.ScanQr;
+
+=======
+import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.havefun.attendancesystem.Chat.MainChat;
+import com.havefun.attendancesystem.Profile.ProfileActivity;
+import com.havefun.attendancesystem.QR.QrGeneration;
+import com.havefun.attendancesystem.QR.ScanQr;
+
+>>>>>>> 4d6c5450a6067909309f6a36b9a32d57cc91bbdc
 
 public class MainPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
     DrawerLayout drawer;
     ActionBarDrawerToggle toggle;
-    LinearLayout loginactivity,profile_page,Scaner,waiting;
+    LinearLayout loginactivity,profile_page,Scaner,waiting,qrgeneration;
     FirebaseUser user;
     DBManager offlineDB;
 
@@ -67,7 +86,9 @@ private void logOut(){
         profile_page=(LinearLayout)findViewById(R.id.profile_page);
         Scaner=(LinearLayout)findViewById(R.id.Scaner);
         waiting=(LinearLayout)findViewById(R.id.waiting);
+        qrgeneration=(LinearLayout)findViewById(R.id.qrgeneration);
         toolbar =(Toolbar) findViewById(R.id.toolbar);
+
         user= FirebaseAuth.getInstance().getCurrentUser();
         offlineDB=new DBManager(getApplicationContext());
         setSupportActionBar(toolbar);
@@ -106,6 +127,12 @@ private void logOut(){
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), MainChat.class));
 
+            }
+        });
+        qrgeneration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), QrGeneration.class));
             }
         });
 
