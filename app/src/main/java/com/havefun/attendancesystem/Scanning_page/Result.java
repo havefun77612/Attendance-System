@@ -29,7 +29,7 @@ Animation animate1;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate( R.layout.fragment_result, container, false);
+        return inflater.inflate( R.layout.scanning_result, container, false);
     }
 
 }
