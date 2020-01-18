@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="left|bottom"
         android:gravity="left|bottom"
-        android:background="@color/orange200"
+        android:background="@color/colorPrimaryDark"
         android:orientation="vertical">
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_image"

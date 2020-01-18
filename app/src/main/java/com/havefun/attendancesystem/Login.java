@@ -191,14 +191,19 @@ public class Login extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         //register_image =(ImageView)findViewById( R.id.register_image );
         login_image = (ImageView)findViewById( R.id.login_image );
+
+        // steady state
+        /*
         login_word = (TextView)findViewById( R.id.login_word );
-       // card = (CardView)findViewById( R.id.card );
+       */
+
+        // card = (CardView)findViewById( R.id.card );
     }
     private void addinganimation(){
         Animate1 = AnimationUtils.loadAnimation( Login.this,R.anim.righttoleft );
         //Animate2 = AnimationUtils.loadAnimation( Login.this,R.anim.bounce );
         login_image.startAnimation( Animate1 );
-        login_word.startAnimation( Animate1 );
+       // login_word.startAnimation( Animate1 );
         loginbtn.startAnimation( Animate1 );
     }
 
