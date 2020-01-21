@@ -115,7 +115,7 @@ private void logOut(){
         Scaner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), QrGen.class));
+                startActivity(new Intent(getApplicationContext(), ScanQr.class));
 
             }
         });
@@ -129,7 +129,7 @@ private void logOut(){
         qrgeneration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), ScanQr.class));
+                startActivity(new Intent(getApplicationContext(), QrGen.class));
             }
         });
 

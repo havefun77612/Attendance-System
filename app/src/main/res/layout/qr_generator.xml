@@ -55,7 +55,7 @@
                 style="@style/modifiedEditText"
                 android:hint="@string/phone_hint"
                 android:maxLines="1"
-                android:inputType="textPassword"/>
+                android:inputType="text"/>
 
 
             <EditText
@@ -63,7 +63,7 @@
                 style="@style/modifiedEditText"
                 android:hint="@string/address_hint"
                 android:maxLines="1"
-                android:inputType="textPassword"/>
+                android:inputType="text"/>
 
 
 
@@ -72,42 +72,66 @@
                 style="@style/modifiedEditText"
                 android:hint="@string/date_hint"
                 android:maxLines="1"
-                android:inputType="textPassword"/>
+                android:inputType="text"/>
 
-
-
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:layout_marginTop="10dp"
+    >
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1">
         <Button
             android:id="@+id/dateset"
             style="@style/loginButton"
-            android:layout_width="100dp"
+            android:layout_width="120dp"
 
-android:layout_height="35dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="10dp"
+            android:layout_height="35dp"
+
             android:text="Date set"
             />
-
-
-        <ImageView
-            android:id="@+id/qr"
-            android:layout_width="168dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="180dp"
-            android:layout_marginTop="-50dp"
-
-            app:srcCompat="@drawable/frame" />
-
         <Button
             android:id="@+id/genbtn"
             style="@style/loginButton"
-            android:layout_width="100dp"
+            android:layout_width="120dp"
             android:layout_height="35dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="-100dp"
+            android:layout_marginTop="20dp"
 
 
             android:text="Genarate" />
+
+        <Button
+            android:id="@+id/saveQrImage"
+            style="@style/loginButton"
+            android:layout_width="120dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="20dp"
+
+
+            android:text="Save QR" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/qr"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+
+            app:srcCompat="@drawable/frame" />
+    </LinearLayout>
+</LinearLayout>
+
 
 
     </LinearLayout>
