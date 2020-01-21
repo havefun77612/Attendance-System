@@ -33,13 +33,17 @@
                 style="@style/modifiedEditText"
                 android:maxLines="1"
                 android:hint="@string/username_hint"
+                android:text="Faiza"
                 />
 
             <EditText
                 android:id="@+id/Inputid"
                 style="@style/modifiedEditText"
                 android:maxLines="1"
-                android:hint="@string/id_hint"/>
+                android:inputType="number"
+                android:hint="@string/id_hint"
+                android:text="161022"
+                />
 
 
             <EditText
@@ -47,7 +51,9 @@
                 style="@style/modifiedEditText"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:hint="@string/login_email_hint"/>
+                android:hint="@string/login_email_hint"
+                android:text="HaveFun77612@outlook.com"
+                />
 
 
             <EditText
@@ -55,7 +61,9 @@
                 style="@style/modifiedEditText"
                 android:hint="@string/phone_hint"
                 android:maxLines="1"
-                android:inputType="text"/>
+                android:inputType="number"
+                android:text="01117004075"
+                />
 
 
             <EditText
@@ -63,7 +71,9 @@
                 style="@style/modifiedEditText"
                 android:hint="@string/address_hint"
                 android:maxLines="1"
-                android:inputType="text"/>
+                android:inputType="text"
+                android:text="this is the addresss you give"
+                />
 
 
 
@@ -72,7 +82,7 @@
                 style="@style/modifiedEditText"
                 android:hint="@string/date_hint"
                 android:maxLines="1"
-                android:inputType="text"/>
+                android:inputType="date"/>
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -105,7 +115,7 @@
             android:text="Genarate" />
 
         <Button
-            android:id="@+id/saveQrImage"
+            android:id="@+id/saveQr"
             style="@style/loginButton"
             android:layout_width="120dp"
             android:layout_height="35dp"
