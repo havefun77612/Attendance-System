@@ -21,7 +21,7 @@ import android.widget.Toast;
 import com.google.zxing.Result;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.havefun.attendancesystem.MainPage;
+//import com.havefun.attendancesystem.MainPage;
 import com.havefun.attendancesystem.R;
 
 import java.util.ArrayList;
@@ -32,16 +32,18 @@ public class ScanQr extends AppCompatActivity implements ZXingScannerView.Result
     Button scan_btn,send;
     ZXingScannerView zx;
     static ArrayList<String> array=new ArrayList<String>();
-    MediaPlayer mp;
-    Intent intent;
+    //static ArrayList<String[]> array2=new ArrayList<String[]>();
+    MediaPlayer mp,mp2;
+    Intent res;
     String[]qrRes;
     final HashMap<String, HashMap<String,String>> hashMap=new HashMap<String, HashMap<String, String>>();
+    //int[]index;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.scanqr);
+        setContentView(R.layout.scanning_start);
         initialVariabels();
 
     }
@@ -71,6 +73,7 @@ public class ScanQr extends AppCompatActivity implements ZXingScannerView.Result
         //QrText = (TextView) findViewById(R.id.QrText);
         send = (Button) findViewById(R.id.send);
         mp=MediaPlayer.create(ScanQr.this,R.raw.beep);
+        mp2=MediaPlayer.create(ScanQr.this,R.raw.error);
 
 
 
@@ -100,9 +103,16 @@ public class ScanQr extends AppCompatActivity implements ZXingScannerView.Result
                             hash.put("UserAddress",qrRes[4]);
                             hash.put("UserDate",qrRes[5]);
                             hashMap.put("hash"+i,hash);
+                            //array2.add(qrRes);
+                            //res=new Intent(ScanQr.this,ressult.class);
+                            //res.putExtra("results",qrRes);
+                            //startActivity(res);
 
 
                         }
+                        res=new Intent(ScanQr.this,ressult.class);
+                        res.putExtra("qrResults",array);
+                        startActivity(res);
                     }else {
                         Toast.makeText(getApplicationContext(),"you didn't scan any thing",Toast.LENGTH_LONG).show();
                     }//Toast.makeText(getApplicationContext(),hashMap.get("hash1").get("UserName"),Toast.LENGTH_LONG).show();
@@ -117,6 +127,7 @@ public class ScanQr extends AppCompatActivity implements ZXingScannerView.Result
         setContentView(zx);
         zx.setResultHandler(this);
         zx.startCamera();
+
     }
 
     @Override
@@ -155,7 +166,9 @@ public class ScanQr extends AppCompatActivity implements ZXingScannerView.Result
             Toast.makeText(getApplicationContext(),result.getText(),Toast.LENGTH_LONG).show();
             zx.resumeCameraPreview(this);
         }else {
+            mp2.start();
             zx.resumeCameraPreview(this);
         }
     }
+
 }
