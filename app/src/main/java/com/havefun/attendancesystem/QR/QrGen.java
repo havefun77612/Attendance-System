@@ -110,7 +110,7 @@ public class QrGen extends AppCompatActivity {
                 qrDate=date.getText().toString();
                 try {
 
-                    matrix = writer.encode(qrName + "/" + qrId + "/" + qrEmail + "/" + qrPnumber + "/" + qrAddress + "/" + qrDate, BarcodeFormat.QR_CODE, qr.getWidth(), qr.getHeight());
+                    matrix = writer.encode(qrName + "-" + qrId + "-" + qrEmail + "-" + qrPnumber + "-" + qrAddress + "-" + qrDate, BarcodeFormat.QR_CODE, qr.getWidth(), qr.getHeight());
 
                 } catch (WriterException e) {
                     Toast.makeText(QrGen.this, "Error Creating image", Toast.LENGTH_SHORT).show();
