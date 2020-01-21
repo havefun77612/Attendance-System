@@ -22,10 +22,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-<<<<<<< HEAD
-||||||| merged common ancestors
-<<<<<<< HEAD
-||||||| merged common ancestors
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,7 +29,6 @@ import com.havefun.attendancesystem.Chat.MainChat;
 import com.havefun.attendancesystem.Profile.ProfileActivity;
 import com.havefun.attendancesystem.QR.ScanQr;
 
-=======
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -41,7 +36,6 @@ import com.havefun.attendancesystem.Chat.MainChat;
 import com.havefun.attendancesystem.Profile.ProfileActivity;
 import com.havefun.attendancesystem.QR.QrGeneration;
 import com.havefun.attendancesystem.QR.ScanQr;
-=======
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -56,14 +50,7 @@ import com.havefun.attendancesystem.Chat.MainChat;
 import com.havefun.attendancesystem.Profile.ProfileActivity;
 import com.havefun.attendancesystem.QR.QrGeneration;
 import com.havefun.attendancesystem.QR.ScanQr;
->>>>>>> b2f049f3f3f958472fbba1e0f239e057956393e4
 
-<<<<<<< HEAD
-||||||| merged common ancestors
->>>>>>> 4d6c5450a6067909309f6a36b9a32d57cc91bbdc
-=======
-
->>>>>>> b2f049f3f3f958472fbba1e0f239e057956393e4
 
 public class MainPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
@@ -128,6 +115,7 @@ private void logOut(){
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),Login.class));
+                
 
             }
         });

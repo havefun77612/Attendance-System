@@ -314,10 +314,10 @@ image intent section
 
     }
     public void addanimation(){
-        Animate1 = AnimationUtils.loadAnimation( com.havefun.attendancesystem.Profile.ProfileActivity.this,R.anim.lefttoright );
-        back_to_home.startAnimation( Animate1 );
-        profile_image.startAnimation( Animate1 );
-        accountinfo.startAnimation( Animate1 );
+//        Animate1 = AnimationUtils.loadAnimation( com.havefun.attendancesystem.Profile.ProfileActivity.this,R.anim.lefttoright );
+//        back_to_home.startAnimation( Animate1 );
+//        profile_image.startAnimation( Animate1 );
+//        accountinfo.startAnimation( Animate1 );
 
     }
     private void addListners() {

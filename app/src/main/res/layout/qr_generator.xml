@@ -28,185 +28,121 @@
         >
 
 
-            <EditText
-                android:id="@+id/Inputusername"
-                style="@style/modifiedEditText"
-                android:maxLines="1"
-                android:hint="@string/username_hint"
-                android:text="Faiza"
-                />
-
-            <EditText
-                android:id="@+id/Inputid"
-                style="@style/modifiedEditText"
-                android:maxLines="1"
-                android:inputType="number"
-                android:hint="@string/id_hint"
-                android:text="161022"
-                />
-
-
-            <EditText
-                android:id="@+id/textInputEmail"
-                style="@style/modifiedEditText"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:hint="@string/login_email_hint"
-                android:text="HaveFun77612@outlook.com"
-                />
-
-
-            <EditText
-                android:id="@+id/Inputphone"
-                style="@style/modifiedEditText"
-                android:hint="@string/phone_hint"
-                android:maxLines="1"
-                android:inputType="number"
-                android:text="01117004075"
-                />
-
-
-            <EditText
-                android:id="@+id/Inputaddress"
-                style="@style/modifiedEditText"
-                android:hint="@string/address_hint"
-                android:maxLines="1"
-                android:inputType="text"
-                android:text="this is the addresss you give"
-                />
-
-
-
-            <EditText
-                android:id="@+id/Inputdate"
-                style="@style/modifiedEditText"
-                android:hint="@string/date_hint"
-                android:maxLines="1"
-                android:inputType="date"/>
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:layout_marginTop="10dp"
-    >
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="1">
-        <Button
-            android:id="@+id/dateset"
-            style="@style/loginButton"
-            android:layout_width="120dp"
-
-            android:layout_height="35dp"
-
-<<<<<<< HEAD
-android:layout_height="35dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-
-||||||| merged common ancestors
-android:layout_height="35dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="10dp"
-=======
->>>>>>> b2f049f3f3f958472fbba1e0f239e057956393e4
-            android:text="Date set"
+        <EditText
+            android:id="@+id/Inputusername"
+            style="@style/modifiedEditText"
+            android:maxLines="1"
+            android:hint="@string/username_hint"
+            android:text="Faiza"
             />
-<<<<<<< HEAD
-        <Button
-            android:id="@+id/genbtn"
-            style="@style/loginButton"
-            android:layout_width="100dp"
-            android:layout_height="35dp"
 
-android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-
-            android:text="Genarate" />
-||||||| merged common ancestors
-=======
-        <Button
-            android:id="@+id/genbtn"
-            style="@style/loginButton"
-            android:layout_width="120dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="20dp"
->>>>>>> b2f049f3f3f958472fbba1e0f239e057956393e4
+        <EditText
+            android:id="@+id/Inputid"
+            style="@style/modifiedEditText"
+            android:maxLines="1"
+            android:inputType="number"
+            android:hint="@string/id_hint"
+            android:text="161022"
+            />
 
 
-<<<<<<< HEAD
-        <ImageView
-            android:id="@+id/qr"
-            android:layout_width="165dp"
-            android:layout_height="100dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="180dp"
-            android:layout_marginTop="-80dp"
-            android:layout_marginRight="80dp"
-
-            app:srcCompat="@drawable/frame" />
-||||||| merged common ancestors
-        <ImageView
-            android:id="@+id/qr"
-            android:layout_width="168dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="180dp"
-            android:layout_marginTop="-50dp"
-
-            app:srcCompat="@drawable/frame" />
-=======
-            android:text="Genarate" />
->>>>>>> b2f049f3f3f958472fbba1e0f239e057956393e4
-
-<<<<<<< HEAD
-||||||| merged common ancestors
-        <Button
-            android:id="@+id/genbtn"
-            style="@style/loginButton"
-            android:layout_width="100dp"
-            android:layout_height="35dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="-100dp"
-=======
-        <Button
-            android:id="@+id/saveQr"
-            style="@style/loginButton"
-            android:layout_width="120dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="20dp"
->>>>>>> b2f049f3f3f958472fbba1e0f239e057956393e4
+        <EditText
+            android:id="@+id/textInputEmail"
+            style="@style/modifiedEditText"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:hint="@string/login_email_hint"
+            android:text="HaveFun77612@outlook.com"
+            />
 
 
-<<<<<<< HEAD
-||||||| merged common ancestors
-            android:text="Genarate" />
+        <EditText
+            android:id="@+id/Inputphone"
+            style="@style/modifiedEditText"
+            android:hint="@string/phone_hint"
+            android:maxLines="1"
+            android:inputType="number"
+            android:text="01117004075"
+            />
 
-=======
-            android:text="Save QR" />
+
+        <EditText
+            android:id="@+id/Inputaddress"
+            style="@style/modifiedEditText"
+            android:hint="@string/address_hint"
+            android:maxLines="1"
+            android:inputType="text"
+            android:text="this is the addresss you give"
+            />
 
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/qr"
+        <EditText
+            android:id="@+id/Inputdate"
+            style="@style/modifiedEditText"
+            android:hint="@string/date_hint"
+            android:maxLines="1"
+            android:inputType="date"/>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            >
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <Button
+                    android:id="@+id/dateset"
+                    style="@style/loginButton"
+                    android:layout_width="120dp"
+
+                    android:layout_height="35dp"
+
+                    android:text="Date set"
+                    />
+                <Button
+                    android:id="@+id/genbtn"
+                    style="@style/loginButton"
+                    android:layout_width="120dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="20dp"
 
 
-            app:srcCompat="@drawable/frame" />
-    </LinearLayout>
-</LinearLayout>
+                    android:text="Genarate" />
+
+                <Button
+                    android:id="@+id/saveQr"
+                    style="@style/loginButton"
+                    android:layout_width="120dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="20dp"
 
 
->>>>>>> b2f049f3f3f958472fbba1e0f239e057956393e4
+                    android:text="Save QR" />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/qr"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+
+                    app:srcCompat="@drawable/frame" />
+            </LinearLayout>
+        </LinearLayout>
+
+
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

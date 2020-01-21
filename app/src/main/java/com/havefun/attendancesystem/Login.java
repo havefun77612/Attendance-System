@@ -200,11 +200,11 @@ public class Login extends AppCompatActivity {
         // card = (CardView)findViewById( R.id.card );
     }
     private void addinganimation(){
-        Animate1 = AnimationUtils.loadAnimation( Login.this,R.anim.righttoleft );
-        //Animate2 = AnimationUtils.loadAnimation( Login.this,R.anim.bounce );
-        login_image.startAnimation( Animate1 );
-       // login_word.startAnimation( Animate1 );
-        loginbtn.startAnimation( Animate1 );
+//        Animate1 = AnimationUtils.loadAnimation( Login.this,R.anim.righttoleft );
+//        //Animate2 = AnimationUtils.loadAnimation( Login.this,R.anim.bounce );
+//        login_image.startAnimation( Animate1 );
+//       // login_word.startAnimation( Animate1 );
+//        loginbtn.startAnimation( Animate1 );
     }
 
 

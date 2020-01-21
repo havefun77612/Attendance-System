@@ -70,14 +70,13 @@ dependencies {
     // chatting debendance
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
 
-<<<<<<< HEAD
 
-||||||| merged common ancestors
-=======
+
+
     //testing
     implementation 'com.shobhitpuri.custombuttons:google-signin:1.1.0'
 
->>>>>>> c11776595b7913d4e3423d9c86dbee98e5e2723c
+
 }
 
 
