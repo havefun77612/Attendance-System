@@ -31,7 +31,7 @@ Animation animate;
                              Bundle savedInstanceState) {
 
 
- return inflater.inflate( R.layout.fragment_scan2, container, false);
+ return inflater.inflate( R.layout.scanning_start, container, false);
     }
 
 

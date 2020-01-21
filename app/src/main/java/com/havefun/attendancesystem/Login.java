@@ -1,13 +1,19 @@
 package com.havefun.attendancesystem;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -23,21 +29,26 @@ import java.util.regex.Pattern;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
 public class Login extends AppCompatActivity {
     EditText password, email;
-    TextView gotosginupbtn;
+    TextView gotosginupbtn,login_word;
     Button loginbtn;
     String ErrorMessage = "";
     ProgressBar progressBar;
     FirebaseAuth mAuth;
     FirebaseUser user;
-
+    Animation Animate1,Animate2;
+    ImageView register_image,login_image;
+    //CardView card;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.image_main);
         initializeVars();
         addVarsListner();
+        addinganimation();
     }
 
     /*
@@ -170,6 +181,7 @@ public class Login extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("WrongViewCast")
     private void initializeVars() {
         gotosginupbtn = (TextView) findViewById(R.id.gotosginupbtn);
         password = (EditText) findViewById(R.id.password);
@@ -177,7 +189,24 @@ public class Login extends AppCompatActivity {
         loginbtn =  findViewById(R.id.loginbtn);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         mAuth = FirebaseAuth.getInstance();
+        //register_image =(ImageView)findViewById( R.id.register_image );
+        login_image = (ImageView)findViewById( R.id.login_image );
+
+        // steady state
+        /*
+        login_word = (TextView)findViewById( R.id.login_word );
+       */
+
+        // card = (CardView)findViewById( R.id.card );
     }
+    private void addinganimation(){
+        Animate1 = AnimationUtils.loadAnimation( Login.this,R.anim.righttoleft );
+        //Animate2 = AnimationUtils.loadAnimation( Login.this,R.anim.bounce );
+        login_image.startAnimation( Animate1 );
+       // login_word.startAnimation( Animate1 );
+        loginbtn.startAnimation( Animate1 );
+    }
+
 
     @Override
     public void onBackPressed() {
