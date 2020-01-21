@@ -7,8 +7,8 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -53,7 +53,7 @@ public class SignUp extends AppCompatActivity {
     TextView gotologinbtn;
     EditText password, email;
     String ErrorMessage = "";
-    FrameLayout sginupbtn;
+    Button sginupbtn;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
     SignInButton google;
@@ -67,7 +67,7 @@ public class SignUp extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sign_up);
+        setContentView(R.layout.image_register);
         initializeVars();
         addVarsListner();
         facebookConnecton();
@@ -374,7 +374,7 @@ void checkifUserCompeletLoginOrNot(){
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        sginupbtn = (FrameLayout) findViewById(R.id.sginupbtn);
+        sginupbtn = findViewById(R.id.sginupbtn);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         mAuth = FirebaseAuth.getInstance();
         callbackManager = CallbackManager.Factory.create();
@@ -384,7 +384,6 @@ void checkifUserCompeletLoginOrNot(){
     }
 
     void disableBtns() {
-        progressBar.setVisibility(View.VISIBLE);
         google.setEnabled(false);
         sginupbtn.setEnabled(false);
         loginButton.setEnabled(false);
@@ -392,7 +391,6 @@ void checkifUserCompeletLoginOrNot(){
     }
 
     void returnContentControle() {
-        progressBar.setVisibility(View.GONE);
         google.setEnabled(true);
         sginupbtn.setEnabled(true);
         loginButton.setEnabled(true);

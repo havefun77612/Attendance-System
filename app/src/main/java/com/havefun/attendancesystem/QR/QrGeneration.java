@@ -40,14 +40,14 @@ public class QrGeneration extends AppCompatActivity {
     }
     public void vars(){
         name=(EditText) findViewById(R.id.username);
-        id=(EditText) findViewById(R.id.id);
+        id=(EditText) findViewById(R.id.Inputid);
         email=(EditText) findViewById(R.id.email);
         pnumber=(EditText) findViewById(R.id.phone);
         address=(EditText) findViewById(R.id.address);
-        date=(EditText) findViewById(R.id.I_date);
-        qr=(ImageView) findViewById(R.id.imageView5);
+        date=(EditText) findViewById(R.id.Inputdate);
+        qr=(ImageView) findViewById(R.id.qr);
         dateset=(Button) findViewById(R.id.dateset);
-        genbtn=(Button) findViewById(R.id.generatebtn);
+        genbtn=(Button) findViewById(R.id.genbtn);
         writer=new QRCodeWriter();
 
 
