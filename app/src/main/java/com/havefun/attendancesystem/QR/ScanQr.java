@@ -112,7 +112,11 @@ public class ScanQr extends AppCompatActivity implements ZXingScannerView.Result
                         }
                         res=new Intent(ScanQr.this,ressult.class);
                         res.putExtra("qrResults",array);
-                        startActivity(res);
+                        try {
+                            startActivity(res);
+                        }catch (Exception e){
+                            startActivity(new Intent(getApplicationContext(),ScanQr.class));
+                        }
                     }else {
                         Toast.makeText(getApplicationContext(),"you didn't scan any thing",Toast.LENGTH_LONG).show();
                     }//Toast.makeText(getApplicationContext(),hashMap.get("hash1").get("UserName"),Toast.LENGTH_LONG).show();
@@ -160,7 +164,7 @@ public class ScanQr extends AppCompatActivity implements ZXingScannerView.Result
 
     @Override
     public void handleResult(Result result) {
-        if(!array.contains(result.getText())){
+        if(!array.contains(result.getText())&&result.getText().contains("@x@")){
             array.add(result.getText());
             mp.start();
             Toast.makeText(getApplicationContext(),result.getText(),Toast.LENGTH_LONG).show();

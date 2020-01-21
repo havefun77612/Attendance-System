@@ -90,7 +90,7 @@ public class QrGen extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                         //month is set to 0 so we need to add 1
-                        userDate = Integer.toString(day) + "/" + Integer.toString(month + 1) + "/" + Integer.toString(year);
+                        userDate = Integer.toString(day) + "-" + Integer.toString(month + 1) + "-" + Integer.toString(year);
                         date.setText(userDate);
 
                     }
@@ -110,7 +110,7 @@ public class QrGen extends AppCompatActivity {
                 qrDate=date.getText().toString();
                 try {
 
-                    matrix = writer.encode(qrName + "-" + qrId + "-" + qrEmail + "-" + qrPnumber + "-" + qrAddress + "-" + qrDate, BarcodeFormat.QR_CODE, qr.getWidth(), qr.getHeight());
+                    matrix = writer.encode(qrName + "/" + qrId + "/" + qrEmail + "/" + qrPnumber + "/" + qrAddress + "/" + qrDate+"/"+"@x@", BarcodeFormat.QR_CODE, qr.getWidth(), qr.getHeight());
 
                 } catch (WriterException e) {
                     Toast.makeText(QrGen.this, "Error Creating image", Toast.LENGTH_SHORT).show();
