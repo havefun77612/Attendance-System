@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById( R.id.toolbar1 );
         tabLayout = (TabLayout) findViewById( R.id.tablayout1 );
         viewPager = (ViewPager) findViewById( R.id.viewpager1 );
-        button = (Button) findViewById( R.id.search_btn );
+        //button = (Button) findViewById( R.id.search_btn );
 
     }
     /*

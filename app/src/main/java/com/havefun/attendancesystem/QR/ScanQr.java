@@ -112,9 +112,11 @@ public class ScanQr extends AppCompatActivity implements ZXingScannerView.Result
                         }
                         res=new Intent(ScanQr.this,ressult.class);
                         res.putExtra("qrResults",array);
+                        //startActivity(res);
                         try {
                             startActivity(res);
                         }catch (Exception e){
+                            Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
                             startActivity(new Intent(getApplicationContext(),ScanQr.class));
                         }
                     }else {
