@@ -20,10 +20,9 @@ public class ressult extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         array = bundle.getStringArrayList("qrResults");
         createSTR(array);
-        ArrayAdapter adapter = new ArrayAdapter<String>(this,
-                R.layout.support_simple_spinner_dropdown_item, array2);
-        ListView listView = (ListView) findViewById(R.id.listVw);
-        listView.setAdapter(adapter);
+        CustomAdapter customAdapter = new CustomAdapter(this, array2);
+        ListView listView = (ListView) findViewById(R.id.list);
+        listView.setAdapter(customAdapter);
 
 
 
@@ -35,7 +34,7 @@ public class ressult extends AppCompatActivity {
         String finall;
         for(int i=0;i<x.size();i++){
             temp=array.get(i).split("/");
-            finall="Name:"+temp[0]+"\nID:"+temp[1]+"\nE-mail:"+temp[2]+"\nPhone number:"+temp[3]+"\nAddress:"+temp[4]+"\nDate of birth"+temp[5];
+            finall="Name:"+temp[0]+"\nID:"+temp[1];
             array2.add(finall);
         }
 
