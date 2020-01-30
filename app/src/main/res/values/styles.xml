@@ -150,6 +150,6 @@
         <item name="strokeColor">#000</item>
         <item name="strokeWidth">3dp</item>
         <item name="length">SHORT</item>
-        <item name="cornerRadius">30dp</item>
+        <item name="cornerRadius">32dp</item>
     </style>
 </resources>
