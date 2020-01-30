@@ -83,7 +83,7 @@
 
     <style name="modifiedEditText" parent="parent">
         <item name="android:textSize">@dimen/newsMoreTextSize</item>
-        <item name="android:backgroundTint">@color/primaryTextColor</item>
+        <item name="android:backgroundTint" tools:targetApi="lollipop">@color/primaryTextColor</item>
     </style>
 
     <style name="profileDetailsTextMain" parent="viewParent">
@@ -113,7 +113,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/profile_back_button</item>
-        <item name="android:textAlignment">center</item>
+        <item name="android:textAlignment" tools:targetApi="jelly_bean_mr1">center</item>
         <item name="android:paddingLeft">30dp</item>
         <item name="android:paddingRight">50dp</item>
         <item name="android:paddingTop">10dp</item>
@@ -124,5 +124,32 @@
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:minWidth">250dp</item>
     </style>
-
+<!--style for internet status-->
+    <style name="wifi">
+        <item name="colorBackground">#94ffab</item>
+        <item name="textColor">#000</item>
+        <item name="iconLeft">@drawable/icon_24dp</item>
+        <item name="strokeColor">#000</item>
+        <item name="strokeWidth">3dp</item>
+        <item name="length">SHORT</item>
+        <item name="cornerRadius">30dp</item>
+    </style>
+    <style name="mobile">
+        <item name="colorBackground">#94ffab</item>
+        <item name="textColor">#000</item>
+        <item name="iconLeft">@drawable/ic_import_export_black_24dp</item>
+        <item name="strokeColor">#000</item>
+        <item name="strokeWidth">3dp</item>
+        <item name="length">SHORT</item>
+        <item name="cornerRadius">30dp</item>
+    </style>
+    <style name="noconnection">
+        <item name="colorBackground">#94ffab</item>
+        <item name="textColor">#000</item>
+        <item name="iconLeft">@drawable/wifi_off_black_24dp</item>
+        <item name="strokeColor">#000</item>
+        <item name="strokeWidth">3dp</item>
+        <item name="length">SHORT</item>
+        <item name="cornerRadius">30dp</item>
+    </style>
 </resources>
