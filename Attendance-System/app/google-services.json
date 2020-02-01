@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "458911141980",
+    "firebase_url": "https://attendance-system-29656.firebaseio.com",
+    "project_id": "attendance-system-29656",
+    "storage_bucket": "attendance-system-29656.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:458911141980:android:04b8c122875d2b347bd699",
+        "android_client_info": {
+          "package_name": "com.havefun.attendancesystem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "458911141980-mjl940jbp1k142iuc798s1lb8br6hos1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.havefun.attendancesystem",
+            "certificate_hash": "216963062f2682f32ab3bcdcf79cd34f6e2b37ae"
+          }
+        },
+        {
+          "client_id": "458911141980-opm269tkfdgcdnf2ii59itq3t5d10ht7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNULxQDWb1qe2DmUZDM89gGDAIfCEBaX0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "458911141980-opm269tkfdgcdnf2ii59itq3t5d10ht7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

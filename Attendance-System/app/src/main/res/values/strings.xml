@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Attendance System</string>
+
+    <string name="scan_now">Scan Now</string>
+    <string name="qr_scanner">Qr Scanner</string>
+    <string name="password">Password</string>
+    <string name="someone_somethin_com">Someone@somethin.com</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_Close">Close navigation drawer</string>
+    <string name="facebook_app_id">404803516860794</string>
+    <string name="fb_login_protocol_scheme">fb404803516860794</string>
+    <string name="title_activity_profile">Profile</string>
+    <string name="action_settings">Settings</string>
+    <string name="login_signup_hint">Don\'t have an account? Sign Up</string>
+    <string name="login_email_hint">Email</string>
+    <string name="username_hint">Username</string>
+    <string name="id_hint">ID</string>
+    <string name="phone_hint">Phone number</string>
+    <string name="address_hint">Address</string>
+    <string name="date_hint">date</string>
+
+
+    <string name="login_password_hint">Password</string>
+    <string name="register">REGISTER</string>
+    <string name="login_hint">Login</string>
+
+    <string name="signup_login_hint">Already have an account? Sign In</string>
+    <string name="username">chatusername</string>
+    <string name="user_email">chat user email</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
