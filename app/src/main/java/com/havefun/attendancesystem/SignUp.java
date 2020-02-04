@@ -158,8 +158,7 @@ public class SignUp extends AppCompatActivity {
         ///////// Google Sign in part
      */
 
-
-    /*
+  /*
         +++  Google Sign in Methods
  */
     private void googleSignIn() {

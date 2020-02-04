@@ -1,9 +1,40 @@
 package com.havefun.attendancesystem;
 
 public class ChatUser {
-    private String  UserEmail, UserId, UserName , UserProfileUri;
+    private String DateOfBith, UserAddress, UserEmail, UserId, UserName, UserPassword, UserPhoneNumber, UserProfileUri;
 
     public ChatUser() {
+    }
+
+    public String getDateOfBith() {
+        return DateOfBith;
+    }
+
+    public void setDateOfBith(String dateOfBith) {
+        DateOfBith = dateOfBith;
+    }
+
+    public String getUserAddress() {
+        return UserAddress;
+    }
+
+    public void setUserAddress(String userAddress) {
+        UserAddress = userAddress;
+    }
+    public String getUserPassword() {
+        return UserPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        UserPassword = userPassword;
+    }
+
+    public String getUserPhoneNumber() {
+        return UserPhoneNumber;
+    }
+
+    public void setUserPhoneNumber(String userPhoneNumber) {
+        UserPhoneNumber = userPhoneNumber;
     }
 
     public String getUserEmail() {

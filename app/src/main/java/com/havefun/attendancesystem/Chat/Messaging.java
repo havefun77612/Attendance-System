@@ -24,9 +24,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.havefun.attendancesystem.ChatUser;
 import com.havefun.attendancesystem.R;
-import com.havefun.attendancesystem.UserInfo;
 import com.shashank.sony.fancytoastlib.FancyToast;
 import com.squareup.picasso.Picasso;
+
+import java.lang.ref.Reference;
 
 public class Messaging extends AppCompatActivity {
     ImageView reciver_Image;
@@ -35,6 +36,7 @@ public class Messaging extends AppCompatActivity {
     String reciverID;
     FirebaseUser firebaseUser;
     DatabaseReference reference;
+    String id,uri,name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,53 +50,57 @@ public class Messaging extends AppCompatActivity {
      ****** Inintialzation stage of the messaging class vars
      */
     private void initializeVars() {
-        reciver_Image = (ImageView) findViewById(R.id.messageUserImage);
-        reciverUserName = (TextView) findViewById(R.id.messageUserName);
+        reciver_Image =  findViewById(R.id.messageUserImage);
+        reciverUserName =  findViewById(R.id.messageUserName);
         intent = getIntent();
-        reciverID = intent.getStringExtra("userID");
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
     }
 
 
     private void getReciverData() {
+        reciverID = intent.getStringExtra("userID");
         Query query = FirebaseDatabase.getInstance().getReference("Users").orderByChild("UserId")
                 .equalTo(reciverID);
 
 
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    ChatUser user = dataSnapshot.getValue(ChatUser.class);
-                    assert user != null;
-                    reciverUserName.setText(user.getUserName());
-                    getUserImage(user);
-                }else {
-                    FancyToast.makeText(getApplicationContext(),"This user May not exist ",
-                            FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show();
-                }
-            }
+     FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("UserId").equalTo(reciverID).addListenerForSingleValueEvent(new ValueEventListener() {
+         @Override
+         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+             if (dataSnapshot.exists()){
+                 for (DataSnapshot data :dataSnapshot.getChildren()) {
+                 uri=data.child("UserProfileUri").getValue().toString();
+                 name=data.child("UserName").getValue().toString();
+                 }
+                 reciverUserName.setText(name);
+                 getUserImage(reciverID);
+                 //Toast.makeText(Messaging.this, "Done", Toast.LENGTH_SHORT).show();
+             }else {
+                 Toast.makeText(Messaging.this, "Error ", Toast.LENGTH_SHORT).show();
+             }
+         }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+         @Override
+         public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+         }
+     });
+
+
+
     }
 
 
     // Download the image
-    private void getUserImage(final ChatUser user) {
+    private void getUserImage(final String user) {
 
-        StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://attendance-system-29656.appspot.com/userImages/" + user.getUserId() + ".jpg");
+        StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://attendance-system-29656.appspot.com/userImages/" +user+ ".jpg");
         storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Log.i("Mainprofile:::", "The Uri=  " + uri.toString());
-                user.setUserProfileUri(uri.toString());
-                Picasso.get().load(user.getUserProfileUri()).placeholder(R.drawable.profile5).into(reciver_Image);
-                Log.i("User Photo Path", "onBindViewHolder: " + user.getUserProfileUri());
+                Log.i("Messaging::::::", "The Uri=  " + uri.toString());
+                Picasso.get().load(uri.toString()).placeholder(R.drawable.profile5).into(reciver_Image);
+                Log.i("User Photo Path", "onBindViewHolder: " + uri.toString());
             }
         });
 
