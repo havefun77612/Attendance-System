@@ -4,7 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -59,14 +63,18 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
     LinearLayout loginactivity,profile_page,Scaner,waiting,qrgeneration;
     FirebaseUser user;
     DBManager offlineDB;
-
+    TextView main_page;
+    ImageView image_profile,image_login,image_service,image_qr,image_scan;
+    Animation Animate1,Animate2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page);
         initializeVars();
         addListners();
+        addinganimation();
     }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
@@ -109,7 +117,30 @@ private void logOut(){
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.draw_dev);
         navigationView.setNavigationItemSelectedListener(this);
+        image_profile=(ImageView)findViewById( R.id.image_profile );
+        image_login=(ImageView)findViewById( R.id.image_login );
+        image_service=(ImageView)findViewById( R.id.image_service );
+        image_qr=(ImageView)findViewById( R.id.image_qr );
+        image_scan=(ImageView)findViewById( R.id.image_scan );
+        main_page=(TextView)findViewById( R.id.main_page );
     }
+
+    private void addinganimation(){
+    Animate1 = AnimationUtils.loadAnimation( MainPage.this,R.anim.zoomin );
+        Animate2 = AnimationUtils.loadAnimation( MainPage.this,R.anim.zoomout );
+      image_scan.startAnimation( Animate1 );
+      image_qr.startAnimation( Animate1 );
+      image_login.startAnimation( Animate1 );
+      image_profile.startAnimation( Animate1 );
+      image_service.startAnimation( Animate1 );
+      main_page.startAnimation( Animate2 );
+    }
+
+
+
+
+
+
     private void addListners() {
         loginactivity.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -34,12 +34,13 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
             <TextView
+                android:id="@+id/main_page"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="Main Page"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimary"
                 android:textSize="30sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:textStyle="bold" />
 
 
@@ -87,6 +88,7 @@
                             >
 
                             <ImageView
+                                android:id="@+id/image_login"
                                 android:layout_width="84dp"
                                 android:layout_height="84dp"
                                 android:layout_gravity="center"
@@ -94,6 +96,7 @@
                                 android:src="@drawable/contact" />
 
                             <TextView
+                                android:id="@+id/login_word"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -129,6 +132,7 @@
                             >
 
                             <ImageView
+                                android:id="@+id/image_profile"
                                 android:layout_width="84dp"
                                 android:layout_height="84dp"
                                 android:layout_gravity="center"
@@ -136,6 +140,7 @@
                                 android:src="@drawable/profile9" />
 
                             <TextView
+                                android:id="@+id/profile_word"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -172,20 +177,22 @@
                             >
 
                             <ImageView
+                                android:id="@+id/image_qr"
                                 android:layout_width="84dp"
                                 android:layout_height="84dp"
                                 android:layout_gravity="center"
-                                android:layout_marginTop="10dp"
 
+                                android:layout_marginTop="10dp"
                                 android:src="@drawable/frame" />
 
                             <TextView
+                                android:id="@+id/qr_word"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="10dp"
-                                android:textAlignment="center"
                                 android:text=" QR \n Generate"
+                                android:textAlignment="center"
                                 android:textColor="@color/blackTextColor"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
@@ -221,6 +228,7 @@
                             android:orientation="vertical">
 
                             <ImageView
+                                android:id="@+id/image_service"
                                 android:layout_width="84dp"
                                 android:layout_height="84dp"
                                 android:layout_gravity="center"
@@ -228,6 +236,7 @@
                                 android:src="@drawable/wait" />
 
                             <TextView
+                                android:id="@+id/service_word"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -262,6 +271,7 @@
                             android:orientation="vertical">
 
                             <ImageView
+                                android:id="@+id/image_scan"
                                 android:layout_width="84dp"
                                 android:layout_height="84dp"
                                 android:layout_gravity="center"
@@ -269,6 +279,7 @@
                                 android:src="@drawable/mop" />
 
                             <TextView
+                                android:id="@+id/scan_word"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"

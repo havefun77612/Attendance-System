@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/loginCard"
+    app:cardCornerRadius="@dimen/loginCardRadius"
+    android:elevation="5dp"
+    android:layout_gravity="center"
+    android:layout_marginTop="220dp"
+    android:layout_marginBottom="@dimen/loginViewsMargin"
+    android:layout_marginRight="5dp"
+    android:layout_marginLeft="5dp"
+
+    tools:showIn="@layout/qr_image"
+    android:background="@drawable/centre_background">
+
+
+
+
+    <LinearLayout
+        style="@style/linearParent"
+        android:layout_gravity="center"
+        android:padding="@dimen/loginViewsMargin"
+        android:background="#ffffff"
+
+        android:layout_margin="5dp"
+
+        >
+
+
+        <EditText
+            android:id="@+id/Inputusername"
+            style="@style/modifiedEditText"
+            android:maxLines="1"
+            android:hint="@string/username_hint"
+            android:text="Faiza"
+            />
+
+        <EditText
+            android:id="@+id/Inputid"
+            style="@style/modifiedEditText"
+            android:maxLines="1"
+            android:inputType="number"
+            android:hint="@string/id_hint"
+            android:text="161022"
+            />
+
+
+        <EditText
+            android:id="@+id/textInputEmail"
+            style="@style/modifiedEditText"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:hint="@string/login_email_hint"
+            android:text="HaveFun77612@outlook.com"
+            />
+
+
+        <EditText
+            android:id="@+id/Inputphone"
+            style="@style/modifiedEditText"
+            android:hint="@string/phone_hint"
+            android:maxLines="1"
+            android:inputType="number"
+            android:text="01117004075"
+            />
+
+
+        <EditText
+            android:id="@+id/Inputaddress"
+            style="@style/modifiedEditText"
+            android:hint="@string/address_hint"
+            android:maxLines="1"
+            android:inputType="text"
+            android:text="this is the addresss you give"
+            />
+
+
+
+        <EditText
+            android:id="@+id/Inputdate"
+            style="@style/modifiedEditText"
+            android:hint="@string/date_hint"
+            android:maxLines="1"
+            android:inputType="date"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            >
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <Button
+                    android:id="@+id/dateset"
+                    style="@style/loginButton"
+                    android:layout_width="120dp"
+
+                    android:layout_height="35dp"
+
+                    android:text="Date set"
+                    />
+                <Button
+                    android:id="@+id/genbtn"
+                    style="@style/loginButton"
+                    android:layout_width="120dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="20dp"
+
+
+                    android:text="Genarate" />
+
+                <Button
+                    android:id="@+id/saveQr"
+                    style="@style/loginButton"
+                    android:layout_width="120dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="20dp"
+
+
+                    android:text="Save QR" />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/qr"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+
+                    app:srcCompat="@drawable/frame" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
