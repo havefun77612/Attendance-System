@@ -55,6 +55,8 @@ import com.havefun.attendancesystem.Profile.ProfileActivity;
 import com.havefun.attendancesystem.QR.QrGeneration;
 import com.havefun.attendancesystem.QR.ScanQr;
 
+import java.util.List;
+
 
 public class MainPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
@@ -73,6 +75,11 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
         initializeVars();
         addListners();
         addinganimation();
+        ////////////////////////////////// Test Faculty Database /////////////////////////////////
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+        databaseAccess.open();
+        List<String> quotes = databaseAccess.getQuotes();
+        ///////////////////////////
     }
 
     @Override

@@ -78,5 +78,8 @@ dependencies {
     //testing
     implementation 'com.shobhitpuri.custombuttons:google-signin:1.1.0'
 
+    //Database
+    implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
+
 
 }
