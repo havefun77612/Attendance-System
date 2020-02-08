@@ -76,9 +76,10 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
         addListners();
         addinganimation();
         ////////////////////////////////// Test Faculty Database /////////////////////////////////
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
-        databaseAccess.open();
-        List<String> quotes = databaseAccess.getQuotes();
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
+        //databaseAccess.open();
+        List<String> quotes = databaseAccess.getAllCoursesAvailable();
+        System.out.println(quotes.size());
         ///////////////////////////
     }
 
