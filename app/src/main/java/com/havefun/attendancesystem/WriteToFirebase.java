@@ -60,7 +60,6 @@ public class WriteToFirebase {
             PhotoURi = usermaMap.get("UserProfileUri");
         }
 
-
         usermaMap.put("UserCompleteInfo", UserCompleteInfo);
         usermaMap.put("UserProfileUri", PhotoURi);
 
@@ -85,6 +84,25 @@ public class WriteToFirebase {
                 }
             }
         });
+
+    }
+
+    /*
+    //// The Attendance Part
+     */
+    public void addnewAttendanceToCourse(final String CourseCode, HashMap<String,String> data){
+    setReferance(CourseCode);
+    myRef.push().setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+        @Override
+        public void onComplete(@NonNull Task<Void> task) {
+            if (task.isSuccessful()){
+                Log.i(TAG, "onComplete: Successfully uplaod course "+CourseCode+" Attendance");
+            }else {
+                Log.i(TAG, "onComplete: Failed");
+            }
+
+        }
+    });
 
     }
     /*

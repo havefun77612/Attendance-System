@@ -4,14 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Result1">
+    tools:context=".QR.ScanQr">
 
     <ListView
-        android:id = "@+id/list"
-        android:layout_width = "wrap_content"
-        android:layout_height = "match_parent"
-        android:divider = "#000"
-        android:dividerHeight = "1dp"
-        android:footerDividersEnabled = "false"
-        android:headerDividersEnabled = "false" />
+        android:id="@+id/list"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/uploadCourseData"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="83dp"
+        android:divider="#000"
+        android:dividerHeight="1dp"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false" />
+    <Button
+        android:id="@+id/uploadCourseData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:textColor="@color/text_color_dark"
+        android:text="@string/upload_data_form_scan_page"
+        style="@style/TextAppearance.AppCompat.Widget.Button.Colored"
+        android:onClick="testNetwork"
+        />
 </RelativeLayout>

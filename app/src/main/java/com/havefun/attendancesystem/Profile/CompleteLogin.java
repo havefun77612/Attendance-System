@@ -256,6 +256,7 @@ public class CompleteLogin extends AppCompatActivity {
                     hash.put("UserId", firebaseUser.getUid());
                     hash.put("UserAddress", userAddress);
                     hash.put("UserDate",userDate);
+                    hash.put("UserType","student");
                     
                     if (firebaseUser.getPhotoUrl() != null && !firebaseUser.getPhotoUrl().toString().equals("")) {
                         hash.put("UserProfileUri", firebaseUser.getPhotoUrl().toString());
