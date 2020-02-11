@@ -30,7 +30,6 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 
 public class ScanQr extends AppCompatActivity implements ZXingScannerView.ResultHandler {
-    private static final String TAG = "InternetConnection";
     TextView QrText;
     Button scan_btn, send;
     ZXingScannerView zx;
@@ -183,15 +182,5 @@ public class ScanQr extends AppCompatActivity implements ZXingScannerView.Result
         scanData.remove(pos);
     }
 
-    // CHECK THE NETWORK STATUS AND DECIDE EVEN TO UPLOAD THE DATA OR TO STORE IT TILL UPLOAD
-    public void testNetwork() {
 
-        InternetStatus internetStatus = new InternetStatus(getApplicationContext());
-        if (internetStatus.checkNetworkStatus()) {
-            Log.i(TAG, "testNetwork: ");
-        } else {
-            Log.i(TAG, "testNetwork: ");
-        }
-
-    }
 }
