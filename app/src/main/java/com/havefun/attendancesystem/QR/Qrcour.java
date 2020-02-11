@@ -78,7 +78,7 @@ public class Qrcour extends AppCompatActivity {
 
                 try {
 
-                    matrix = writer.encode(qrName + "/" + qrCode + "/" + type, BarcodeFormat.QR_CODE, qr.getWidth(), qr.getHeight());
+                    matrix = writer.encode(qrName + "/" + qrCode + "/" + type+"@x@", BarcodeFormat.QR_CODE, qr.getWidth(), qr.getHeight());
 
                 } catch (WriterException e) {
                     Toast.makeText(Qrcour.this, "Error Creating image", Toast.LENGTH_SHORT).show();

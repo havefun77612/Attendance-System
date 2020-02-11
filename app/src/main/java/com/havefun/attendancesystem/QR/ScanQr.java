@@ -34,6 +34,7 @@ public class ScanQr extends AppCompatActivity implements ZXingScannerView.Result
     TextView QrText;
     Button scan_btn, send;
     ZXingScannerView zx;
+    static boolean course=false;
     public static ArrayList<String> array = new ArrayList<String>();
     //static ArrayList<String[]> array2=new ArrayList<String[]>();
     MediaPlayer mp, mp2;
@@ -152,7 +153,10 @@ public class ScanQr extends AppCompatActivity implements ZXingScannerView.Result
 
     @Override
     public void handleResult(Result result) {
-        if (!array.contains(result.getText()) && result.getText().contains("@x@")) {
+        if(result.getText().contains("course")){
+            course=true;
+        }
+        if (!array.contains(result.getText()) && result.getText().contains("@x@")&&course==true) {
             array.add(result.getText());
             qrRes = result.getText().split("/");
             UserData qrData = new UserData();
