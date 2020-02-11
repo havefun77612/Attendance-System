@@ -29,27 +29,25 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 //import com.havefun.attendancesystem.MainPage;
 
 
-public class ScanQr extends AppCompatActivity implements ZXingScannerView.ResultHandler {
-    private static final String TAG = "InternetConnection";
-    TextView QrText;
-    Button scan_btn, send;
-    ZXingScannerView zx;
+public class ScanCourse extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
-    public static ArrayList<String> array = new ArrayList<String>();
-    //static ArrayList<String[]> array2=new ArrayList<String[]>();
+    TextView QrText;
+    Button scan_btn;
+    ZXingScannerView zx;
+    static boolean course=false;
+
+
     MediaPlayer mp, mp2;
     Intent res;
-    String[] qrRes;
-    public static ArrayList<UserData> scanData = new ArrayList<UserData>();
-    //final HashMap<String,UserData>sendData=new HashMap<String, UserData>();
-    //final HashMap<String, HashMap<String,String>> hashMap=new HashMap<String, HashMap<String, String>>();
-    //int[]index;
+
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.scanning_start);
+        setContentView(R.layout.coursescan);
         initialVariabels();
         addListners();
 
@@ -79,9 +77,10 @@ public class ScanQr extends AppCompatActivity implements ZXingScannerView.Result
     public void initialVariabels() {
         scan_btn = (Button) findViewById(R.id.scan_btn);
         //QrText = (TextView) findViewById(R.id.QrText);
-        send = (Button) findViewById(R.id.send);
-        mp = MediaPlayer.create(ScanQr.this, R.raw.beep);
-        mp2 = MediaPlayer.create(ScanQr.this, R.raw.error);
+
+        mp = MediaPlayer.create(ScanCourse.this, R.raw.beep);
+        mp2 = MediaPlayer.create(ScanCourse.this, R.raw.error);
+
 
     }
 
@@ -96,22 +95,7 @@ public class ScanQr extends AppCompatActivity implements ZXingScannerView.Result
                     scane();
                 }
             });
-            send.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (!array.isEmpty()) {
-                        res = new Intent(ScanQr.this, ressult.class);
-                        try {
-                            startActivity(res);
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(getApplicationContext(), ScanQr.class));
-                        }
-                    } else {
-                        Toast.makeText(getApplicationContext(), "you didn't scan any thing", Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
+
 
         }
 
@@ -153,51 +137,30 @@ public class ScanQr extends AppCompatActivity implements ZXingScannerView.Result
 
     @Override
     public void handleResult(Result result) {
-
-
-
-
-        if (!array.contains(result.getText()) && result.getText().contains("@x@")) {
-            array.add(result.getText());
-            qrRes = result.getText().split("/");
-            UserData qrData = new UserData();
-            qrData.setName(qrRes[0]);
-            qrData.setID(qrRes[1]);
-            qrData.setEmail(qrRes[2]);
-            qrData.setPhone(qrRes[3]);
-            qrData.setAddress(qrRes[4]);
-            qrData.setDate(qrRes[5]);
-            scanData.add(qrData);
-
+        if(result.getText().contains("course")){
+            course=true;
             mp.start();
-            Toast.makeText(getApplicationContext(), result.getText(), Toast.LENGTH_LONG).show();
-            zx.resumeCameraPreview(this);
-        } else {
+            res = new Intent(ScanCourse.this, ScanQr.class);
+            try {
+                startActivity(res);
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getApplicationContext(), ScanCourse.class));
+            }
+
+
+        }
+
+
+
+         else {
             mp2.start();
             zx.resumeCameraPreview(this);
         }
 
     }
 
-    public void mod(String temp, int pos) {
-        scanData.get(pos).setName(temp);
 
 
-    }
 
-    public void del(int pos) {
-        scanData.remove(pos);
-    }
-
-    // CHECK THE NETWORK STATUS AND DECIDE EVEN TO UPLOAD THE DATA OR TO STORE IT TILL UPLOAD
-    public void testNetwork() {
-
-        InternetStatus internetStatus = new InternetStatus(getApplicationContext());
-        if (internetStatus.checkNetworkStatus()) {
-            Log.i(TAG, "testNetwork: ");
-        } else {
-            Log.i(TAG, "testNetwork: ");
-        }
-
-    }
 }

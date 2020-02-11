@@ -32,6 +32,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.havefun.attendancesystem.Chat.MainChat;
 import com.havefun.attendancesystem.Profile.ProfileActivity;
 import com.havefun.attendancesystem.QR.Qrcour;
+import com.havefun.attendancesystem.QR.ScanCourse;
 import com.havefun.attendancesystem.QR.ScanQr;
 
 import com.google.android.material.navigation.NavigationView;
@@ -171,7 +172,7 @@ private void logOut(){
         Scaner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), ScanQr.class));
+                startActivity(new Intent(getApplicationContext(), ScanCourse.class));
 
             }
         });
