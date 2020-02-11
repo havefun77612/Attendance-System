@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/qr"
+        android:layout_width="match_parent"
+        android:layout_height="156dp"
+        app:srcCompat="@drawable/frame" />
+
+    <EditText
+        android:id="@+id/cname"
+        style="@style/modifiedEditText"
+        android:hint="name"
+        android:maxLines="1" />
+
+    <EditText
+        android:id="@+id/code"
+        style="@style/modifiedEditText"
+        android:hint="code"
+        android:maxLines="1" />
+
+    <Button
+        android:id="@+id/gen"
+        android:layout_width="158dp"
+        android:layout_height="wrap_content"
+        android:text="gen" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="152dp"
+        android:layout_height="wrap_content"
+        android:text="save" />
+</LinearLayout>

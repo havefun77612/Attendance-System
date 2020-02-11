@@ -31,6 +31,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.havefun.attendancesystem.Chat.MainChat;
 import com.havefun.attendancesystem.Profile.ProfileActivity;
+import com.havefun.attendancesystem.QR.Qrcour;
 import com.havefun.attendancesystem.QR.ScanQr;
 
 import com.google.android.material.navigation.NavigationView;
@@ -62,7 +63,7 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
     Toolbar toolbar;
     DrawerLayout drawer;
     ActionBarDrawerToggle toggle;
-    LinearLayout loginactivity,profile_page,Scaner,waiting,qrgeneration;
+    LinearLayout loginactivity,profile_page,Scaner,waiting,qrgeneration,QrCourse;
     FirebaseUser user;
     DBManager offlineDB;
     TextView main_page;
@@ -114,6 +115,7 @@ private void logOut(){
         Scaner=(LinearLayout)findViewById(R.id.Scaner);
         waiting=(LinearLayout)findViewById(R.id.waiting);
         qrgeneration=(LinearLayout)findViewById(R.id.qrgeneration);
+        QrCourse=findViewById(R.id.QrCourse);
         toolbar =(Toolbar) findViewById(R.id.toolbar);
 
         user= FirebaseAuth.getInstance().getCurrentUser();
@@ -186,6 +188,14 @@ private void logOut(){
                 startActivity(new Intent(getApplicationContext(), QrGen.class));
             }
         });
+        QrCourse.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            startActivity(new Intent(getApplicationContext(), Qrcour.class));
+                                        }
+                                    }
+
+        );
 
     }
     @Override
