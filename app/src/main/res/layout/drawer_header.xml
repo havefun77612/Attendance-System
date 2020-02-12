@@ -9,14 +9,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="left|bottom"
         android:gravity="left|bottom"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/blue200"
         android:orientation="vertical">
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
             app:civ_border_width="2dp"
-            app:civ_border_color="@color/green300"
+            app:civ_border_color="@color/blue200"
             android:src="@drawable/common_google_signin_btn_icon_dark"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"

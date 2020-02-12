@@ -8,7 +8,9 @@
     android:fitsSystemWindows="true"
 
 
-    tools:context=".MainPage">
+    tools:context=".MainPage"
+    android:background="@drawable/login_button_bk"
+    >
 
 
     <androidx.drawerlayout.widget.DrawerLayout
@@ -17,18 +19,20 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         tools:layout_editor_absoluteX="-120dp"
-        tools:layout_editor_absoluteY="25dp">
+        tools:layout_editor_absoluteY="25dp"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@drawable/login_button_bk">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorPrimary"
+
 
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
@@ -48,7 +52,7 @@
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/grey200"
+
                 android:id="@+id/scroll"
 
 
@@ -64,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:alignmentMode="alignMargins"
                     android:columnOrderPreserved="false"
-                    android:background="@color/grey100"
+
                     android:columnCount="2"
                     android:rowCount="3">
                     <!--first card for login-->
