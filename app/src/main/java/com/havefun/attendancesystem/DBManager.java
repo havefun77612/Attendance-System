@@ -314,7 +314,7 @@ public class DBManager {
 
     ////////////////////////////////////////////////////////////////// Important Functions //////////////////////////////////////////////////
     public void createProfileTable (){
-        database.execSQL(dbHelper.CREATE_TABLE2);System.out.println(" Created Table Profile OR Exists ");
+        database.execSQL(dbHelper.CREATE_TABLE2);System.out.println(" Created Table Profile OR Exists Prof ");
     }
 
 
@@ -450,7 +450,7 @@ public class DBManager {
     /////////////////////////////////////////////////////////////////////// Table Scan Functions   //////////////////////////////////////////////////////////////////
     public void createScanTable (){
 
-        database.execSQL(dbHelper.CREATE_TABLE3);System.out.println(" Created Table Profile OR Exists ");
+        database.execSQL(dbHelper.CREATE_TABLE3);System.out.println(" Created Table Profile OR Exists Scan");
     }
     public void insertScanٍTable(ArrayList<UserInfo>  x)  {
         // createTableProf();
@@ -580,7 +580,174 @@ public class DBManager {
         Log.i("NumberOfElementDeleted", k + "");
         db.close();
     }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public void createDoctor_CoursesTable (){
+
+        database.execSQL(dbHelper.CREATE_TABLE4);System.out.println(" Created Table Profile OR Exists Doctor_Courses ");
+    }
+    public void insertDoctor_CoursesٍTable(ArrayList<DoctorInfo>  x)  {
+        // createTableProf();
+        createDoctor_CoursesTable();
+
+        // Open the database for writing
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        // Start the transaction.
+        db.beginTransaction();
+        ContentValues values;
+
+        try
+        {
+            long k = 0;
+            for (int i=0 ; i<x.size();i++) {
+                // Convert the image into byte array
 
 
+                values = new ContentValues();
 
+
+                values.put("DoctorName", x.get(i).getDoctorName());
+                values.put("CourseName", x.get(i).getCourseName());
+                values.put("DoctorId", x.get(i).getDoctorId());
+
+                // Insert Row
+                k = db.insert("Doctor_Courses", null, values);
+                Log.i("InsertedTheIdNumber", k + "");
+            }
+
+            // Insert into database successfully.
+            db.setTransactionSuccessful();
+
+        }
+        catch (SQLiteException e)
+        {
+            e.printStackTrace();
+
+        }
+        finally
+        {
+            db.endTransaction();
+            // End the transaction.
+            db.close();
+            // Close database
+        }
+    }
+    public ArrayList<DoctorInfo> getDoctor_CoursesTable(){
+
+        // Open the database for reading
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        // Start the transaction.
+        db.beginTransaction();
+        DoctorInfo pr;
+        ArrayList<DoctorInfo> prArr=new ArrayList<DoctorInfo>();
+        try
+        {
+            String selectQuery = "SELECT * FROM Doctor_Courses ";
+            //String countQuery="SELECT COUNT(*) FROM "+ dbHelper.TABLE_NAME2 +" ;";
+            //Log.i("TheCountOfSelectedRows", countQuery+" ");
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+            if(cursor.getCount() >0)
+            {
+                for (int i =0;i<cursor.getCount();i++){
+                    cursor.moveToNext();
+
+                    pr=new DoctorInfo();
+                    pr.setDoctorId(cursor.getString(3));
+                    pr.setDoctorName(cursor.getString(1));
+                    pr.setCourseName(cursor.getString(2));
+
+
+                    System.out.println(cursor.getString(3));
+                    System.out.println(cursor.getString(1));
+                    System.out.println(cursor.getString(2));
+                    System.out.println(cursor.getString(0));
+
+                    prArr.add(i,pr);
+                }
+
+            }
+            db.setTransactionSuccessful();
+
+        }
+        catch (SQLiteException e)
+        {
+            e.printStackTrace();
+
+        }
+        finally
+        {
+            db.endTransaction();
+            // End the transaction.
+            db.close();
+            // Close database
+        }
+        return  prArr;
+
+    }
+    public boolean isEmptyTableDoctor_Courses(){
+        ArrayList<DoctorInfo> prArr = new ArrayList<DoctorInfo>();
+        prArr=getDoctor_CoursesTable();
+        if (prArr.size()==0)return true;
+        else return false;
+    }
+    public void deleteAllRecordDoctor_Courses(){
+        //database.execSQL("delete from "+ dbHelper.TABLE_NAME2);
+        //database.delete(dbHelper.TABLE_NAME2, null, null);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        // db.execSQL("DELETE FROM "+dbHelper.TABLE_NAME2);
+        long k =db.delete("Doctor_Courses", "1", null);//delete all rows in a table
+        Log.i("NumberOfElementDeleted", k + "");
+        db.close();
+
+    }
+    public void updateDoctor_CoursesٍTable(ArrayList<DoctorInfo>  x)  {
+
+
+        // Open the database for writing
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        // Start the transaction.
+        db.beginTransaction();
+        ContentValues values;
+
+        try
+        {
+            long k = 0;
+            for (int i=0 ; i<x.size();i++) {
+                // Convert the image into byte array
+
+
+                values = new ContentValues();
+
+
+                values.put("DoctorName", x.get(i).getDoctorName());
+                values.put("CourseName", x.get(i).getCourseName());
+
+
+                // Insert Row
+               k= db.update("Doctor_Courses",values, "DoctorName" + " =? ", new String[]{ x.get(i).getDoctorName()} );
+
+                Log.i("UpdatedTheCourseName", k + "");
+            }
+
+            // Insert into database successfully.
+            db.setTransactionSuccessful();
+
+        }
+        catch (SQLiteException e)
+        {
+            e.printStackTrace();
+
+        }
+        finally
+        {
+            db.endTransaction();
+            // End the transaction.
+            db.close();
+            // Close database
+        }
+    }
 }
+
+
+
+

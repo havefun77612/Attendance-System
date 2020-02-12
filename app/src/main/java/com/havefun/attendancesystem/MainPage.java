@@ -102,6 +102,23 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
         System.out.println(d.isEmptyTableScan());
         d.deleteAllRecordScan();
         System.out.println(d.isEmptyTableScan());*/
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////Test Doctor_Courses Table ////////////////////////////////
+
+       /* ArrayList<DoctorInfo> arrUs= new ArrayList<DoctorInfo>();
+        DoctorInfo doctorInfo=new DoctorInfo();
+        doctorInfo.setCourseName("DataCommunication");
+        doctorInfo.setDoctorName("fayza");
+        doctorInfo.setDoctorId("1");
+        arrUs.add(doctorInfo);
+        DBManager d=new DBManager(getApplicationContext());
+        d.getDoctor_CoursesTable();
+        d.updateDoctor_CoursesٍTable(arrUs);
+        d.getDoctor_CoursesTable();
+
+        System.out.println(d.isEmptyTableDoctor_Courses());
+        d.deleteAllRecordDoctor_Courses();
+        System.out.println(d.isEmptyTableDoctor_Courses());*/
 
         //////////////////////////////////////////////////// End Of Test ////////////////
     }

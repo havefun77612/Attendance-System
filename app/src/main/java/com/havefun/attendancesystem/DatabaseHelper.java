@@ -51,6 +51,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "    UserPhone   Text ,\n" +
             "    UserAddress Text ,\n" +
             "    UserDate    Text);";
+    public static final String CREATE_TABLE4 ="CREATE TABLE IF NOT EXISTS Doctor_Courses (\n" +
+            " ID                       INTEGER        PRIMARY KEY AUTOINCREMENT\n" +
+            "                                            NOT NULL,\n" +
+            "  DoctorName              Text ,\n" +
+            "  CourseName              Text ," +
+            "DoctorId INTEGER );";
 
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -61,6 +67,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL(CREATE_TABLE2);
         db.execSQL(CREATE_TABLE3);
+        db.execSQL(CREATE_TABLE4);
+
 
     }
 
