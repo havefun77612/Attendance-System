@@ -119,6 +119,16 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
         System.out.println(d.isEmptyTableDoctor_Courses());
         d.deleteAllRecordDoctor_Courses();
         System.out.println(d.isEmptyTableDoctor_Courses());*/
+       ///////////////////////////////////////////////////////Test Table DataExist ////////////////////
+       /* DBManager d=new DBManager(getApplicationContext());
+       // d.insertDataExistٍTable("Ali","161014",0);
+       d.getDataExistTable();
+        System.out.println(d.isEmptyTableDataExist());
+        d.updateDataExistٍTable("161014",1);
+        d.getDataExistTable();
+        d.deleteAllRecordDataExist();
+        d.isEmptyTableDataExist();*/
+
 
         //////////////////////////////////////////////////// End Of Test ////////////////
     }

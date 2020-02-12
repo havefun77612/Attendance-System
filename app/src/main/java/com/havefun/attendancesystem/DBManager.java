@@ -312,12 +312,10 @@ public class DBManager {
     }
 */
 
-    ////////////////////////////////////////////////////////////////// Important Functions //////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////// Important Functions Table Prof //////////////////////////////////////////////////
     public void createProfileTable (){
         database.execSQL(dbHelper.CREATE_TABLE2);System.out.println(" Created Table Profile OR Exists Prof ");
     }
-
-
     public void insertProfileTable(ArrayList<UserInfo>  x,Bitmap bitmap)  {
        // createTableProf();
 
@@ -369,8 +367,6 @@ public class DBManager {
             // Close database
         }
     }
-
-
     public ArrayList<UserInfo> getProfileTable(){
         Bitmap bitmap = null;
         // Open the database for reading
@@ -580,7 +576,7 @@ public class DBManager {
         Log.i("NumberOfElementDeleted", k + "");
         db.close();
     }
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////// Table Doctor_Courses Functions   /////////////////////////////////////////
     public void createDoctor_CoursesTable (){
 
         database.execSQL(dbHelper.CREATE_TABLE4);System.out.println(" Created Table Profile OR Exists Doctor_Courses ");
@@ -746,6 +742,177 @@ public class DBManager {
             // Close database
         }
     }
+    //////////////////////////////////////////////////////////   Table DataExist Functions   ///////////////////////////////
+    public void createDataExistTable (){
+
+        database.execSQL(dbHelper.CREATE_TABLE5);System.out.println(" Created Table Profile OR Exists 'DataExist' ");
+    }
+    public void insertDataExistٍTable(String UserName,String UserID, int isUploaded)  {
+        // createTableProf();
+        createDataExistTable();
+
+        // Open the database for writing
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        // Start the transaction.
+        db.beginTransaction();
+        ContentValues values;
+
+        try
+        {
+            long k = 0;
+
+
+
+                values = new ContentValues();
+
+
+                values.put("UserName", UserName);
+                values.put("UserId", UserID);
+                values.put("Uploaded", isUploaded);
+
+                // Insert Row
+                k = db.insert("DataExist", null, values);
+                Log.i("InsertedTheIdNumber", k + "");
+
+
+            // Insert into database successfully.
+            db.setTransactionSuccessful();
+
+        }
+        catch (SQLiteException e)
+        {
+            e.printStackTrace();
+
+        }
+        finally
+        {
+            db.endTransaction();
+            // End the transaction.
+            db.close();
+            // Close database
+        }
+    }
+    public ArrayList<String> getDataExistTable(){
+
+        // Open the database for reading
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        // Start the transaction.
+        db.beginTransaction();
+
+        ArrayList<String> prArr=new ArrayList<String>();
+        try
+        {
+            String selectQuery = "SELECT * FROM DataExist ";
+            //String countQuery="SELECT COUNT(*) FROM "+ dbHelper.TABLE_NAME2 +" ;";
+            //Log.i("TheCountOfSelectedRows", countQuery+" ");
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+            if(cursor.getCount() >0)
+            {cursor.moveToNext();
+
+
+
+                    prArr.add(0,cursor.getString(2));
+                    prArr.add(1,cursor.getString(1));
+                    prArr.add(cursor.getString(3));
+
+
+                    System.out.println(cursor.getString(2));
+                    System.out.println(cursor.getString(1));
+                    System.out.println(cursor.getString(3));
+                    System.out.println(cursor.getString(0));
+
+
+
+
+            }
+            db.setTransactionSuccessful();
+
+        }
+        catch (SQLiteException e)
+        {
+            e.printStackTrace();
+
+        }
+        finally
+        {
+            db.endTransaction();
+            // End the transaction.
+            db.close();
+            // Close database
+        }
+        return  prArr;
+
+    }
+    public void deleteAllRecordDataExist(){
+        //database.execSQL("delete from "+ dbHelper.TABLE_NAME2);
+        //database.delete(dbHelper.TABLE_NAME2, null, null);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        // db.execSQL("DELETE FROM "+dbHelper.TABLE_NAME2);
+        long k =db.delete("DataExist", "1", null);//delete all rows in a table
+        Log.i("NumberOfElementDeleted", k + "");
+        db.close();
+
+    }
+    public boolean isEmptyTableDataExist(){
+        ArrayList<String> prArr = new ArrayList<String>();
+        prArr=getDataExistTable();
+        if (prArr.size()==0)return true;
+        else return false;
+    }
+//    public void DropTableDataExist(){
+//        SQLiteDatabase db = dbHelper.getReadableDatabase();
+//        db.execSQL("DROP TABLE IF EXISTS DataExist" );
+//        System.out.println("DataExist Table Deleted");
+//    }
+    public void updateDataExistٍTable(String UserID, int isUploaded)  {
+
+
+    // Open the database for writing
+    SQLiteDatabase db = dbHelper.getWritableDatabase();
+    // Start the transaction.
+    db.beginTransaction();
+    ContentValues values;
+
+    try
+    {
+        long k = 0;
+
+
+
+        values = new ContentValues();
+
+
+        values.put("Uploaded", isUploaded);
+
+
+
+        // Insert Row
+        k= db.update("DataExist",values, "UserId" + " =? ", new String[]{ UserID} );
+
+        Log.i("UpdatedTheCourseName", k + "");
+
+
+        db.setTransactionSuccessful();
+
+    }
+    catch (SQLiteException e)
+    {
+        e.printStackTrace();
+
+    }
+    finally
+    {
+        db.endTransaction();
+        // End the transaction.
+        db.close();
+        // Close database
+    }
+}
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 }
 
 
