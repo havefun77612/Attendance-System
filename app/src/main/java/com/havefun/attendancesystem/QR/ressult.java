@@ -142,7 +142,7 @@ public class ressult extends AppCompatActivity {
         InternetStatus internetStatus = new InternetStatus(getApplicationContext());
         if (internetStatus.checkNetworkStatus()) {
             Log.i(TAG, "testNetwork: ");
-            addDataToHashmap();
+            uploadSessionAttendance();
 
         } else {
             Log.i(TAG, "testNetwork: ");
@@ -151,7 +151,7 @@ public class ressult extends AppCompatActivity {
     }
 
     ///  Add data to the hashmap
-    public void addDataToHashmap() {
+    public void uploadSessionAttendance() {
         HashMap<String, String> hashMap= new HashMap<>();
         WriteToFirebase writeToFirebase = new WriteToFirebase(getApplicationContext(), this);
         for (int i = 0; i < ScanQr.scanData.size(); i++) {

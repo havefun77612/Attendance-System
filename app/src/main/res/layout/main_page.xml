@@ -8,7 +8,9 @@
     android:fitsSystemWindows="true"
 
 
-    tools:context=".MainPage">
+    tools:context=".MainPage"
+    android:background="@drawable/login_button_bk"
+    >
 
 
     <androidx.drawerlayout.widget.DrawerLayout
@@ -17,18 +19,20 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         tools:layout_editor_absoluteX="-120dp"
-        tools:layout_editor_absoluteY="25dp">
+        tools:layout_editor_absoluteY="25dp"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@drawable/login_button_bk">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorPrimary"
+
 
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
@@ -48,7 +52,7 @@
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/grey200"
+
                 android:id="@+id/scroll"
 
 
@@ -64,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:alignmentMode="alignMargins"
                     android:columnOrderPreserved="false"
-                    android:background="@color/grey100"
+
                     android:columnCount="2"
                     android:rowCount="3">
                     <!--first card for login-->
@@ -285,6 +289,47 @@
                                 android:layout_gravity="center"
                                 android:layout_marginTop="10dp"
                                 android:text=" QR\nScan"
+                                android:textAlignment="center"
+                                android:textColor="@color/blackTextColor"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="12dp"
+                        app:cardCornerRadius="12dp"
+                        android:layout_columnWeight="1"
+                        android:layout_rowWeight="1"
+
+                        app:cardElevation="6dp">
+
+                        <LinearLayout
+                            android:id="@+id/QrCourse"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/course"
+                                android:layout_width="84dp"
+                                android:layout_height="84dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="10dp"
+                                android:src="@drawable/mop" />
+
+                            <TextView
+                                android:id="@+id/tcourse"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="10dp"
+                                android:text="Qr Course"
                                 android:textAlignment="center"
                                 android:textColor="@color/blackTextColor"
                                 android:textSize="20sp"

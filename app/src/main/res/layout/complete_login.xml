@@ -14,7 +14,7 @@
         android:id="@+id/submit"
         android:layout_width="183dp"
         android:layout_height="58dp"
-        android:background="@drawable/button_style"
+        android:background="@drawable/login_button_bk"
         android:text="Submit"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -147,7 +147,7 @@
                 android:layout_height="60dp"
 
                 android:layout_marginTop="18dp"
-                android:background="@drawable/button_style"
+                android:background="@drawable/login_button_bk"
                 android:text="date set"
                 android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -312,12 +312,10 @@ public class DBManager {
     }
 */
 
-    ////////////////////////////////////////////////////////////////// Important Functions //////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////// Important Functions Table Prof //////////////////////////////////////////////////
     public void createProfileTable (){
-        database.execSQL(dbHelper.CREATE_TABLE2);System.out.println(" Created Table Profile OR Exists ");
+        database.execSQL(dbHelper.CREATE_TABLE2);System.out.println(" Created Table Profile OR Exists Prof ");
     }
-
-
     public void insertProfileTable(ArrayList<UserInfo>  x,Bitmap bitmap)  {
        // createTableProf();
 
@@ -369,8 +367,6 @@ public class DBManager {
             // Close database
         }
     }
-
-
     public ArrayList<UserInfo> getProfileTable(){
         Bitmap bitmap = null;
         // Open the database for reading
@@ -447,4 +443,478 @@ public class DBManager {
         db.close();
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////// Table Scan Functions   //////////////////////////////////////////////////////////////////
+    public void createScanTable (){
+
+        database.execSQL(dbHelper.CREATE_TABLE3);System.out.println(" Created Table Profile OR Exists Scan");
+    }
+    public void insertScanٍTable(ArrayList<UserInfo>  x)  {
+        // createTableProf();
+        createScanTable();
+
+        // Open the database for writing
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        // Start the transaction.
+        db.beginTransaction();
+        ContentValues values;
+
+        try
+        {
+            long k = 0;
+            for (int i=0 ; i<x.size();i++) {
+                // Convert the image into byte array
+
+
+                values = new ContentValues();
+
+
+                values.put("UserID", x.get(i).getUserId());
+                values.put("UserName", x.get(i).getUserName());
+                values.put("UserEmail", x.get(i).getUserEmail());
+                values.put("UserDate", x.get(i).getDateOfBirth());
+                values.put("UserAddress", x.get(i).getUserAddress());
+                values.put("UserPhone", x.get(i).getUserPhoneNumber());
+
+                // Insert Row
+                k = db.insert("Scan", null, values);
+                Log.i("InsertedTheIdNumber", k + "");
+            }
+
+            // Insert into database successfully.
+            db.setTransactionSuccessful();
+
+        }
+        catch (SQLiteException e)
+        {
+            e.printStackTrace();
+
+        }
+        finally
+        {
+            db.endTransaction();
+            // End the transaction.
+            db.close();
+            // Close database
+        }
+    }
+    public ArrayList<UserInfo> getScanTable(){
+
+        // Open the database for reading
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        // Start the transaction.
+        db.beginTransaction();
+        UserInfo pr;
+        ArrayList<UserInfo> prArr=new ArrayList<>();
+        try
+        {
+            String selectQuery = "SELECT * FROM Scan ";
+            //String countQuery="SELECT COUNT(*) FROM "+ dbHelper.TABLE_NAME2 +" ;";
+            //Log.i("TheCountOfSelectedRows", countQuery+" ");
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+            if(cursor.getCount() >0)
+            {
+                for (int i =0;i<cursor.getCount();i++){
+                    cursor.moveToNext();
+
+                    pr=new UserInfo();
+                    pr.setUserId(cursor.getString(2));
+                    pr.setUserName(cursor.getString(1));
+                    pr.setUserPhoneNumber(cursor.getString(4));
+                    pr.setUserEmail(cursor.getString(3));
+                    pr.setUserAddress(cursor.getString(5));
+                    pr.setDateOfBirth(cursor.getString(6));
+
+                    System.out.println(cursor.getString(2));
+                    System.out.println(cursor.getString(1));
+                    System.out.println(cursor.getString(4));
+                    System.out.println(cursor.getString(3));
+                    System.out.println(cursor.getString(5));
+                    System.out.println(cursor.getString(6));
+
+                    prArr.add(i,pr);
+                }
+
+            }
+            db.setTransactionSuccessful();
+
+        }
+        catch (SQLiteException e)
+        {
+            e.printStackTrace();
+
+        }
+        finally
+        {
+            db.endTransaction();
+            // End the transaction.
+            db.close();
+            // Close database
+        }
+        return  prArr;
+
+    }
+    public boolean isEmptyTableScan(){
+        ArrayList<UserInfo> prArr = new ArrayList<UserInfo>();
+        prArr=getScanTable();
+        if (prArr.size()==0)return true;
+        else return false;
+    }
+    public void deleteAllRecordScan(){
+        //database.execSQL("delete from "+ dbHelper.TABLE_NAME2);
+        //database.delete(dbHelper.TABLE_NAME2, null, null);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        // db.execSQL("DELETE FROM "+dbHelper.TABLE_NAME2);
+        long k =db.delete("Scan", "1", null);//delete all rows in a table
+        Log.i("NumberOfElementDeleted", k + "");
+        db.close();
+
+    }
+    public void deleteElementByIdScan(long _id){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        long k =db.delete("Scan", "ID = " + _id, null);
+        Log.i("NumberOfElementDeleted", k + "");
+        db.close();
+    }
+    //////////////////////////////////////////////////////////// Table Doctor_Courses Functions   /////////////////////////////////////////
+    public void createDoctor_CoursesTable (){
+
+        database.execSQL(dbHelper.CREATE_TABLE4);System.out.println(" Created Table Profile OR Exists Doctor_Courses ");
+    }
+    public void insertDoctor_CoursesٍTable(ArrayList<DoctorInfo>  x)  {
+        // createTableProf();
+        createDoctor_CoursesTable();
+
+        // Open the database for writing
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        // Start the transaction.
+        db.beginTransaction();
+        ContentValues values;
+
+        try
+        {
+            long k = 0;
+            for (int i=0 ; i<x.size();i++) {
+                // Convert the image into byte array
+
+
+                values = new ContentValues();
+
+
+                values.put("DoctorName", x.get(i).getDoctorName());
+                values.put("CourseName", x.get(i).getCourseName());
+                values.put("DoctorId", x.get(i).getDoctorId());
+
+                // Insert Row
+                k = db.insert("Doctor_Courses", null, values);
+                Log.i("InsertedTheIdNumber", k + "");
+            }
+
+            // Insert into database successfully.
+            db.setTransactionSuccessful();
+
+        }
+        catch (SQLiteException e)
+        {
+            e.printStackTrace();
+
+        }
+        finally
+        {
+            db.endTransaction();
+            // End the transaction.
+            db.close();
+            // Close database
+        }
+    }
+    public ArrayList<DoctorInfo> getDoctor_CoursesTable(){
+
+        // Open the database for reading
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        // Start the transaction.
+        db.beginTransaction();
+        DoctorInfo pr;
+        ArrayList<DoctorInfo> prArr=new ArrayList<DoctorInfo>();
+        try
+        {
+            String selectQuery = "SELECT * FROM Doctor_Courses ";
+            //String countQuery="SELECT COUNT(*) FROM "+ dbHelper.TABLE_NAME2 +" ;";
+            //Log.i("TheCountOfSelectedRows", countQuery+" ");
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+            if(cursor.getCount() >0)
+            {
+                for (int i =0;i<cursor.getCount();i++){
+                    cursor.moveToNext();
+
+                    pr=new DoctorInfo();
+                    pr.setDoctorId(cursor.getString(3));
+                    pr.setDoctorName(cursor.getString(1));
+                    pr.setCourseName(cursor.getString(2));
+
+
+                    System.out.println(cursor.getString(3));
+                    System.out.println(cursor.getString(1));
+                    System.out.println(cursor.getString(2));
+                    System.out.println(cursor.getString(0));
+
+                    prArr.add(i,pr);
+                }
+
+            }
+            db.setTransactionSuccessful();
+
+        }
+        catch (SQLiteException e)
+        {
+            e.printStackTrace();
+
+        }
+        finally
+        {
+            db.endTransaction();
+            // End the transaction.
+            db.close();
+            // Close database
+        }
+        return  prArr;
+
+    }
+    public boolean isEmptyTableDoctor_Courses(){
+        ArrayList<DoctorInfo> prArr = new ArrayList<DoctorInfo>();
+        prArr=getDoctor_CoursesTable();
+        if (prArr.size()==0)return true;
+        else return false;
+    }
+    public void deleteAllRecordDoctor_Courses(){
+        //database.execSQL("delete from "+ dbHelper.TABLE_NAME2);
+        //database.delete(dbHelper.TABLE_NAME2, null, null);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        // db.execSQL("DELETE FROM "+dbHelper.TABLE_NAME2);
+        long k =db.delete("Doctor_Courses", "1", null);//delete all rows in a table
+        Log.i("NumberOfElementDeleted", k + "");
+        db.close();
+
+    }
+    public void updateDoctor_CoursesٍTable(ArrayList<DoctorInfo>  x)  {
+
+
+        // Open the database for writing
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        // Start the transaction.
+        db.beginTransaction();
+        ContentValues values;
+
+        try
+        {
+            long k = 0;
+            for (int i=0 ; i<x.size();i++) {
+                // Convert the image into byte array
+
+
+                values = new ContentValues();
+
+
+                values.put("DoctorName", x.get(i).getDoctorName());
+                values.put("CourseName", x.get(i).getCourseName());
+
+
+                // Insert Row
+               k= db.update("Doctor_Courses",values, "DoctorName" + " =? ", new String[]{ x.get(i).getDoctorName()} );
+
+                Log.i("UpdatedTheCourseName", k + "");
+            }
+
+            // Insert into database successfully.
+            db.setTransactionSuccessful();
+
+        }
+        catch (SQLiteException e)
+        {
+            e.printStackTrace();
+
+        }
+        finally
+        {
+            db.endTransaction();
+            // End the transaction.
+            db.close();
+            // Close database
+        }
+    }
+    //////////////////////////////////////////////////////////   Table DataExist Functions   ///////////////////////////////
+    public void createDataExistTable (){
+
+        database.execSQL(dbHelper.CREATE_TABLE5);System.out.println(" Created Table Profile OR Exists 'DataExist' ");
+    }
+    public void insertDataExistٍTable(String UserName,String UserID, int isUploaded)  {
+        // createTableProf();
+        createDataExistTable();
+
+        // Open the database for writing
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        // Start the transaction.
+        db.beginTransaction();
+        ContentValues values;
+
+        try
+        {
+            long k = 0;
+
+
+
+                values = new ContentValues();
+
+
+                values.put("UserName", UserName);
+                values.put("UserId", UserID);
+                values.put("Uploaded", isUploaded);
+
+                // Insert Row
+                k = db.insert("DataExist", null, values);
+                Log.i("InsertedTheIdNumber", k + "");
+
+
+            // Insert into database successfully.
+            db.setTransactionSuccessful();
+
+        }
+        catch (SQLiteException e)
+        {
+            e.printStackTrace();
+
+        }
+        finally
+        {
+            db.endTransaction();
+            // End the transaction.
+            db.close();
+            // Close database
+        }
+    }
+    public ArrayList<String> getDataExistTable(){
+
+        // Open the database for reading
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        // Start the transaction.
+        db.beginTransaction();
+
+        ArrayList<String> prArr=new ArrayList<String>();
+        try
+        {
+            String selectQuery = "SELECT * FROM DataExist ";
+            //String countQuery="SELECT COUNT(*) FROM "+ dbHelper.TABLE_NAME2 +" ;";
+            //Log.i("TheCountOfSelectedRows", countQuery+" ");
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+            if(cursor.getCount() >0)
+            {cursor.moveToNext();
+
+
+
+                    prArr.add(0,cursor.getString(2));
+                    prArr.add(1,cursor.getString(1));
+                    prArr.add(cursor.getString(3));
+
+
+                    System.out.println(cursor.getString(2));
+                    System.out.println(cursor.getString(1));
+                    System.out.println(cursor.getString(3));
+                    System.out.println(cursor.getString(0));
+
+
+
+
+            }
+            db.setTransactionSuccessful();
+
+        }
+        catch (SQLiteException e)
+        {
+            e.printStackTrace();
+
+        }
+        finally
+        {
+            db.endTransaction();
+            // End the transaction.
+            db.close();
+            // Close database
+        }
+        return  prArr;
+
+    }
+    public void deleteAllRecordDataExist(){
+        //database.execSQL("delete from "+ dbHelper.TABLE_NAME2);
+        //database.delete(dbHelper.TABLE_NAME2, null, null);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        // db.execSQL("DELETE FROM "+dbHelper.TABLE_NAME2);
+        long k =db.delete("DataExist", "1", null);//delete all rows in a table
+        Log.i("NumberOfElementDeleted", k + "");
+        db.close();
+
+    }
+    public boolean isEmptyTableDataExist(){
+        ArrayList<String> prArr = new ArrayList<String>();
+        prArr=getDataExistTable();
+        if (prArr.size()==0)return true;
+        else return false;
+    }
+//    public void DropTableDataExist(){
+//        SQLiteDatabase db = dbHelper.getReadableDatabase();
+//        db.execSQL("DROP TABLE IF EXISTS DataExist" );
+//        System.out.println("DataExist Table Deleted");
+//    }
+    public void updateDataExistٍTable(String UserID, int isUploaded)  {
+
+
+    // Open the database for writing
+    SQLiteDatabase db = dbHelper.getWritableDatabase();
+    // Start the transaction.
+    db.beginTransaction();
+    ContentValues values;
+
+    try
+    {
+        long k = 0;
+
+
+
+        values = new ContentValues();
+
+
+        values.put("Uploaded", isUploaded);
+
+
+
+        // Insert Row
+        k= db.update("DataExist",values, "UserId" + " =? ", new String[]{ UserID} );
+
+        Log.i("UpdatedTheCourseName", k + "");
+
+
+        db.setTransactionSuccessful();
+
+    }
+    catch (SQLiteException e)
+    {
+        e.printStackTrace();
+
+    }
+    finally
+    {
+        db.endTransaction();
+        // End the transaction.
+        db.close();
+        // Close database
+    }
 }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+}
+
+
+
+
