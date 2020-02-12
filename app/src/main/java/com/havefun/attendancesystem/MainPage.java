@@ -57,6 +57,7 @@ import com.havefun.attendancesystem.Profile.ProfileActivity;
 import com.havefun.attendancesystem.QR.QrGeneration;
 import com.havefun.attendancesystem.QR.ScanQr;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -83,6 +84,26 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
         List<String> quotes = databaseAccess.getAllCoursesAvailable();
         System.out.println(quotes.size());
         ///////////////////////////
+        //////////////////////////////////Test Scan Table ////////////////////////////////////////////
+
+        /*ArrayList<UserInfo> arrUs= new ArrayList<UserInfo>();
+        UserInfo userInfo=new UserInfo();
+        userInfo.setUserId("1");
+        userInfo.setUserName("Aloo");
+        userInfo.setDateOfBirth("1.6.1998");
+        userInfo.setUserAddress("sdugaugkcnnxc s");
+        userInfo.setUserPhoneNumber("01124587564");
+        userInfo.setUserEmail("Ali@rmail.com");
+        arrUs.add(userInfo);
+        DBManager d=new DBManager(getApplicationContext());
+        d.insertScanٍTable(arrUs);
+        d.getScanTable();
+
+        System.out.println(d.isEmptyTableScan());
+        d.deleteAllRecordScan();
+        System.out.println(d.isEmptyTableScan());*/
+
+        //////////////////////////////////////////////////// End Of Test ////////////////
     }
 
     @Override

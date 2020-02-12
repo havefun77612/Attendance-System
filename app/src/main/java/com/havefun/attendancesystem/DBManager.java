@@ -447,4 +447,140 @@ public class DBManager {
         db.close();
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////// Table Scan Functions   //////////////////////////////////////////////////////////////////
+    public void createScanTable (){
+
+        database.execSQL(dbHelper.CREATE_TABLE3);System.out.println(" Created Table Profile OR Exists ");
+    }
+    public void insertScanٍTable(ArrayList<UserInfo>  x)  {
+        // createTableProf();
+        createScanTable();
+
+        // Open the database for writing
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        // Start the transaction.
+        db.beginTransaction();
+        ContentValues values;
+
+        try
+        {
+            long k = 0;
+            for (int i=0 ; i<x.size();i++) {
+                // Convert the image into byte array
+
+
+                values = new ContentValues();
+
+
+                values.put("UserID", x.get(i).getUserId());
+                values.put("UserName", x.get(i).getUserName());
+                values.put("UserEmail", x.get(i).getUserEmail());
+                values.put("UserDate", x.get(i).getDateOfBirth());
+                values.put("UserAddress", x.get(i).getUserAddress());
+                values.put("UserPhone", x.get(i).getUserPhoneNumber());
+
+                // Insert Row
+                k = db.insert("Scan", null, values);
+                Log.i("InsertedTheIdNumber", k + "");
+            }
+
+            // Insert into database successfully.
+            db.setTransactionSuccessful();
+
+        }
+        catch (SQLiteException e)
+        {
+            e.printStackTrace();
+
+        }
+        finally
+        {
+            db.endTransaction();
+            // End the transaction.
+            db.close();
+            // Close database
+        }
+    }
+    public ArrayList<UserInfo> getScanTable(){
+
+        // Open the database for reading
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        // Start the transaction.
+        db.beginTransaction();
+        UserInfo pr;
+        ArrayList<UserInfo> prArr=new ArrayList<>();
+        try
+        {
+            String selectQuery = "SELECT * FROM Scan ";
+            //String countQuery="SELECT COUNT(*) FROM "+ dbHelper.TABLE_NAME2 +" ;";
+            //Log.i("TheCountOfSelectedRows", countQuery+" ");
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+            if(cursor.getCount() >0)
+            {
+                for (int i =0;i<cursor.getCount();i++){
+                    cursor.moveToNext();
+
+                    pr=new UserInfo();
+                    pr.setUserId(cursor.getString(2));
+                    pr.setUserName(cursor.getString(1));
+                    pr.setUserPhoneNumber(cursor.getString(4));
+                    pr.setUserEmail(cursor.getString(3));
+                    pr.setUserAddress(cursor.getString(5));
+                    pr.setDateOfBirth(cursor.getString(6));
+
+                    System.out.println(cursor.getString(2));
+                    System.out.println(cursor.getString(1));
+                    System.out.println(cursor.getString(4));
+                    System.out.println(cursor.getString(3));
+                    System.out.println(cursor.getString(5));
+                    System.out.println(cursor.getString(6));
+
+                    prArr.add(i,pr);
+                }
+
+            }
+            db.setTransactionSuccessful();
+
+        }
+        catch (SQLiteException e)
+        {
+            e.printStackTrace();
+
+        }
+        finally
+        {
+            db.endTransaction();
+            // End the transaction.
+            db.close();
+            // Close database
+        }
+        return  prArr;
+
+    }
+    public boolean isEmptyTableScan(){
+        ArrayList<UserInfo> prArr = new ArrayList<UserInfo>();
+        prArr=getScanTable();
+        if (prArr.size()==0)return true;
+        else return false;
+    }
+    public void deleteAllRecordScan(){
+        //database.execSQL("delete from "+ dbHelper.TABLE_NAME2);
+        //database.delete(dbHelper.TABLE_NAME2, null, null);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        // db.execSQL("DELETE FROM "+dbHelper.TABLE_NAME2);
+        long k =db.delete("Scan", "1", null);//delete all rows in a table
+        Log.i("NumberOfElementDeleted", k + "");
+        db.close();
+
+    }
+    public void deleteElementByIdScan(long _id){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        long k =db.delete("Scan", "ID = " + _id, null);
+        Log.i("NumberOfElementDeleted", k + "");
+        db.close();
+    }
+
+
+
 }

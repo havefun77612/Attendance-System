@@ -42,6 +42,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String CREATE_TABLE2 = "CREATE TABLE IF NOT EXISTS "+ TABLE_NAME2+
             "(id INTEGER PRIMARY KEY AUTOINCREMENT,UserName TEXT,UserPhoneNumber TEXT,UserEmail TEXT,UserAddress TEXT, " +
             "  DateOfBirth TEXT,UserId Text ,  img BLOB NOT NULL )";
+    public static final String CREATE_TABLE3 = "CREATE TABLE IF NOT EXISTS Scan (\n" +
+            "    ID          INTEGER        PRIMARY KEY AUTOINCREMENT\n" +
+            "                                            NOT NULL,\n" +
+            "    UserName    Text ,\n" +
+            "    UserID      Text ,\n" +
+            "    UserEmail   Text ,\n" +
+            "    UserPhone   Text ,\n" +
+            "    UserAddress Text ,\n" +
+            "    UserDate    Text);";
 
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -51,6 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL(CREATE_TABLE2);
+        db.execSQL(CREATE_TABLE3);
 
     }
 
