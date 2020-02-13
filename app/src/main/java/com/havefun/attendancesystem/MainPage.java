@@ -27,7 +27,7 @@ import com.havefun.attendancesystem.Profile.ProfileActivity;
 import com.havefun.attendancesystem.QR.QrGen;
 import com.havefun.attendancesystem.QR.Qrcour;
 import com.havefun.attendancesystem.QR.ScanCourse;
-import com.havefun.attendancesystem.Scanning_page.ReadExcelData;
+import com.havefun.attendancesystem.Chat.ReadExcelData;
 
 import java.util.List;
 
@@ -220,9 +220,11 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
 
     }
 
+    // Testing the Excell Sheet Values
     private void testExcellFile() {
-        ReadExcelData readExcelData=new ReadExcelData(getApplicationContext());
-        readExcelData.readExcellNow();
+        ReadExcelData readExcelData=new ReadExcelData();
+        // uncomment the below link for testing ==>
+     //  readExcelData.checkTheExcellSheet();
 
     }
 
