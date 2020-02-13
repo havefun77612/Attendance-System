@@ -1,5 +1,6 @@
 package com.havefun.attendancesystem.Scanning_page;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -12,15 +13,17 @@ import java.io.InputStreamReader;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ReadExcelData extends AppCompatActivity {
+public class ReadExcelData  {
     InputStream inputStream;
 
     String[] ids;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_page);
-        inputStream = getResources().openRawResource(R.raw.student);
+    Context mContext;
+    public ReadExcelData(Context context){
+        mContext=context;
+    }
+
+    public void readExcellNow(){
+        inputStream = mContext.getResources().openRawResource(R.raw.student);
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         try {
@@ -49,7 +52,10 @@ public class ReadExcelData extends AppCompatActivity {
             throw new RuntimeException("Error in reading CSV file: "+ex);
         }
 
-
-
     }
+
+
+
+
+
 }

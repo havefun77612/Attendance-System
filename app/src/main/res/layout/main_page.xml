@@ -329,7 +329,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="10dp"
-                                android:text="Qr Course"
+                                android:text="Qr \n Course"
                                 android:textAlignment="center"
                                 android:textColor="@color/blackTextColor"
                                 android:textSize="20sp"
