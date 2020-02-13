@@ -33,5 +33,6 @@
     <string name="enter_your_message">Enter your message</string>
     <string name="the_message">The Message</string>
     <string name="upload_data_form_scan_page">Upload Data</string>
+    <string name="UserType">Doctor</string>
 
 </resources>

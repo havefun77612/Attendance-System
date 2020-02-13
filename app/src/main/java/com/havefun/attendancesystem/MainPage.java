@@ -22,6 +22,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.havefun.attendancesystem.Chat.MainChat;
+import com.havefun.attendancesystem.Profile.CompleteLogin;
 import com.havefun.attendancesystem.Profile.ProfileActivity;
 import com.havefun.attendancesystem.QR.QrGen;
 import com.havefun.attendancesystem.QR.Qrcour;
@@ -232,5 +233,11 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
         } else {
             super.onBackPressed();
         }
+    }
+
+    public void openUserTyprSelectionActivity(View view) {
+        Intent forUserType=new Intent(getApplicationContext(),CompleteLogin.class);
+        forUserType.putExtra("fromAdmin",true);
+        startActivity(forUserType);
     }
 }

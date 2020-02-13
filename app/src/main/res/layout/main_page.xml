@@ -338,19 +338,53 @@
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
+                    <!-- card number 7 -->
+                    <!--   card5 qr.generate-->
 
-                    <!--  <TextView
-                            android:layout_width="158dp"
-                            android:layout_height="148dp"
-                            android:layout_row="0"
+                    <androidx.cardview.widget.CardView
 
-                            android:layout_gravity="center"
-                            android:layout_marginTop="20dp"
-                            android:text="Join us"
-                            android:textColor="@color/blackTextColor"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-                            -->
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="12dp"
+                        app:cardCornerRadius="12dp"
+                        android:layout_columnWeight="1"
+                        android:layout_rowWeight="1"
+
+                        app:cardElevation="6dp">
+
+                        <LinearLayout
+                            android:id="@+id/addNewDoctorOrAdmin"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:onClick="openUserTyprSelectionActivity"
+                            >
+
+                            <ImageView
+                                android:id="@+id/imageNewUserType"
+                                android:layout_width="84dp"
+                                android:layout_height="84dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="10dp"
+                                android:src="@drawable/profile5" />
+
+                            <TextView
+                                android:id="@+id/newUserTypeText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="10dp"
+                                android:text="Add New \n User"
+                                android:textAlignment="center"
+                                android:textColor="@color/blackTextColor"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
 
 
                 </GridLayout>

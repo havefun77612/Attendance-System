@@ -17,15 +17,21 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.havefun.attendancesystem.InternetStatus;
 import com.havefun.attendancesystem.R;
 import com.havefun.attendancesystem.WriteToFirebase;
 import com.shashank.sony.fancytoastlib.FancyToast;
@@ -35,19 +41,26 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class CompleteLogin extends AppCompatActivity {
-    Button submit,date;
-    EditText username, email, phone, address, dateofbirth;
+    Button submit, date;
+    EditText username, email, phone, address, dateofbirth,passwordForUserType;
     Animation animate1, animate2;
     ImageView image_profile;
+    Switch checkTheUserType;
+    FirebaseAuth mAuth;
+    LinearLayout completLoginMainLayout;
     final int imagePcode = 50;
     final int prCode = 51;//must be final for onRequestPermissionsResult
-    Bitmap bitmap=null;
+    Bitmap bitmap = null;
     //end of image vals
+
     final HashMap<String, String> hash = new HashMap<String, String>();
     FirebaseUser firebaseUser;
     String TAG = "CompleteLogin Page", UserCompleteInfo = "false";
     ProgressBar progressBar;
-    String userDate;
+    String userDate, userType;
+    // intent for checking the source if the admin is the one how will create this account for a new admin or for doctor
+
+    Boolean fromAdmin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +70,7 @@ public class CompleteLogin extends AppCompatActivity {
         initializeVars();
         setAvailableData();
         setListners();
-        addingAnimation();
+      //  addingAnimation();
 
 
     }
@@ -71,7 +84,7 @@ public class CompleteLogin extends AppCompatActivity {
 
     public boolean userOK() {
         String user = username.getText().toString();
-        String pat = "^[a-zA-Z]*$";
+        String pat = "^[a-zA-Z ]*$";
         if (user.matches(pat)) {
             return true;
         } else {
@@ -99,16 +112,17 @@ public class CompleteLogin extends AppCompatActivity {
             return false;
         }
     }
-    public boolean dateOK(){
-        if(userDate!=null){
+
+    public boolean dateOK() {
+        if (userDate != null) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
 
     public boolean allOk() {
-        if (emailOK() && userOK() && phoneOk()&&dateOK()) {
+        if (emailOK() && userOK() && phoneOk() && dateOK()) {
             return true;
         } else {
             return false;
@@ -164,15 +178,23 @@ public class CompleteLogin extends AppCompatActivity {
     ::: Try To Fetch Existing Data
      */
     private void setAvailableData() {
-        try {
-            username.setText(firebaseUser.getDisplayName());
-            email.setText(firebaseUser.getEmail());
-            email.setEnabled(false);
-            Picasso.get().load(firebaseUser.getPhotoUrl()).placeholder(R.drawable.profile5).into(image_profile);
+        if (fromAdmin) {
+            userType = "Doctor";
+
+        } else {
+            userType = "Student";
+            completLoginMainLayout.removeView(passwordForUserType);
+            completLoginMainLayout.removeView(checkTheUserType);
+            try {
+                username.setText(firebaseUser.getDisplayName());
+                email.setText(firebaseUser.getEmail());
+                email.setEnabled(false);
+                Picasso.get().load(firebaseUser.getPhotoUrl()).placeholder(R.drawable.profile5).into(image_profile);
 
 
-        } catch (Exception e) {
-            Log.i(TAG, e.getMessage());
+            } catch (Exception e) {
+                Log.i(TAG, e.getMessage());
+            }
         }
     }
 
@@ -182,16 +204,20 @@ public class CompleteLogin extends AppCompatActivity {
     private void initializeVars() {
         username = (EditText) findViewById(R.id.username);
         email = (EditText) findViewById(R.id.email);
-
+        fromAdmin = getIntent().getBooleanExtra("fromAdmin", false);
         phone = (EditText) findViewById(R.id.phone);
         address = (EditText) findViewById(R.id.address);
         dateofbirth = (EditText) findViewById(R.id.dateofbirth);
+        checkTheUserType = findViewById(R.id.chooseType);
+        passwordForUserType=findViewById(R.id.passwordForUserType);
+        mAuth = FirebaseAuth.getInstance();
+        completLoginMainLayout=findViewById(R.id.completLoginMainLayout);
         dateofbirth.setEnabled(false);//to stop the user from adding something to the date
         submit = (Button) findViewById(R.id.submit);
         image_profile = (ImageView) findViewById(R.id.profileImage);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         progressBar = (ProgressBar) findViewById(R.id.progressBar2);
-        date=findViewById(R.id.date);
+        date = findViewById(R.id.date);
 
 
     }
@@ -238,15 +264,19 @@ public class CompleteLogin extends AppCompatActivity {
                 String userAddress = address.getText().toString();
                 if (!userOK()) {
                     username.setError("please check your user name");
+                    disableControllers();
                 }
                 if (!emailOK()) {
                     email.setError("please check your email");
+                    disableControllers();
                 }
                 if (!phoneOk()) {
                     phone.setError("please check your phone number");
+                    disableControllers();
                 }
-                if(!dateOK()){
+                if (!dateOK()) {
                     dateofbirth.setError("please set a date");
+                    disableControllers();
                 }
                 if (allOk()) {
                     disableControllers();
@@ -255,17 +285,25 @@ public class CompleteLogin extends AppCompatActivity {
                     hash.put("UserEmail", emailf);
                     hash.put("UserId", firebaseUser.getUid());
                     hash.put("UserAddress", userAddress);
-                    hash.put("UserDate",userDate);
-                    hash.put("UserType","student");
-                    
+                    hash.put("UserDate", userDate);
+                    hash.put("UserType", userType);
+
                     if (firebaseUser.getPhotoUrl() != null && !firebaseUser.getPhotoUrl().toString().equals("")) {
                         hash.put("UserProfileUri", firebaseUser.getPhotoUrl().toString());
                     } else {
                         hash.put("UserProfileUri", "");
                     }
-                    WriteToFirebase writeToFirebase = new WriteToFirebase(getApplicationContext(), CompleteLogin.this);
-                    writeToFirebase.addNewUserinfo(hash, bitmap, UserCompleteInfo);
+                    if (fromAdmin) {
+                        String password=passwordForUserType.getText().toString();
+                        hash.put("UserPassword",password);
+                        if (!password.isEmpty()&&!password.equals(" ")){
+                        signInWithEmailAndPassword(emailf,password);
 
+                        }
+                    } else {
+                        WriteToFirebase writeToFirebase = new WriteToFirebase(getApplicationContext(), CompleteLogin.this);
+                        writeToFirebase.addNewUserinfo(hash, bitmap, UserCompleteInfo);
+                    }
                 }
 
             }
@@ -278,15 +316,15 @@ public class CompleteLogin extends AppCompatActivity {
 
             public void onClick(View v) {
                 //Calendar calendar = Calendar.getInstance();//defining a calendar
-                int year =1990;//the year
-                int month =1; //calendar.get(Calendar.MONTH);//the month
-                int day =1; //calendar.get(Calendar.DAY_OF_MONTH);//the day
+                int year = 1990;//the year
+                int month = 1; //calendar.get(Calendar.MONTH);//the month
+                int day = 1; //calendar.get(Calendar.DAY_OF_MONTH);//the day
                 //the date picker
-                DatePickerDialog dateBD=new DatePickerDialog(CompleteLogin.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog dateBD = new DatePickerDialog(CompleteLogin.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                         //month is set to 0 so we need to add 1
-                        userDate=Integer.toString(day)+"/"+Integer.toString(month+1)+"/"+Integer.toString(year);
+                        userDate = Integer.toString(day) + "/" + Integer.toString(month + 1) + "/" + Integer.toString(year);
                         dateofbirth.setText(userDate);
 
                     }
@@ -296,9 +334,62 @@ public class CompleteLogin extends AppCompatActivity {
 
             }
         });
+         /*
+    /// this method make sure to get the right type of the user even if it is admin or doctor
+    // if checked the user type is admin if not the user type is doctor
+     */
+        checkTheUserType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                checkTheUserType.setTextOff("Doctor");
+                checkTheUserType.setTextOn("Admin");
+                if (checkTheUserType.isChecked()) {
+                    userType = "Admin";
+                    checkTheUserType.setText("Admin");
+                } else {
+                    userType = "Doctor";
+                    checkTheUserType.setText("Doctor");
+                }
+            }
+        });
 
 
     }
+
+    // for signing in  and add the data to the realtime DB
+    private void signInWithEmailAndPassword(String email, String password) {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            WriteToFirebase writeToFirebase = new WriteToFirebase(getApplicationContext(), CompleteLogin.this);
+                            writeToFirebase.addNewUserinfo(hash, bitmap, UserCompleteInfo);
+                            FancyToast.makeText(getApplicationContext(), "Profile Created Successfully", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            // in case of connection is available
+                            if (new InternetStatus(getApplicationContext()).checkNetworkStatus()) {
+                                FancyToast.makeText(getApplicationContext(), "Wrong Email Or Pass"
+                                        , FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
+                            }
+                            // in case of connection to internet is lost
+                            else {
+                                FancyToast.makeText(getApplicationContext(), "Please Check Internet Connection"
+                                        , FancyToast.LENGTH_LONG, FancyToast.WARNING, true).show();
+                            }
+
+
+                        }
+                        // Disable the progressbar
+                        disableControllers();
+                    }
+                });
+
+    }
+
+
     // Disable controllers For protecting from diplicated data
     private void disableControllers() {
         image_profile.setEnabled(false);
@@ -310,5 +401,6 @@ public class CompleteLogin extends AppCompatActivity {
         dateofbirth.setEnabled(false);
         date.setEnabled(false);
     }
+
 
 }
