@@ -43,6 +43,10 @@ private View view;
     recyclerView=view.findViewById(R.id.recyclerView);
     recyclerView.setHasFixedSize(true);
     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    recyclerView.setItemAnimator(null);
+    recyclerView.setItemViewCacheSize(20);
+    recyclerView.setDrawingCacheEnabled(true);
+   // recyclerView.setLayoutFrozen(true);
     userInfos=new ArrayList<>();
     readUsers();
     }
@@ -50,7 +54,8 @@ private View view;
     private void readUsers() {
         final FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference= FirebaseDatabase.getInstance().getReference("Users");
-        reference.addValueEventListener(new ValueEventListener() {
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {

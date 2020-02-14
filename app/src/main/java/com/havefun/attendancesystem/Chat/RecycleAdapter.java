@@ -40,9 +40,12 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.username.setText(users.get(position).getUserName());
+
+
         if (!users.get(position).getUserProfileUri().isEmpty()) {
             getUserImage(position,holder);
         }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,6 +56,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
         });
 
     }
+
 
     @Override
     public int getItemCount() {
@@ -65,16 +69,19 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
     // Download the image
     private void getUserImage(final int position,@NonNull final ViewHolder holder) {
 
-            StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://attendance-system-29656.appspot.com/userImages/" + users.get(position).getUserId() + ".jpg");
-            storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    Log.i("Mainprofile:::", "The Uri=  " + uri.toString());
-                    users.get(position).setUserProfileUri(uri.toString());
-                    Picasso.get().load(users.get(position).getUserProfileUri()).placeholder(R.drawable.profile5).into(holder.userImageView);
-                    Log.i("User Photo Path", "onBindViewHolder: "+users.get(position).getUserProfileUri());
-                }
-            });
+
+                StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://attendance-system-29656.appspot.com/userImages/" + users.get(position).getUserId() + ".jpg");
+                storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Log.i("Mainprofile:::", "The Uri=  " + uri.toString());
+                        users.get(position).setUserProfileUri(uri.toString());
+                        Picasso.get().load(users.get(position).getUserProfileUri()).placeholder(R.drawable.profile5).into(holder.userImageView);
+                        Log.i("User Photo Path", "onBindViewHolder: " + users.get(position).getUserProfileUri());
+
+                    }
+                });
+
 
 
 
