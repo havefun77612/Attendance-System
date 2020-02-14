@@ -77,7 +77,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                     Picasso.get().load(uri.toString()).placeholder(R.drawable.profile5).into(holder.messageSenderImage);
 
                 }catch (Exception e){
-                    Toast.makeText(context, "the current image is not available yet ", Toast.LENGTH_SHORT).show();
+                    Log.i("MessageAdapter", "onSuccess: the current image is not available yet ");
                 }
                 Log.i("User Photo Path", "onBindViewHolder: "+uri.toString());
             }

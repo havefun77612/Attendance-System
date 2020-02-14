@@ -303,7 +303,7 @@ void checkifUserCompeletLoginOrNot(){
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             if (dataSnapshot.exists()){
                 finish();
-                startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                startActivity(new Intent(getApplicationContext(), SplashScreen.class));
             }else {
             finish();
             startActivity(new Intent(getApplicationContext(), CompleteLogin.class));

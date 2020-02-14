@@ -94,7 +94,8 @@ public class Login extends AppCompatActivity {
                             user = mAuth.getCurrentUser();
                             FancyToast.makeText(getApplicationContext(), "Login Success",
                                     FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
-                            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                            startActivity(new Intent(getApplicationContext(), SplashScreen.class));
+                            finish();
                         } else {
                             // If sign in fails, display a message to the user.
                             // in case of connection is available

@@ -123,9 +123,11 @@ Remember to enable view depending on the user type comment  this line SplashScre
             mainPageMainContainer.removeView(cardQrScan);
             mainPageMainContainer.removeView(cardQrGeneration);
             mainPageMainContainer.removeView(cardQrCourseGeneration);
+            mainPageMainContainer.removeView(cardAddNewUserType);
         } else if (SplashScreen.FirebaseUserType.equals("Doctor")) {
             mainPageMainContainer.removeView(cardQrGeneration);
             mainPageMainContainer.removeView(cardQrCourseGeneration);
+            mainPageMainContainer.removeView(cardAddNewUserType);
         } else if (SplashScreen.FirebaseUserType.equals("Admin")) {
            //mainPageMainContainer.removeView(cardLogin);
             FancyToast.makeText(getApplicationContext(),"Hello Admin",
@@ -158,6 +160,8 @@ Remember to enable view depending on the user type comment  this line SplashScre
         offlineDB.deleteAllRecordProf();
         Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
         FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(getApplicationContext(),Login.class));
+        finish();
     }
 
     /*
