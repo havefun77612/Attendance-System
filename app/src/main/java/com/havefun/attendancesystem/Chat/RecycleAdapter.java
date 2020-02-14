@@ -90,9 +90,9 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
     public class  ViewHolder extends RecyclerView.ViewHolder{
         /// getting the structure from the card
         public TextView username;
-        public ImageView userImageView;
+        private ImageView userImageView;
 
-        public ViewHolder(@NonNull View itemView) {
+        private ViewHolder(@NonNull View itemView) {
             super(itemView);
             username=itemView.findViewById(R.id.usersUserName);
             userImageView=itemView.findViewById(R.id.usersUserImage);

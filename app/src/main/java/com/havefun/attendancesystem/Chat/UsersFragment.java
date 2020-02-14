@@ -46,6 +46,7 @@ private View view;
     recyclerView.setItemAnimator(null);
     recyclerView.setItemViewCacheSize(20);
     recyclerView.setDrawingCacheEnabled(true);
+
    // recyclerView.setLayoutFrozen(true);
     userInfos=new ArrayList<>();
     readUsers();
@@ -69,6 +70,7 @@ private View view;
                         }
                     }
                     recycleAdapter = new RecycleAdapter(getContext(), userInfos);
+                    recycleAdapter.setHasStableIds(true);
                     recyclerView.setAdapter(recycleAdapter);
                 }else {
                     FancyToast.makeText(getContext(),"Error Getting User Data Please Cheack Your Internet",FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show();
