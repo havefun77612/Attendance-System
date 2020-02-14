@@ -81,5 +81,7 @@ dependencies {
     //Database
     implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
 
+    implementation 'net.sourceforge.jexcelapi:jxl:2.6'
+
 
 }

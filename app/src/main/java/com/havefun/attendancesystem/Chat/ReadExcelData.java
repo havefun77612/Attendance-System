@@ -1,72 +1,60 @@
 package com.havefun.attendancesystem.Chat;
 
+
+import android.content.res.AssetManager;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
 
 import com.havefun.attendancesystem.R;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import javax.net.ssl.HttpsURLConnection;
 
 import androidx.appcompat.app.AppCompatActivity;
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
 
-public class ReadExcelData  {
-    InputStream inputStream;
+public class ReadExcelData extends AppCompatActivity {
 
-    String[] ids;
-    String URL;
 
-    public ReadExcelData() {
-        URL = "http://github.com/havefun77612/Attendance-System/blob/master/app/Student_lists.xlsx";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main_page);
     }
-    public void checkTheExcellSheet(){
+    public void order(View v){
 
         try {
-            java.net.URL mURL = new URL(URL);
-            HttpURLConnection httpsURLConnection = (HttpURLConnection) mURL.openConnection();
-            inputStream = new BufferedInputStream(httpsURLConnection.getInputStream());
-            // getting network os exception error
-        } catch (MalformedURLException e) {
-            e.printStackTrace();        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        try {
-            String excelLine;
-            while ((excelLine = reader.readLine()) != null) {
+            AssetManager am = getAssets();
+            InputStream is = am.open("student1.xls");
+            Workbook wb = Workbook.getWorkbook(is);
+            Sheet s = wb.getSheet(0);
+            int row = s.getRows();
+            int col = s.getColumns();
+            String xx=" ";
+            for(int i=0;i<row;i++)
+            {
+                for(int j=0;j<col;j++)
+                {
+                    Cell c = s.getCell(j,i);
+                    xx=xx+c.getContents();
 
-
-
-                ids=excelLine.split(",");
-                try{
-
-                    Log.e("Collumn 1 ",""+ids[0]) ;
-
-
-
-                }catch (Exception e){
-                    Log.e("Unknown ",e.toString());
                 }
+                xx=xx+"\n";
+
             }
 
 
 
+        }
+        catch (Exception e)
+        {
 
         }
-        catch (IOException ex) {
-            throw new RuntimeException("Error in reading Excel file: "+ex);
-        }
-
     }
-}
 
+
+}
