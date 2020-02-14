@@ -49,8 +49,19 @@
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTintMode="src_atop"
+                android:foregroundGravity="center_horizontal"
+                android:indeterminateTint="@color/green400"
+                android:visibility="invisible" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/layout_login" />

@@ -364,6 +364,8 @@ public class CompleteLogin extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            hash.put("UserId", mAuth.getCurrentUser().getUid());
+
                             WriteToFirebase writeToFirebase = new WriteToFirebase(getApplicationContext(), CompleteLogin.this);
                             writeToFirebase.addNewUserinfo(hash, bitmap, UserCompleteInfo);
                             FancyToast.makeText(getApplicationContext(), "Profile Created Successfully", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();

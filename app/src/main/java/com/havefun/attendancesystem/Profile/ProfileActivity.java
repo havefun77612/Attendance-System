@@ -47,6 +47,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity {
+    final private String TAG="ProfileActivity";
     TextView nameText1, nameText2, mobileText1, mobileText2, emailText1, emailText2, addressText1, addressText2, dateText1, dateText2, userName, userEmail;
     ImageView profile_image;
     FirebaseUser user;
@@ -100,6 +101,11 @@ public class ProfileActivity extends AppCompatActivity {
                             user.setUserName(data.child("UserName").getValue().toString());
                             user.setUserPhoneNumber(data.child("UserPhoneNumber").getValue().toString());
                             user.setDateOfBirth(data.child("UserDate").getValue().toString());
+                            try {
+                                user.setUserType(data.child("UserType").getValue().toString());
+                            }catch (Exception e){
+                                Log.i(TAG, "onDataChange: "+e);
+                            }
                             UserInfoList.add(user);
                         }
 

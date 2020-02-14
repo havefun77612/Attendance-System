@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -22,12 +24,13 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.havefun.attendancesystem.Chat.MainChat;
+import com.havefun.attendancesystem.Chat.ReadExcelData;
 import com.havefun.attendancesystem.Profile.CompleteLogin;
 import com.havefun.attendancesystem.Profile.ProfileActivity;
 import com.havefun.attendancesystem.QR.QrGen;
 import com.havefun.attendancesystem.QR.Qrcour;
 import com.havefun.attendancesystem.QR.ScanCourse;
-import com.havefun.attendancesystem.Chat.ReadExcelData;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.List;
 
@@ -36,7 +39,9 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
     Toolbar toolbar;
     DrawerLayout drawer;
     ActionBarDrawerToggle toggle;
-    LinearLayout loginactivity, profile_page, Scaner, waiting, qrgeneration, QrCourse;
+    LinearLayout loginActivity, profile_page, scaner, chatting, qrgeneration, qrCourse, addNewDoctorOrAdmin;
+    CardView cardLogin,cardProfile,cardQrGeneration,cardChat,cardQrScan,cardQrCourseGeneration,cardAddNewUserType;
+    GridLayout mainPageMainContainer;
     FirebaseUser user;
     DBManager offlineDB;
     TextView main_page;
@@ -48,6 +53,7 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page);
         initializeVars();
+        prepareContentDependingOnTheUserType();
         addListners();
         addinganimation();
         ////////////////////////////////// Test Faculty Database /////////////////////////////////
@@ -106,6 +112,29 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
 
         testExcellFile();
     }
+/*
+Remember to enable view depending on the user type comment  this line SplashScreen.FirebaseUserType="Admin";
+ */
+    private void prepareContentDependingOnTheUserType() {
+        // to Disable the user type uncomment for Debugging the below line ==>
+       // SplashScreen.FirebaseUserType="Admin";
+        if (SplashScreen.FirebaseUserType.equals("Student")) {
+            mainPageMainContainer.removeView(cardLogin);
+            mainPageMainContainer.removeView(cardQrScan);
+            mainPageMainContainer.removeView(cardQrGeneration);
+            mainPageMainContainer.removeView(cardQrCourseGeneration);
+        } else if (SplashScreen.FirebaseUserType.equals("Doctor")) {
+            mainPageMainContainer.removeView(cardQrGeneration);
+            mainPageMainContainer.removeView(cardQrCourseGeneration);
+        } else if (SplashScreen.FirebaseUserType.equals("Admin")) {
+           //mainPageMainContainer.removeView(cardLogin);
+            FancyToast.makeText(getApplicationContext(),"Hello Admin",
+                    FancyToast.LENGTH_LONG,FancyToast.INFO,true).show();
+        } else {
+            Toast.makeText(this, "No UserType Exist", Toast.LENGTH_SHORT).show();
+            System.out.println("No UserType Exist");
+        }
+    }
 
 
     @Override
@@ -135,14 +164,22 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
      ** Initialization Stage
      */
     private void initializeVars() {
-        loginactivity = (LinearLayout) findViewById(R.id.loginactivity);
+        loginActivity = (LinearLayout) findViewById(R.id.loginactivity);
         profile_page = (LinearLayout) findViewById(R.id.profile_page);
-        Scaner = (LinearLayout) findViewById(R.id.Scaner);
-        waiting = (LinearLayout) findViewById(R.id.waiting);
+        scaner = (LinearLayout) findViewById(R.id.Scaner);
+        chatting = (LinearLayout) findViewById(R.id.chattingCard);
         qrgeneration = (LinearLayout) findViewById(R.id.qrgeneration);
-        QrCourse = findViewById(R.id.QrCourse);
+        addNewDoctorOrAdmin = findViewById(R.id.addNewDoctorOrAdmin);
+        cardChat=findViewById(R.id.cardChat);
+        cardLogin=findViewById(R.id.cardLogin);
+        cardProfile=findViewById(R.id.cardProfile);
+        cardAddNewUserType=findViewById(R.id.cardAddNewUserType);
+        cardQrCourseGeneration=findViewById(R.id.cardCourseGeneration);
+        cardQrGeneration=findViewById(R.id.cardQrGeneration);
+        cardQrScan=findViewById(R.id.cardScan);
+        qrCourse = findViewById(R.id.QrCourse);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-
+        mainPageMainContainer = findViewById(R.id.mainPageMainContainer);
         user = FirebaseAuth.getInstance().getCurrentUser();
         offlineDB = new DBManager(getApplicationContext());
         setSupportActionBar(toolbar);
@@ -173,7 +210,7 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
 
 
     private void addListners() {
-        loginactivity.setOnClickListener(new View.OnClickListener() {
+        loginActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), Login.class));
@@ -189,14 +226,14 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
 
             }
         });
-        Scaner.setOnClickListener(new View.OnClickListener() {
+        scaner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), ScanCourse.class));
 
             }
         });
-        waiting.setOnClickListener(new View.OnClickListener() {
+        chatting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), MainChat.class));
@@ -209,7 +246,7 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
                 startActivity(new Intent(getApplicationContext(), QrGen.class));
             }
         });
-        QrCourse.setOnClickListener(new View.OnClickListener() {
+        qrCourse.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
                                             startActivity(new Intent(getApplicationContext(), Qrcour.class));
@@ -217,14 +254,20 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
                                     }
 
         );
+        addNewDoctorOrAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openUserTyprSelectionActivity();
+            }
+        });
 
     }
 
     // Testing the Excell Sheet Values
     private void testExcellFile() {
-        ReadExcelData readExcelData=new ReadExcelData();
+        ReadExcelData readExcelData = new ReadExcelData();
         // uncomment the below link for testing ==>
-     //  readExcelData.checkTheExcellSheet();
+        //  readExcelData.checkTheExcellSheet();
 
     }
 
@@ -237,9 +280,9 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
         }
     }
 
-    public void openUserTyprSelectionActivity(View view) {
-        Intent forUserType=new Intent(getApplicationContext(),CompleteLogin.class);
-        forUserType.putExtra("fromAdmin",true);
+    public void openUserTyprSelectionActivity() {
+        Intent forUserType = new Intent(getApplicationContext(), CompleteLogin.class);
+        forUserType.putExtra("fromAdmin", true);
         startActivity(forUserType);
     }
 }

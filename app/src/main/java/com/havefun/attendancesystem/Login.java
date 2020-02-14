@@ -6,41 +6,39 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.havefun.attendancesystem.Profile.ProfileActivity;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
 public class Login extends AppCompatActivity {
     EditText password, email;
-    TextView gotosginupbtn,login_word;
+    TextView gotosginupbtn, login_word;
     Button loginbtn;
     String ErrorMessage = "";
     ProgressBar progressBar;
     FirebaseAuth mAuth;
     FirebaseUser user;
-    Animation Animate1,Animate2;
-    ImageView register_image,login_image;
+    Animation Animate1, Animate2;
+    ImageView register_image, login_image;
+
     //CardView card;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,8 +89,12 @@ public class Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
+                            DBManager offlineDB = new DBManager(getApplicationContext());
+                            offlineDB.deleteAllRecordProf();
                             user = mAuth.getCurrentUser();
-                            FancyToast.makeText(getApplicationContext(), "Login Success", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
+                            FancyToast.makeText(getApplicationContext(), "Login Success",
+                                    FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
+                            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         } else {
                             // If sign in fails, display a message to the user.
                             // in case of connection is available
@@ -186,11 +188,11 @@ public class Login extends AppCompatActivity {
         gotosginupbtn = (TextView) findViewById(R.id.gotosginupbtn);
         password = (EditText) findViewById(R.id.password);
         email = (EditText) findViewById(R.id.email);
-        loginbtn =  findViewById(R.id.loginbtn);
+        loginbtn = findViewById(R.id.loginbtn);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         mAuth = FirebaseAuth.getInstance();
         //register_image =(ImageView)findViewById( R.id.register_image );
-        login_image = (ImageView)findViewById( R.id.login_image );
+        login_image = (ImageView) findViewById(R.id.login_image);
 
         // steady state
         /*
@@ -199,7 +201,8 @@ public class Login extends AppCompatActivity {
 
         // card = (CardView)findViewById( R.id.card );
     }
-    private void addinganimation(){
+
+    private void addinganimation() {
 //        Animate1 = AnimationUtils.loadAnimation( Login.this,R.anim.righttoleft );
 //        //Animate2 = AnimationUtils.loadAnimation( Login.this,R.anim.bounce );
 //        login_image.startAnimation( Animate1 );
@@ -210,7 +213,7 @@ public class Login extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(getApplicationContext(),MainPage.class));
+        startActivity(new Intent(getApplicationContext(), MainPage.class));
         finish();
         super.onBackPressed();
     }

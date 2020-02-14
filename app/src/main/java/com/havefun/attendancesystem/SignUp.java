@@ -114,6 +114,8 @@ public class SignUp extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
+                            DBManager offlineDB=new DBManager(getApplicationContext());
+                            offlineDB.deleteAllRecordProf();
                             FancyToast.makeText(getApplicationContext(), "Signed up Success", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
                             user = mAuth.getCurrentUser();
                             checkifUserCompeletLoginOrNot();

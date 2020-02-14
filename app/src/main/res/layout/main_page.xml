@@ -6,8 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-
-
     tools:context=".MainPage"
     android:background="@drawable/login_button_bk"
     >
@@ -63,7 +61,7 @@
                 <GridLayout
 
 
-
+                    android:id="@+id/mainPageMainContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:alignmentMode="alignMargins"
@@ -73,6 +71,7 @@
                     android:rowCount="3">
                     <!--first card for login-->
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardLogin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
@@ -114,7 +113,7 @@
                     </androidx.cardview.widget.CardView>
                     <!--sec card profile-->
                     <androidx.cardview.widget.CardView
-
+                    android:id="@+id/cardProfile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
@@ -161,7 +160,7 @@
 
                     <!--3card scan-->
                     <androidx.cardview.widget.CardView
-
+                    android:id="@+id/cardQrGeneration"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="1"
@@ -215,7 +214,7 @@
                     </androidx.cardview.widget.CardView>
                     <!--card4 wait-->
                     <androidx.cardview.widget.CardView
-
+                        android:id="@+id/cardChat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="12dp"
@@ -224,7 +223,7 @@
                         android:layout_columnWeight="1"
                         android:layout_rowWeight="1">
                         <LinearLayout
-                            android:id="@+id/waiting"
+                            android:id="@+id/chattingCard"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
 
@@ -257,7 +256,7 @@
                     <!--   card5 qr.generate-->
 
                     <androidx.cardview.widget.CardView
-
+                        android:id="@+id/cardScan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="12dp"
@@ -298,7 +297,7 @@
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                     <androidx.cardview.widget.CardView
-
+                        android:id="@+id/cardCourseGeneration"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="12dp"
@@ -342,7 +341,7 @@
                     <!--   card5 qr.generate-->
 
                     <androidx.cardview.widget.CardView
-
+                        android:id="@+id/cardAddNewUserType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="12dp"
@@ -358,7 +357,6 @@
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:orientation="vertical"
-                            android:onClick="openUserTyprSelectionActivity"
                             >
 
                             <ImageView
