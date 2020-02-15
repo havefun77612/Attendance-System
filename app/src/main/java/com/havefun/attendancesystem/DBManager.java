@@ -814,7 +814,7 @@ public class DBManager {
 
                     prArr.add(0,cursor.getString(2));
                     prArr.add(1,cursor.getString(1));
-                    prArr.add(cursor.getString(3));
+                    prArr.add(2,cursor.getString(3));
 
 
                     System.out.println(cursor.getString(2));
