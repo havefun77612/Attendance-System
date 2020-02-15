@@ -64,6 +64,8 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/layout_login" />
+    <include
+        android:id="@+id/card_login"
+        layout="@layout/layout_login" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

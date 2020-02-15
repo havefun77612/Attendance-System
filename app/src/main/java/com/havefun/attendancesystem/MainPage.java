@@ -200,16 +200,18 @@ Remember to enable view depending on the user type comment  this line SplashScre
         image_scan = (ImageView) findViewById(R.id.image_scan);
         main_page = (TextView) findViewById(R.id.main_page);
     }
-
+     /*
+     * inializing animation
+     */
     private void addinganimation() {
         Animate1 = AnimationUtils.loadAnimation(MainPage.this, R.anim.zoomin);
-        Animate2 = AnimationUtils.loadAnimation(MainPage.this, R.anim.zoomout);
+       // Animate2 = AnimationUtils.loadAnimation(MainPage.this, R.anim.zoomout);
         image_scan.startAnimation(Animate1);
         image_qr.startAnimation(Animate1);
         image_login.startAnimation(Animate1);
         image_profile.startAnimation(Animate1);
         image_service.startAnimation(Animate1);
-        main_page.startAnimation(Animate2);
+        //main_page.startAnimation(Animate2);
     }
 
 
