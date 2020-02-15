@@ -49,6 +49,7 @@ public class Login extends AppCompatActivity {
         initializeVars();
         addVarsListner();
         addinganimation();
+        addinganimationbyclicking();
     }
 
     /*
@@ -201,11 +202,11 @@ public class Login extends AppCompatActivity {
     private void addinganimation() {
         Animate1 = AnimationUtils.loadAnimation( Login.this,R.anim.zoomin );
     //   Animate2 = AnimationUtils.loadAnimation( Login.this,R.anim.bounce );
-  //      login_image.startAnimation( Animate1 );
-//        card_login.startAnimation( Animate1 );
+        login_image.startAnimation( Animate1 );
+        card_login.startAnimation( Animate1 );
         //login_word.startAnimation( Animate1 );
     }
-/*
+
     private void addinganimationbyclicking(){
         Animate2 = AnimationUtils.loadAnimation( Login.this,R.anim.bounce );
         Animate3 = AnimationUtils.loadAnimation( Login.this,R.anim.righttoleft );
@@ -220,7 +221,7 @@ public class Login extends AppCompatActivity {
             }
         });
     }
-*/
+
 
     @Override
     public void onBackPressed() {
