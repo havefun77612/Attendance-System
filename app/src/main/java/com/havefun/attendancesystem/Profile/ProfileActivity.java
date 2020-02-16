@@ -43,6 +43,7 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -239,6 +240,10 @@ image intent section
 
         try {
             if (offlineDB.isEmptyTableProf()){
+                DownlaodImageTasks downlaodImageTasks =new DownlaodImageTasks();
+                URL linkAsString=downlaodImageTasks.stringToURL(UserInfoList.get(0).getUserProfileUri());
+                downlaodImageTasks.doInBackground(linkAsString);
+                //downlaodImageTasks.onPostExecute();
                 Bitmap bitmap = ((BitmapDrawable)profile_image.getDrawable()).getBitmap();
                 offlineDB.insertProfileTable(UserInfoList,bitmap);
             }
@@ -272,14 +277,6 @@ image intent section
                 Log.i("Profile Activity", "updateUiComponent: No User Exist ");
             }
 
-            try {
-                if (offlineDB.isEmptyTableProf()){
-                    Bitmap bitmap = ((BitmapDrawable)profile_image.getDrawable()).getBitmap();
-                    offlineDB.insertProfileTable(UserInfoList,bitmap);
-                }
-            }catch (Exception e){
-                e.printStackTrace();
-            }
 
     }
 

@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.havefun.attendancesystem.DBManager;
 import com.havefun.attendancesystem.InternetStatus;
 import com.havefun.attendancesystem.R;
 import com.havefun.attendancesystem.WriteToFirebase;

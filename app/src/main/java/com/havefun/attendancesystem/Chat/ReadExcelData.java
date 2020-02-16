@@ -1,9 +1,12 @@
 package com.havefun.attendancesystem.Chat;
 
 
+import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.havefun.attendancesystem.R;
 
@@ -14,21 +17,20 @@ import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
 
-public class ReadExcelData extends AppCompatActivity {
+public class ReadExcelData  {
 
+Context mContext;
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_page);
+    public ReadExcelData(Context mContext) {
+        this.mContext = mContext;
     }
-    public void order(View v){
+
+    public void order(){
 
         try {
 
 
-            AssetManager am = getAssets();
+            AssetManager am = mContext.getAssets();
             InputStream is = am.open("student1.xls");
             Workbook wb = Workbook.getWorkbook(is);
             Sheet s = wb.getSheet(0);
@@ -44,6 +46,7 @@ public class ReadExcelData extends AppCompatActivity {
 
                 }
                 xx=xx+"\n";
+                Log.i("ExcellNow", "coulme  "+i+" "+xx);
 
             }
 
@@ -52,7 +55,7 @@ public class ReadExcelData extends AppCompatActivity {
         }
         catch (Exception e)
         {
-
+            Toast.makeText(mContext, "Error reading the file "+e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 

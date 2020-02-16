@@ -271,9 +271,9 @@ Remember to enable view depending on the user type comment  this line SplashScre
 
     // Testing the Excell Sheet Values
     private void testExcellFile() {
-        ReadExcelData readExcelData = new ReadExcelData();
+        ReadExcelData readExcelData = new ReadExcelData(getApplicationContext());
         // uncomment the below link for testing ==>
-        //  readExcelData.checkTheExcellSheet();
+        readExcelData.order();
 
     }
 
