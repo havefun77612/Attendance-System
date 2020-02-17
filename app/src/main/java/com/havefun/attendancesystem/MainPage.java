@@ -33,6 +33,7 @@ import com.havefun.attendancesystem.Profile.ProfileActivity;
 import com.havefun.attendancesystem.QR.QrGen;
 import com.havefun.attendancesystem.QR.Qrcour;
 import com.havefun.attendancesystem.QR.ScanCourse;
+import com.havefun.attendancesystem.QueryFirebase.SupervisorStudents;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
     Toolbar toolbar;
     DrawerLayout drawer;
     ActionBarDrawerToggle toggle;
-    LinearLayout loginActivity, profile_page, scaner, chatting, qrgeneration, qrCourse, addNewDoctorOrAdmin;
+    LinearLayout loginActivity, profile_page, scaner, chatting, qrgeneration, qrCourse, addNewDoctorOrAdmin,showSupervisorStudents;
     CardView cardLogin,cardProfile,cardQrGeneration,cardChat,cardQrScan,cardQrCourseGeneration,cardAddNewUserType;
     GridLayout mainPageMainContainer;
     FirebaseUser user;
@@ -59,61 +60,8 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
         prepareContentDependingOnTheUserType();
         addListners();
         addinganimation();
-        ////////////////////////////////// Test Faculty Database /////////////////////////////////
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
-        //databaseAccess.open();
-        List<String> quotes = databaseAccess.getAllCoursesAvailable();
-        System.out.println(quotes.size());
-        ///////////////////////////
-        //////////////////////////////////Test Scan Table ////////////////////////////////////////////
 
-        /*ArrayList<UserInfo> arrUs= new ArrayList<UserInfo>();
-        UserInfo userInfo=new UserInfo();
-        userInfo.setUserId("1");
-        userInfo.setUserName("Aloo");
-        userInfo.setDateOfBirth("1.6.1998");
-        userInfo.setUserAddress("sdugaugkcnnxc s");
-        userInfo.setUserPhoneNumber("01124587564");
-        userInfo.setUserEmail("Ali@rmail.com");
-        arrUs.add(userInfo);
-        DBManager d=new DBManager(getApplicationContext());
-        d.insertScanٍTable(arrUs);
-        d.getScanTable();
-
-        System.out.println(d.isEmptyTableScan());
-        d.deleteAllRecordScan();
-        System.out.println(d.isEmptyTableScan());*/
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////Test Doctor_Courses Table ////////////////////////////////
-
-       /* ArrayList<DoctorInfo> arrUs= new ArrayList<DoctorInfo>();
-        DoctorInfo doctorInfo=new DoctorInfo();
-        doctorInfo.setCourseName("DataCommunication");
-        doctorInfo.setDoctorName("fayza");
-        doctorInfo.setDoctorId("1");
-        arrUs.add(doctorInfo);
-        DBManager d=new DBManager(getApplicationContext());
-        d.getDoctor_CoursesTable();
-        d.updateDoctor_CoursesٍTable(arrUs);
-        d.getDoctor_CoursesTable();
-
-        System.out.println(d.isEmptyTableDoctor_Courses());
-        d.deleteAllRecordDoctor_Courses();
-        System.out.println(d.isEmptyTableDoctor_Courses());*/
-        ///////////////////////////////////////////////////////Test Table DataExist ////////////////////
-       /* DBManager d=new DBManager(getApplicationContext());
-       // d.insertDataExistٍTable("Ali","161014",0);
-       d.getDataExistTable();
-        System.out.println(d.isEmptyTableDataExist());
-        d.updateDataExistٍTable("161014",1);
-        d.getDataExistTable();
-        d.deleteAllRecordDataExist();
-        d.isEmptyTableDataExist();*/
-
-
-        //////////////////////////////////////////////////// End Of Test ////////////////
-
-        testExcellFile();
+       // testExcellFile();
     }
 /*
 Remember to enable view depending on the user type comment  this line SplashScreen.FirebaseUserType="Admin";
@@ -177,6 +125,7 @@ Remember to enable view depending on the user type comment  this line SplashScre
         chatting = (LinearLayout) findViewById(R.id.chattingCard);
         qrgeneration = (LinearLayout) findViewById(R.id.qrgeneration);
         addNewDoctorOrAdmin = findViewById(R.id.addNewDoctorOrAdmin);
+        showSupervisorStudents=findViewById(R.id.showSupervisorStudents);
         cardChat=findViewById(R.id.cardChat);
         cardLogin=findViewById(R.id.cardLogin);
         cardProfile=findViewById(R.id.cardProfile);
@@ -202,19 +151,6 @@ Remember to enable view depending on the user type comment  this line SplashScre
         image_qr = (ImageView) findViewById(R.id.image_qr);
         image_scan = (ImageView) findViewById(R.id.image_scan);
         main_page = (TextView) findViewById(R.id.main_page);
-    }
-     /*
-     * inializing animation
-     */
-    private void addinganimation() {
-        Animate1 = AnimationUtils.loadAnimation(MainPage.this, R.anim.zoomin);
-       // Animate2 = AnimationUtils.loadAnimation(MainPage.this, R.anim.zoomout);
-        image_scan.startAnimation(Animate1);
-        image_qr.startAnimation(Animate1);
-        image_login.startAnimation(Animate1);
-        image_profile.startAnimation(Animate1);
-        image_service.startAnimation(Animate1);
-        //main_page.startAnimation(Animate2);
     }
 
 
@@ -269,7 +205,26 @@ Remember to enable view depending on the user type comment  this line SplashScre
                 openUserTyprSelectionActivity();
             }
         });
+        showSupervisorStudents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), SupervisorStudents.class));
+            }
+        });
 
+    }
+    /*
+     * inializing animation
+     */
+    private void addinganimation() {
+        Animate1 = AnimationUtils.loadAnimation(MainPage.this, R.anim.zoomin);
+        // Animate2 = AnimationUtils.loadAnimation(MainPage.this, R.anim.zoomout);
+        image_scan.startAnimation(Animate1);
+        image_qr.startAnimation(Animate1);
+        image_login.startAnimation(Animate1);
+        image_profile.startAnimation(Animate1);
+        image_service.startAnimation(Animate1);
+        //main_page.startAnimation(Animate2);
     }
 
     // Testing the Excell Sheet Values
