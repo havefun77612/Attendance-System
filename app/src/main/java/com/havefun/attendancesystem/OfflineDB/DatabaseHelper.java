@@ -1,4 +1,4 @@
-package com.havefun.attendancesystem;
+package com.havefun.attendancesystem.OfflineDB;
 
 /**
  * Created by anupamchugh on 19/10/15.

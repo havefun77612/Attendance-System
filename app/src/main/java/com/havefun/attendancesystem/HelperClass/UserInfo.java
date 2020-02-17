@@ -1,4 +1,4 @@
-package com.havefun.attendancesystem;
+package com.havefun.attendancesystem.HelperClass;
 
 import android.graphics.Bitmap;
 

@@ -1,4 +1,4 @@
-package com.havefun.attendancesystem;
+package com.havefun.attendancesystem.HelperClass;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.havefun.attendancesystem.R;
 import com.muddzdev.styleabletoastlibrary.StyleableToast;
 
 public class InternetStatus  {
@@ -26,7 +27,7 @@ public class InternetStatus  {
         if (null != active_network) {
 
             if (active_network.getType() == ConnectivityManager.TYPE_WIFI) {
-                StyleableToast.makeText( mContext, "uploading data",R.style.wifi).show();
+                StyleableToast.makeText( mContext, "uploading data", R.style.wifi).show();
 
             }
            else if (active_network.getType() == ConnectivityManager.TYPE_MOBILE) {

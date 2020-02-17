@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.havefun.attendancesystem.ChatUser;
 import com.havefun.attendancesystem.R;
 import com.squareup.picasso.Picasso;
 

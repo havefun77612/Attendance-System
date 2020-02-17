@@ -12,15 +12,22 @@
         app:srcCompat="@drawable/frame" />
 
     <EditText
-        android:id="@+id/cname"
+        android:id="@+id/cName"
         style="@style/modifiedEditText"
-        android:hint="name"
+        android:hint="Course Name"
         android:maxLines="1" />
 
     <EditText
-        android:id="@+id/code"
+        android:id="@+id/cCode"
         style="@style/modifiedEditText"
-        android:hint="code"
+        android:hint="Course Code"
+        android:maxLines="1" />
+
+    <Spinner
+        android:id="@+id/cLevel"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:hint="Course Level"
         android:maxLines="1" />
 
     <Button

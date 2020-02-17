@@ -13,7 +13,6 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,18 +33,17 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.havefun.attendancesystem.DBManager;
-import com.havefun.attendancesystem.FireBaseStorage;
+import com.havefun.attendancesystem.OfflineDB.DBManager;
+import com.havefun.attendancesystem.FirebaseClass.FireBaseStorage;
 import com.havefun.attendancesystem.MainPage;
 import com.havefun.attendancesystem.R;
-import com.havefun.attendancesystem.UserInfo;
+import com.havefun.attendancesystem.HelperClass.UserInfo;
 import com.shashank.sony.fancytoastlib.FancyToast;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity {
     final private String TAG="ProfileActivity";

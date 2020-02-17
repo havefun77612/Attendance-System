@@ -28,8 +28,8 @@
         <activity android:name=".QR.ressult"/>
         <activity android:name=".Profile.CompleteLogin" />
         <activity android:name=".Profile.ProfileActivity" />
-        <activity android:name=".SignUp" />
-        <activity android:name=".Login" />
+        <activity android:name=".Authentication.SignUp" />
+        <activity android:name=".Authentication.Login" />
         <activity android:name=".QR.Qrcour" />
         <activity android:name=".QR.ScanCourse" />
         <activity android:name=".SplashScreen">

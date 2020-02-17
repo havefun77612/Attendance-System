@@ -1,4 +1,4 @@
-package com.havefun.attendancesystem;
+package com.havefun.attendancesystem.OfflineDB;
 
 import android.content.Context;
 import android.database.Cursor;

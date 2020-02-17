@@ -1,4 +1,4 @@
-package com.havefun.attendancesystem;
+package com.havefun.attendancesystem.Chat;
 
 public class ChatUser {
     private String DateOfBith, UserAddress, UserEmail, UserId, UserName, UserPassword, UserPhoneNumber, UserProfileUri, UserType;

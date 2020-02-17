@@ -14,23 +14,29 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import com.havefun.attendancesystem.FirebaseClass.WriteToFirebase;
 import com.havefun.attendancesystem.R;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -42,6 +48,10 @@ public class Qrcour extends AppCompatActivity {
     QRCodeWriter writer;
     String qrName, qrCode,type;
     Bitmap ffinal;
+    String[] spinnerOptions={"الاولي","الثانية","الثالثة","خريج"};
+    Spinner levelSpinner;
+    String selected="null";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +62,9 @@ public class Qrcour extends AppCompatActivity {
 
     }
     public void vars() {
-        name = findViewById(R.id.cname);
-        code = findViewById(R.id.code);
+        name = findViewById(R.id.cName);
+        code = findViewById(R.id.cCode);
+        levelSpinner=findViewById(R.id.cLevel);
 
         qr = findViewById(R.id.qr);
 
@@ -63,7 +74,10 @@ public class Qrcour extends AppCompatActivity {
         qrName = name.getText().toString();
         qrCode=code.getText().toString();
         type="course";
-
+        Context context;
+        ArrayAdapter arrayAdapter=new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,spinnerOptions);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        levelSpinner.setAdapter(arrayAdapter);
 
 
     }
@@ -75,20 +89,35 @@ public class Qrcour extends AppCompatActivity {
                 BitMatrix matrix = null;
                 qrName=name.getText().toString();
                 qrCode=code.getText().toString();
+                if (selected.isEmpty()||selected.equals("null")){
+                    FancyToast.makeText(getApplicationContext(),"Level can't be empty",FancyToast.LENGTH_LONG
+                    ,FancyToast.ERROR,true).show();
+                }else {
+                    try {
 
-                try {
+                        matrix = writer.encode(qrName + "/" + qrCode + "/" + selected + "/" + type, BarcodeFormat.QR_CODE, qr.getWidth(), qr.getHeight());
 
-                    matrix = writer.encode(qrName + "/" + qrCode + "/" + type, BarcodeFormat.QR_CODE, qr.getWidth(), qr.getHeight());
+                    } catch (WriterException e) {
+                        Toast.makeText(Qrcour.this, "Error Creating image", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
+                    BarcodeEncoder encoder = new BarcodeEncoder();
+                    ffinal = encoder.createBitmap(matrix);
 
-                } catch (WriterException e) {
-                    Toast.makeText(Qrcour.this, "Error Creating image", Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
+
+                    qr.setImageBitmap(ffinal);
                 }
-                BarcodeEncoder encoder = new BarcodeEncoder();
-                ffinal = encoder.createBitmap(matrix);
+            }
+        });
+        levelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selected=parent.getItemAtPosition(position).toString();
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
-                qr.setImageBitmap(ffinal);
             }
         });
 
@@ -136,13 +165,17 @@ public class Qrcour extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                try {
-                    String QrName = imageNameText.getText().toString();
-                    Log.i("Imagename", "onClick: Imagename is "+QrName);
-                    saveImagefunction(QrName);
-                } catch (Exception e) {
-                    Toast.makeText(Qrcour.this, "Sorry, we running into a problem", Toast.LENGTH_SHORT).show();
-                }
+          if (!selected.isEmpty()&&!selected.equals("null")){
+              try {
+                  String QrName = imageNameText.getText().toString();
+                  Log.i("Imagename", "onClick: Imagename is "+QrName);
+                  saveImagefunction(QrName);
+              } catch (Exception e) {
+                  Toast.makeText(Qrcour.this, "Sorry, we running into a problem", Toast.LENGTH_SHORT).show();
+              }
+          }else {
+              Toast.makeText(Qrcour.this, "من فضلك ادخل البيانات الصحيحة ", Toast.LENGTH_SHORT).show();
+          }
             }
         });
         /// setting for cancelling the dialogue
@@ -157,6 +190,11 @@ public class Qrcour extends AppCompatActivity {
         builder.show();
     }
     private void saveImagefunction(String qrName) {
+        HashMap<String, String> courseData=new HashMap<>();
+        courseData.put("CourseName",qrName);
+        courseData.put("CourseCode",qrCode);
+        courseData.put("CourseLevel",selected);
+        new WriteToFirebase(getApplicationContext()).addNewCourse(courseData);
         MediaStore.Images.Media.insertImage(getContentResolver(), ffinal, qrName , "Attendance system Qr medal");
         try {
             addMedia(getApplication(),ffinal,qrName);

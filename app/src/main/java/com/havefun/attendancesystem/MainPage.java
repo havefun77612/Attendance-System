@@ -23,8 +23,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.havefun.attendancesystem.Authentication.Login;
 import com.havefun.attendancesystem.Chat.MainChat;
-import com.havefun.attendancesystem.Chat.ReadExcelData;
+import com.havefun.attendancesystem.HelperClass.ReadExcelData;
+import com.havefun.attendancesystem.OfflineDB.DBManager;
+import com.havefun.attendancesystem.OfflineDB.DatabaseAccess;
 import com.havefun.attendancesystem.Profile.CompleteLogin;
 import com.havefun.attendancesystem.Profile.ProfileActivity;
 import com.havefun.attendancesystem.QR.QrGen;
@@ -271,9 +274,9 @@ Remember to enable view depending on the user type comment  this line SplashScre
 
     // Testing the Excell Sheet Values
     private void testExcellFile() {
-        ReadExcelData readExcelData = new ReadExcelData(getApplicationContext());
+       // ReadExcelData readExcelData = new ReadExcelData(getApplicationContext());
         // uncomment the below link for testing ==>
-        readExcelData.order();
+      //  readExcelData.order();
 
     }
 

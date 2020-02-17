@@ -1,4 +1,4 @@
-package com.havefun.attendancesystem;
+package com.havefun.attendancesystem.Authentication;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -24,7 +24,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.havefun.attendancesystem.Profile.ProfileActivity;
+import com.havefun.attendancesystem.MainPage;
+import com.havefun.attendancesystem.OfflineDB.DBManager;
+import com.havefun.attendancesystem.R;
+import com.havefun.attendancesystem.SplashScreen;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.regex.Matcher;

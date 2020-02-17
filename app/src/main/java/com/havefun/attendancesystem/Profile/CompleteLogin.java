@@ -31,9 +31,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.havefun.attendancesystem.InternetStatus;
+import com.havefun.attendancesystem.HelperClass.InternetStatus;
 import com.havefun.attendancesystem.R;
-import com.havefun.attendancesystem.WriteToFirebase;
+import com.havefun.attendancesystem.FirebaseClass.WriteToFirebase;
 import com.shashank.sony.fancytoastlib.FancyToast;
 import com.squareup.picasso.Picasso;
 

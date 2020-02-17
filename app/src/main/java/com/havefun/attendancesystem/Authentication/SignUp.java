@@ -1,4 +1,4 @@
-package com.havefun.attendancesystem;
+package com.havefun.attendancesystem.Authentication;
 
 import android.content.Context;
 import android.content.Intent;
@@ -38,8 +38,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.havefun.attendancesystem.MainPage;
+import com.havefun.attendancesystem.OfflineDB.DBManager;
 import com.havefun.attendancesystem.Profile.CompleteLogin;
-import com.havefun.attendancesystem.Profile.ProfileActivity;
+import com.havefun.attendancesystem.R;
+import com.havefun.attendancesystem.SplashScreen;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.Arrays;

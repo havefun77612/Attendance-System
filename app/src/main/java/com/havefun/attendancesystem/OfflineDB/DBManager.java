@@ -1,4 +1,4 @@
-package com.havefun.attendancesystem;
+package com.havefun.attendancesystem.OfflineDB;
 
 
 import android.content.ContentValues;
@@ -10,15 +10,14 @@ import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
-import android.widget.Toast;
+
+import com.havefun.attendancesystem.HelperClass.DoctorInfo;
+import com.havefun.attendancesystem.HelperClass.UserInfo;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.List;
 
-//import static com.havefun.attendancesystem.DatabaseHelper.TABLE_NAME;
-//import static com.havefun.attendancesystem.DatabaseHelper.TABLE_NAME1;
-import static com.havefun.attendancesystem.DatabaseHelper.TABLE_NAME2;
+import static com.havefun.attendancesystem.OfflineDB.DatabaseHelper.TABLE_NAME2;
 
 public class DBManager {
 
@@ -316,7 +315,7 @@ public class DBManager {
     public void createProfileTable (){
         database.execSQL(dbHelper.CREATE_TABLE2);System.out.println(" Created Table Profile OR Exists Prof ");
     }
-    public void insertProfileTable(ArrayList<UserInfo>  x,Bitmap bitmap)  {
+    public void insertProfileTable(ArrayList<UserInfo>  x, Bitmap bitmap)  {
        // createTableProf();
 
 

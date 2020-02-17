@@ -1,21 +1,17 @@
-package com.havefun.attendancesystem.Chat;
+package com.havefun.attendancesystem.HelperClass;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.AssetManager;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
-import com.havefun.attendancesystem.R;
+import com.havefun.attendancesystem.FirebaseClass.WriteToFirebase;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import androidx.appcompat.app.AppCompatActivity;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -39,7 +35,7 @@ Context mContext;
             Sheet s = wb.getSheet(0);
             int row = s.getRows();
             int col = s.getColumns();
-            String xx=" ";
+         //   String xx=" ";
             String temp[];
             HashMap<String,String>HElement=new HashMap<String, String>();
             HashMap<String,HashMap<String,String>>Container=new HashMap<String, HashMap<String, String>>();
@@ -51,27 +47,27 @@ Context mContext;
                 {
                     Cell c = s.getCell(j,i);
                     sField=sField+c.getContents()+"/";
-                    xx=xx+"/"+c.getContents();
+                  //  xx=xx+"/"+c.getContents();
 
                 }
                 field.add(sField);
                 Log.i("ExcellNow", "coulme  "+ sField);
                 sField="";
-               temp=xx.split("/");
+               //temp=xx.split("/");
                 //Log.i("ExcellNow", "coulme  "+ Integer.toString(temp.length));
 
-                xx=xx+"\n";
+                //xx=xx+"\n";
                 //Log.i("ExcellNow", "coulme  "+i+" "+xx);
 
 
             }
-            for(int i=0;i<field.size();i++){
+            for(int i=1;i<field.size();i++){
                temp=field.get(i).split("/");
-               HElement.put("Name",temp[0]);
+                HElement.put("Name",temp[0]);
                 HElement.put("Gender",temp[1]);
                 HElement.put("AcadYear",temp[2]);
                 HElement.put("ID",temp[3]);
-                HElement.put("E-mail",temp[4]);
+                HElement.put("Email",temp[4]);
                 HElement.put("National-ID",temp[5]);
                 HElement.put("Supervisor",temp[6]);
                 HElement.put("Nationality",temp[7]);
@@ -89,12 +85,15 @@ Context mContext;
                 HElement.put("Activity",temp[19]);
                 HElement.put("Enlistment",temp[20]);
                 HElement.put("MService",temp[21]);
-                Container.put("Student"+Integer.toString(i),HElement);
+                new WriteToFirebase(mContext).addAllStudentList(HElement, String.valueOf(i));
+                //  Container.put("Student"+Integer.toString(i),HElement);
 
                 //Log.i("array", "size  "+ Integer.toString(temp.length));
                 //Log.i("array", "size  "+ field.get(i));
 
             }
+
+
             Log.i("array", "size  "+Container.size());
 
 
