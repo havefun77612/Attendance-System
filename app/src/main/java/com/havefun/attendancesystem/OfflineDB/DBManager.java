@@ -13,6 +13,9 @@ import android.util.Log;
 
 import com.havefun.attendancesystem.HelperClass.DoctorInfo;
 import com.havefun.attendancesystem.HelperClass.UserInfo;
+import com.havefun.attendancesystem.QR.UserData;
+import com.havefun.attendancesystem.R;
+import com.muddzdev.styleabletoastlibrary.StyleableToast;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -445,9 +448,10 @@ public class DBManager {
     /////////////////////////////////////////////////////////////////////// Table Scan Functions   //////////////////////////////////////////////////////////////////
     public void createScanTable (){
 
-        database.execSQL(dbHelper.CREATE_TABLE3);System.out.println(" Created Table Profile OR Exists Scan");
+        database.execSQL(dbHelper.CREATE_TABLE3);
+        // System.out.println(" Created Table Profile OR Exists Scan");
     }
-    public void insertScanٍTable(ArrayList<UserInfo>  x)  {
+    public void insertScanٍTable(ArrayList<UserData>  x)  {
         // createTableProf();
         createScanTable();
 
@@ -467,15 +471,17 @@ public class DBManager {
                 values = new ContentValues();
 
 
-                values.put("UserID", x.get(i).getUserId());
-                values.put("UserName", x.get(i).getUserName());
-                values.put("UserEmail", x.get(i).getUserEmail());
-                values.put("UserDate", x.get(i).getDateOfBirth());
-                values.put("UserAddress", x.get(i).getUserAddress());
-                values.put("UserPhone", x.get(i).getUserPhoneNumber());
+                values.put("UserID", x.get(i).getID());
+                values.put("UserName", x.get(i).getName());
+                values.put("UserEmail", x.get(i).getEmail());
+                values.put("UserDate", x.get(i).getDate());
+                values.put("UserAddress", x.get(i).getAddress());
+                values.put("UserPhone", x.get(i).getPhone());
 
                 // Insert Row
                 k = db.insert("Scan", null, values);
+                StyleableToast.makeText( context, "data is inserted succefully ", R.style.insert ).show();
+
                 Log.i("InsertedTheIdNumber", k + "");
             }
 
@@ -496,14 +502,14 @@ public class DBManager {
             // Close database
         }
     }
-    public ArrayList<UserInfo> getScanTable(){
+    public ArrayList<UserData> getScanTable(){
 
         // Open the database for reading
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         // Start the transaction.
         db.beginTransaction();
-        UserInfo pr;
-        ArrayList<UserInfo> prArr=new ArrayList<>();
+        UserData pr;
+        ArrayList<UserData> prArr=new ArrayList<UserData>();
         try
         {
             String selectQuery = "SELECT * FROM Scan ";
@@ -516,13 +522,13 @@ public class DBManager {
                 for (int i =0;i<cursor.getCount();i++){
                     cursor.moveToNext();
 
-                    pr=new UserInfo();
-                    pr.setUserId(cursor.getString(2));
-                    pr.setUserName(cursor.getString(1));
-                    pr.setUserPhoneNumber(cursor.getString(4));
-                    pr.setUserEmail(cursor.getString(3));
-                    pr.setUserAddress(cursor.getString(5));
-                    pr.setDateOfBirth(cursor.getString(6));
+                    pr=new UserData();
+                    pr.setID(cursor.getString(2));
+                    pr.setName(cursor.getString(1));
+                    pr.setPhone(cursor.getString(4));
+                    pr.setEmail(cursor.getString(3));
+                    pr.setAddress(cursor.getString(5));
+                    pr.setDate(cursor.getString(6));
 
                     System.out.println(cursor.getString(2));
                     System.out.println(cursor.getString(1));
@@ -550,14 +556,23 @@ public class DBManager {
             db.close();
             // Close database
         }
+        StyleableToast.makeText( context, "data is retrieved succefully ", R.style.retrieve ).show();
+
         return  prArr;
 
     }
-    public boolean isEmptyTableScan(){
-        ArrayList<UserInfo> prArr = new ArrayList<UserInfo>();
-        prArr=getScanTable();
-        if (prArr.size()==0)return true;
-        else return false;
+
+    public boolean isEmptyTableScan() {
+        ArrayList<UserData> prArr = new ArrayList<UserData>();
+        prArr = getScanTable();
+        if (prArr.size() == 0) {
+            StyleableToast.makeText( context, "table is empty ", R.style.check_data ).show();
+            return true;
+        }
+        else {
+            StyleableToast.makeText( context, "table is not empty ", R.style.insert ).show();
+            return false;
+        }
     }
     public void deleteAllRecordScan(){
         //database.execSQL("delete from "+ dbHelper.TABLE_NAME2);
@@ -565,9 +580,10 @@ public class DBManager {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         // db.execSQL("DELETE FROM "+dbHelper.TABLE_NAME2);
         long k =db.delete("Scan", "1", null);//delete all rows in a table
+        StyleableToast.makeText( context, "data is deleted succefully ", R.style.delete ).show();
+
         Log.i("NumberOfElementDeleted", k + "");
         db.close();
-
     }
     public void deleteElementByIdScan(long _id){
         SQLiteDatabase db = dbHelper.getWritableDatabase();

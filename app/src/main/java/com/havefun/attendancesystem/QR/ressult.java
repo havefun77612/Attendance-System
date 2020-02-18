@@ -8,6 +8,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,8 +28,7 @@ public class ressult extends AppCompatActivity {
     static ArrayList<UserData> array = new ArrayList<UserData>();//arraylist holding objects of users
     //static ArrayList<String> array2 = new ArrayList<String>();
     ScanQr scanQr = new ScanQr();
-
-
+    Button insert,retrieve,delete,checkdata;
     String edit;
 
     @Override
@@ -39,6 +39,7 @@ public class ressult extends AppCompatActivity {
         prepareAdapter();
 
     }
+
 
     private void prepareAdapter() {
         //createSTR(array);
@@ -159,7 +160,6 @@ public class ressult extends AppCompatActivity {
             hashMap.put("StudentID", scanQr.scanData.get(i).getID());
             writeToFirebase.addNewAttendanceData("Cs233", hashMap);
         }
-
-
     }
+
 }

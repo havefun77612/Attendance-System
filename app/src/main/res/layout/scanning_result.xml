@@ -36,4 +36,5 @@
         style="@style/TextAppearance.AppCompat.Widget.Button.Colored"
         android:onClick="testNetwork"
         />
+
 </RelativeLayout>
