@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.havefun.attendancesystem.HelperClass.InternetStatus;
+import com.havefun.attendancesystem.OfflineDB.DBManager;
 import com.havefun.attendancesystem.R;
 import com.havefun.attendancesystem.FirebaseClass.WriteToFirebase;
 
@@ -37,9 +38,18 @@ public class ressult extends AppCompatActivity {
         setContentView(R.layout.scanning_result);
         initialState();
         prepareAdapter();
-
+        intialvariables();
+        insertdata();
+        retrievedata();
+        deletedata();
+        checktable();
     }
-
+    private void intialvariables(){
+        delete = (Button)findViewById( R.id.delete );
+        retrieve = (Button)findViewById( R.id.retrieve );
+        insert = (Button) findViewById( R.id.insert );
+        checkdata = (Button)findViewById( R.id.check_data );
+    }
 
     private void prepareAdapter() {
         //createSTR(array);
@@ -161,5 +171,49 @@ public class ressult extends AppCompatActivity {
             writeToFirebase.addNewAttendanceData("Cs233", hashMap);
         }
     }
+    public void insertdata(){
+        insert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new DBManager( getApplicationContext() ).insertScanٍTable( ScanQr.scanData );
+            }
+        });
+    }
+    public void retrievedata() {
+
+        retrieve.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                new DBManager( getApplicationContext() ).getScanTable();
+                //    StyleableToast.makeText( mContext, "data is retrieved succefully ", R.style.retrieve ).show();
+
+            }
+        } );
+    }
+    public void  deletedata(){
+        delete.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                new DBManager( getApplicationContext() ).deleteAllRecordScan();
+                //   StyleableToast.makeText( mContext, "data is deleted succefully ", R.style.delete ).show();
+
+            }
+        });
+    }
+
+    public void checktable() {
+        checkdata.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println( new DBManager( getApplicationContext() ).isEmptyTableScan());
+
+            }
+        } );
+    }
+
+
 
 }

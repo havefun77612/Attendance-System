@@ -570,7 +570,7 @@ public class DBManager {
             return true;
         }
         else {
-            StyleableToast.makeText( context, "table is not empty ", R.style.insert ).show();
+            StyleableToast.makeText( context, "table is not empty ", R.style.check_data ).show();
             return false;
         }
     }
