@@ -8,6 +8,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.havefun.attendancesystem.FirebaseClass.WriteToFirebase;
 import com.havefun.attendancesystem.HelperClass.InternetStatus;
+import com.havefun.attendancesystem.OfflineDB.DBManager;
 import com.havefun.attendancesystem.R;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
@@ -30,8 +32,7 @@ public class ressult extends AppCompatActivity {
     static ArrayList<UserData> array = new ArrayList<UserData>();//arraylist holding objects of users
     //static ArrayList<String> array2 = new ArrayList<String>();
     ScanQr scanQr = new ScanQr();
-
-
+    Button insert,retrieve,delete,checkdata;
     String edit;
 
     @Override
@@ -40,7 +41,16 @@ public class ressult extends AppCompatActivity {
         setContentView(R.layout.scanning_result);
         initialState();
         prepareAdapter();
-
+        intialvariables();
+        retrievedata();
+        deletedata();
+        checktable();
+    }
+    private void intialvariables(){
+        delete = (Button)findViewById( R.id.delete );
+        retrieve = (Button)findViewById( R.id.retrieve );
+        insert = (Button) findViewById( R.id.insert );
+        checkdata = (Button)findViewById( R.id.check_data );
     }
 
     private void prepareAdapter() {
@@ -151,6 +161,7 @@ public class ressult extends AppCompatActivity {
                 FancyToast.makeText(getApplicationContext(), "No Course Code Selected", FancyToast.LENGTH_LONG, FancyToast.WARNING, true).show();
 
         } else {
+            insertdata();
             Log.i(TAG, "testNetwork: ");
         }
 
@@ -166,7 +177,53 @@ public class ressult extends AppCompatActivity {
             hashMap.put("StudentID", scanQr.scanData.get(i).getID());
             writeToFirebase.addNewAttendanceData(courseCode, String.valueOf(i+1),hashMap);
         }
-
-
     }
+    // insert data to offline database from scan table
+    public void insertdata(){
+        insert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new DBManager( getApplicationContext() ).insertScanٍTable( ScanQr.scanData );
+            }
+        });
+    }
+    // retrieve data from scan table
+    public void retrievedata() {
+
+        retrieve.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                new DBManager( getApplicationContext() ).getScanTable();
+                //    StyleableToast.makeText( mContext, "data is retrieved succefully ", R.style.retrieve ).show();
+
+            }
+        } );
+    }
+    // delete all data from scan table
+    public void  deletedata(){
+        delete.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                new DBManager( getApplicationContext() ).deleteAllRecordScan();
+                //   StyleableToast.makeText( mContext, "data is deleted succefully ", R.style.delete ).show();
+
+            }
+        });
+    }
+  // check if is scan table is empty ?(if it is not empty  will return false else will return true  )
+    public void checktable() {
+        checkdata.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println( new DBManager( getApplicationContext() ).isEmptyTableScan());
+
+            }
+        } );
+    }
+
+
+
 }

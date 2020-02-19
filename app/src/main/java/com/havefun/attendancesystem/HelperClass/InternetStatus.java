@@ -39,7 +39,7 @@ public class InternetStatus  {
             else {
 
 
-                StyleableToast.makeText( mContext, "No Internet Connection", R.style.noconnection ).show();
+                StyleableToast.makeText( mContext, "No Internet Connection and you can insert data untill you are online", R.style.noconnection ).show();
             return false;
             }
 

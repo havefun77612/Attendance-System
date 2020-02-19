@@ -152,4 +152,38 @@
         <item name="length">SHORT</item>
         <item name="cornerRadius">32dp</item>
     </style>
+    <!-- style for buttons in result page -->
+    <style name="insert">
+        <item name="colorBackground">#eee9e9</item>
+        <item name="textColor">#000</item>
+        <item name="strokeColor">#000</item>
+        <item name="strokeWidth">3dp</item>
+        <item name="length">SHORT</item>
+        <item name="cornerRadius">30dp</item>
+    </style>
+    <style name="retrieve">
+        <item name="colorBackground">#eee9e9</item>
+        <item name="textColor">#000</item>
+        <item name="strokeColor">#000</item>
+        <item name="strokeWidth">3dp</item>
+        <item name="length">SHORT</item>
+        <item name="cornerRadius">30dp</item>
+    </style>
+    <style name="delete">
+        <item name="colorBackground">#eee9e9</item>
+        <item name="textColor">#000</item>
+        <item name="strokeColor">#000</item>
+        <item name="strokeWidth">3dp</item>
+        <item name="length">SHORT</item>
+        <item name="cornerRadius">30dp</item>
+    </style>
+    <style name="check_data">
+        <item name="colorBackground">#eee9e9</item>
+        <item name="textColor">#000</item>
+        <item name="strokeColor">#000</item>
+        <item name="strokeWidth">3dp</item>
+        <item name="length">SHORT</item>
+        <item name="cornerRadius">30dp</item>
+    </style>
+
 </resources>

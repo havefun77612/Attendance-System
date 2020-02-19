@@ -212,15 +212,15 @@ public class Login extends AppCompatActivity {
 
     private void addinganimationbyclicking(){
         Animate2 = AnimationUtils.loadAnimation( Login.this,R.anim.bounce );
-        Animate3 = AnimationUtils.loadAnimation( Login.this,R.anim.righttoleft );
+        //Animate3 = AnimationUtils.loadAnimation( Login.this,R.anim.righttoleft );
         loginbtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 // TODO Auto-generated method stub
             loginbtn.startAnimation( Animate2 );
-            email.startAnimation( Animate3 );
-            password.startAnimation( Animate3 );
+           // email.startAnimation( Animate3 );
+         //   password.startAnimation( Animate3 );
             }
         });
     }
