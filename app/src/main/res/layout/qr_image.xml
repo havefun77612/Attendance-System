@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@drawable/centre_background"
-    tools:context="com.havefun.attendancesystem.Authentication.Login">
+    tools:context="com.havefun.attendancesystem.QR.QrGen">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"

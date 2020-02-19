@@ -74,6 +74,12 @@
             android:inputType="text"
             android:text="this is the addresss you give"
             />
+        <Spinner
+            android:id="@+id/studentLevel"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:hint="Student Level"
+            android:maxLines="1" />
 
 
 

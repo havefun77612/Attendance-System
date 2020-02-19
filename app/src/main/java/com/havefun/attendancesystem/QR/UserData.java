@@ -3,41 +3,61 @@ package com.havefun.attendancesystem.QR;
 import java.io.Serializable;
 
 public class UserData implements Serializable {
-    private String Name,ID,Email,Phone,Address,Date;
-    public void setName(String name){
-        Name=name;
+    private String Name, ID, Email, Phone, Address, Date, Level;
+
+    public void setName(String name) {
+        Name = name;
     }
-    public void setID(String id){
-        ID=id;
+
+    public String getLevel() {
+        return Level;
     }
-    public void setEmail(String email){
-        Email=email;
+
+    public void setLevel(String level) {
+        Level = level;
     }
-    public void setPhone(String phone){
-        Phone=phone;
+
+    public void setID(String id) {
+        ID = id;
     }
-    public void setAddress(String address){
-        Address=address;
+
+    public void setEmail(String email) {
+        Email = email;
     }
-    public void setDate(String date){
-        Date=date;
+
+    public void setPhone(String phone) {
+        Phone = phone;
     }
-    public String getName(){
+
+    public void setAddress(String address) {
+        Address = address;
+    }
+
+    public void setDate(String date) {
+        Date = date;
+    }
+
+    public String getName() {
         return Name;
     }
-    public String getID(){
+
+    public String getID() {
         return ID;
     }
-    public String getEmail(){
+
+    public String getEmail() {
         return Email;
     }
-    public String getPhone(){
+
+    public String getPhone() {
         return Phone;
     }
-    public String getAddress(){
+
+    public String getAddress() {
         return Address;
     }
-    public String getDate(){
+
+    public String getDate() {
         return Date;
     }
 }

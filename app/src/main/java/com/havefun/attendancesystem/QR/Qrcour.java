@@ -74,7 +74,6 @@ public class Qrcour extends AppCompatActivity {
         qrName = name.getText().toString();
         qrCode=code.getText().toString();
         type="course";
-        Context context;
         ArrayAdapter arrayAdapter=new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,spinnerOptions);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         levelSpinner.setAdapter(arrayAdapter);

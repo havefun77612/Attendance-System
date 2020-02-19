@@ -31,7 +31,7 @@ public class ScanCourse extends AppCompatActivity implements ZXingScannerView.Re
     Button scan_btn;
     ZXingScannerView zx;
     static boolean course=false;
-   public static String currentCourseCode="";
+   public static String currentCourseCode="",selectedLevel="";
 
 
     MediaPlayer mp, mp2;
@@ -138,12 +138,14 @@ public class ScanCourse extends AppCompatActivity implements ZXingScannerView.Re
 
                 String[] qrRes=result.getText().split("/");
                 currentCourseCode=qrRes[1];
+                selectedLevel=qrRes[2];
 
             course=true;
             mp.start();
             res = new Intent(ScanCourse.this, ScanQr.class);
             try {
                 startActivity(res);
+                finish();
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
                 startActivity(new Intent(getApplicationContext(), ScanCourse.class));

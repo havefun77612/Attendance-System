@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -23,6 +24,8 @@ import com.havefun.attendancesystem.R;
 import java.util.ArrayList;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
+
+import static com.havefun.attendancesystem.QR.ScanCourse.selectedLevel;
 
 //import com.havefun.attendancesystem.MainPage;
 
@@ -152,8 +155,6 @@ public class ScanQr extends AppCompatActivity implements ZXingScannerView.Result
     public void handleResult(Result result) {
 
 
-
-
         if (!array.contains(result.getText()) && result.getText().contains("@x@")) {
             array.add(result.getText());
             qrRes = result.getText().split("/");
@@ -164,7 +165,13 @@ public class ScanQr extends AppCompatActivity implements ZXingScannerView.Result
             qrData.setPhone(qrRes[3]);
             qrData.setAddress(qrRes[4]);
             qrData.setDate(qrRes[5]);
-            scanData.add(qrData);
+            qrData.setLevel(qrRes[6]);
+            if (qrData.getLevel().equals(selectedLevel)) {
+                scanData.add(qrData);
+            } else {
+                Log.i("Scanning Qr", "handleResult: Wrong " + selectedLevel);
+                Toast.makeText(this, "handleResult: Wrong " + selectedLevel, Toast.LENGTH_SHORT).show();
+            }
 
             mp.start();
             Toast.makeText(getApplicationContext(), result.getText(), Toast.LENGTH_LONG).show();

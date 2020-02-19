@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.havefun.attendancesystem.QR.ScanCourse.currentCourseCode;
+import static com.havefun.attendancesystem.QR.ScanCourse.selectedLevel;
 
 public class ressult extends AppCompatActivity {
     private static final String TAG = "InternetConnection";
@@ -156,6 +157,7 @@ public class ressult extends AppCompatActivity {
         if (internetStatus.checkNetworkStatus()) {
             Log.i(TAG, "testNetwork: ");
             if (!currentCourseCode.isEmpty() && !currentCourseCode.equals(" ")) {
+                if (!selectedLevel.isEmpty()&& !selectedLevel.equals(" "))
                 uploadSessionAttendance(currentCourseCode);
             } else
                 FancyToast.makeText(getApplicationContext(), "No Course Code Selected", FancyToast.LENGTH_LONG, FancyToast.WARNING, true).show();

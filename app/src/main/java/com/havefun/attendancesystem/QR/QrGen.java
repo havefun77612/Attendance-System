@@ -14,10 +14,13 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +32,7 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.havefun.attendancesystem.R;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -43,6 +47,9 @@ public class QrGen extends AppCompatActivity {
     QRCodeWriter writer;
     String qrName, qrId, qrEmail, qrPnumber, qrAddress, qrDate;
     Bitmap ffinal;
+    String[] spinnerOptions={"الاولي","الثانية","الثالثة","خريج"};
+    Spinner levelSpinner;
+    String selected="null";
 
 
     @Override
@@ -66,6 +73,7 @@ public class QrGen extends AppCompatActivity {
         dateset = findViewById(R.id.dateset);
         genbtn = findViewById(R.id.genbtn);
         saveQr = (Button) findViewById(R.id.saveQr);
+        levelSpinner=findViewById(R.id.studentLevel);
         writer = new QRCodeWriter();
         qrName = name.getText().toString();
         qrId = id.getText().toString();
@@ -73,6 +81,11 @@ public class QrGen extends AppCompatActivity {
         qrPnumber = pnumber.getText().toString();
         qrAddress = address.getText().toString();
         qrDate = date.getText().toString();
+
+
+        ArrayAdapter arrayAdapter=new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,spinnerOptions);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        levelSpinner.setAdapter(arrayAdapter);
 
 
     }
@@ -108,9 +121,13 @@ public class QrGen extends AppCompatActivity {
                 qrPnumber=pnumber.getText().toString();
                 qrAddress=address.getText().toString();
                 qrDate=date.getText().toString();
+                if (selected.isEmpty()||selected.equals("null")){
+                    FancyToast.makeText(getApplicationContext(),"Level can't be empty",FancyToast.LENGTH_LONG
+                            ,FancyToast.ERROR,true).show();
+                }else {
                 try {
 
-                    matrix = writer.encode(qrName + "/" + qrId + "/" + qrEmail + "/" + qrPnumber + "/" + qrAddress + "/" + qrDate+"/"+"@x@", BarcodeFormat.QR_CODE, qr.getWidth(), qr.getHeight());
+                    matrix = writer.encode(qrName + "/" + qrId + "/" + qrEmail + "/" + qrPnumber + "/" + qrAddress + "/" + qrDate+ "/" + selected + "/" +"@x@", BarcodeFormat.QR_CODE, qr.getWidth(), qr.getHeight());
 
                 } catch (WriterException e) {
                     Toast.makeText(QrGen.this, "Error Creating image", Toast.LENGTH_SHORT).show();
@@ -122,12 +139,25 @@ public class QrGen extends AppCompatActivity {
 
                 qr.setImageBitmap(ffinal);
             }
+            }
         });
 
         saveQr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 prepareQrToBeSaved();
+            }
+        });
+
+        levelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selected=parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
     }
