@@ -88,6 +88,7 @@ public class SupervisorStudents extends AppCompatActivity {
                     String formatedDataForNameAndID = value.getName() + "\n" + value.getID();
                     students.add(formatedDataForNameAndID);
                     arrayAdapter.notifyDataSetChanged();
+                    FancyToast.makeText(getApplicationContext(),selected+" Students",FancyToast.LENGTH_LONG,FancyToast.INFO,true).show();
                     }
                 }else {
                     FancyToast.makeText(getApplicationContext(),"No Data Exist right now ",FancyToast.LENGTH_LONG

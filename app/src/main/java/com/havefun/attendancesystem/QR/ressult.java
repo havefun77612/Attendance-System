@@ -15,12 +15,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.havefun.attendancesystem.FirebaseClass.WriteToFirebase;
 import com.havefun.attendancesystem.HelperClass.InternetStatus;
 import com.havefun.attendancesystem.R;
-import com.havefun.attendancesystem.FirebaseClass.WriteToFirebase;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static com.havefun.attendancesystem.QR.ScanCourse.currentCourseCode;
 
 public class ressult extends AppCompatActivity {
     private static final String TAG = "InternetConnection";
@@ -142,7 +145,10 @@ public class ressult extends AppCompatActivity {
         InternetStatus internetStatus = new InternetStatus(getApplicationContext());
         if (internetStatus.checkNetworkStatus()) {
             Log.i(TAG, "testNetwork: ");
-            uploadSessionAttendance();
+            if (!currentCourseCode.isEmpty() && !currentCourseCode.equals(" ")) {
+                uploadSessionAttendance(currentCourseCode);
+            } else
+                FancyToast.makeText(getApplicationContext(), "No Course Code Selected", FancyToast.LENGTH_LONG, FancyToast.WARNING, true).show();
 
         } else {
             Log.i(TAG, "testNetwork: ");
@@ -151,13 +157,14 @@ public class ressult extends AppCompatActivity {
     }
 
     ///  Add data to the hashmap
-    public void uploadSessionAttendance() {
-        HashMap<String, String> hashMap= new HashMap<>();
+    public void uploadSessionAttendance(String courseCode) {
+
+        HashMap<String, String> hashMap = new HashMap<>();
         WriteToFirebase writeToFirebase = new WriteToFirebase(getApplicationContext(), this);
         for (int i = 0; i < ScanQr.scanData.size(); i++) {
             hashMap.put("StudentName", scanQr.scanData.get(i).getName());
             hashMap.put("StudentID", scanQr.scanData.get(i).getID());
-            writeToFirebase.addNewAttendanceData("Cs233", hashMap);
+            writeToFirebase.addNewAttendanceData(courseCode, String.valueOf(i+1),hashMap);
         }
 
 

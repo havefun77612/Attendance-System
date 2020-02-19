@@ -20,6 +20,7 @@ import com.google.firebase.storage.StorageReference;
 import com.havefun.attendancesystem.Profile.ProfileActivity;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class WriteToFirebase {
@@ -114,11 +115,16 @@ public class WriteToFirebase {
     /*
      **** add attendance info for spacific courses
      */
-    public void addNewAttendanceData(String courseCode, HashMap<String, String> attendUsersInCourse) {
-        setReferance(courseCode);
+    public void addNewAttendanceData(String courseCode,String number ,HashMap<String, String> attendUsersInCourse) {
+        Calendar c = Calendar.getInstance();
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        int month = c.get(Calendar.MONTH);
+        int year = c.get(Calendar.YEAR);
+        String date = day + "_" + (month + 1) + "_" + year;
+        setReferance("Attendance/"+courseCode+"/"+date);
         attendStudentForCourse = new HashMap<>();
         attendStudentForCourse = attendUsersInCourse;
-        myRef.push().setValue(attendStudentForCourse).addOnCompleteListener(new OnCompleteListener<Void>() {
+        myRef.child(number).setValue(attendStudentForCourse).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
