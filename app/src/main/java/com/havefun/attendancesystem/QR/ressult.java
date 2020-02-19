@@ -171,6 +171,7 @@ public class ressult extends AppCompatActivity {
             writeToFirebase.addNewAttendanceData("Cs233", hashMap);
         }
     }
+    // insert data to offline database from scan table
     public void insertdata(){
         insert.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,6 +180,7 @@ public class ressult extends AppCompatActivity {
             }
         });
     }
+    // retrieve data from scan table
     public void retrievedata() {
 
         retrieve.setOnClickListener( new View.OnClickListener() {
@@ -192,6 +194,7 @@ public class ressult extends AppCompatActivity {
             }
         } );
     }
+    // delete all data from scan table
     public void  deletedata(){
         delete.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -203,7 +206,7 @@ public class ressult extends AppCompatActivity {
             }
         });
     }
-
+  // check if is scan table is empty ?(if it is not empty  will return false else will return true  )
     public void checktable() {
         checkdata.setOnClickListener( new View.OnClickListener() {
             @Override
