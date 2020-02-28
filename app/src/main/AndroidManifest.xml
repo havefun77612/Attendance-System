@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".QueryFirebase.SupervisorStudents"></activity>
+        <activity android:name=".QueryFirebase.ShowAttendace"></activity>
+        <activity android:name=".QueryFirebase.SupervisorStudents" />
         <activity android:name=".QR.QrGeneration" />
         <activity android:name=".Chat.Messaging" />
         <activity android:name=".Chat.MainChat" />

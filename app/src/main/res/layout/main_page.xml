@@ -428,6 +428,50 @@
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
+                    <!--   card6 show supervisor students-->
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardAttendanceList"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="12dp"
+                        app:cardCornerRadius="12dp"
+                        android:layout_columnWeight="1"
+                        android:layout_rowWeight="1"
+
+                        app:cardElevation="6dp">
+
+                        <LinearLayout
+                            android:id="@+id/showAttendanceList"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            >
+
+                            <ImageView
+                                android:id="@+id/imageAttendanceList"
+                                android:layout_width="84dp"
+                                android:layout_height="84dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="10dp"
+                                android:src="@drawable/datasheeticon" />
+
+                            <TextView
+                                android:id="@+id/newAttendanceList"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="10dp"
+                                android:text="Show \n Attendane"
+                                android:textAlignment="center"
+                                android:textColor="@color/blackTextColor"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
                 </GridLayout>
 
 

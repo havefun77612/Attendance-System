@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="colorPrimary">#009689</color>
-    <color name="colorPrimaryDark">#349675</color>
-    <color name="colorAccent">#656657</color>
-</resources>
+/*
+    * Copyright (c) 2016 The Android Open Source Project
+    *
+    * Licensed under the Apache License, Version 2.0 (the "License");
+    * you may not use this file except in compliance with the License.
+    * You may obtain a

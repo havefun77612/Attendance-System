@@ -33,6 +33,7 @@ import com.havefun.attendancesystem.Profile.ProfileActivity;
 import com.havefun.attendancesystem.QR.QrGen;
 import com.havefun.attendancesystem.QR.Qrcour;
 import com.havefun.attendancesystem.QR.ScanCourse;
+import com.havefun.attendancesystem.QueryFirebase.ShowAttendace;
 import com.havefun.attendancesystem.QueryFirebase.SupervisorStudents;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
@@ -43,7 +44,7 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
     Toolbar toolbar;
     DrawerLayout drawer;
     ActionBarDrawerToggle toggle;
-    LinearLayout loginActivity, profile_page, scaner, chatting, qrgeneration, qrCourse, addNewDoctorOrAdmin,showSupervisorStudents;
+    LinearLayout loginActivity, profile_page, scaner, chatting, qrgeneration, qrCourse, addNewDoctorOrAdmin,showSupervisorStudents,showAttendanceList;
     CardView cardLogin,cardProfile,cardQrGeneration,cardChat,cardQrScan,cardQrCourseGeneration,cardAddNewUserType;
     GridLayout mainPageMainContainer;
     FirebaseUser user;
@@ -124,6 +125,7 @@ Remember to enable view depending on the user type comment  this line SplashScre
         scaner = (LinearLayout) findViewById(R.id.Scaner);
         chatting = (LinearLayout) findViewById(R.id.chattingCard);
         qrgeneration = (LinearLayout) findViewById(R.id.qrgeneration);
+        showAttendanceList = (LinearLayout) findViewById(R.id.showAttendanceList);
         addNewDoctorOrAdmin = findViewById(R.id.addNewDoctorOrAdmin);
         showSupervisorStudents=findViewById(R.id.showSupervisorStudents);
         cardChat=findViewById(R.id.cardChat);
@@ -209,6 +211,12 @@ Remember to enable view depending on the user type comment  this line SplashScre
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), SupervisorStudents.class));
+            }
+        });
+        showAttendanceList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), ShowAttendace.class));
             }
         });
 
