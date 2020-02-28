@@ -62,7 +62,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "                                            NOT NULL,\n" +
             "  UserName              Text ,\n" +
             "  UserId              Text,\n" +
-            "  Uploaded                INTEGER Not Null );";
+            "  Uploaded                INTEGER Not Null,\n"+"" +
+            "  CourseName              Text);";
 
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
