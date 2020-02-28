@@ -711,7 +711,7 @@ public class DBManager {
         db.close();
 
     }
-    public void updateDoctor_CoursesٍTable(ArrayList<DoctorInfo>  x)  {
+    public void updateDoctor_CoursesٍTable(ArrayList<DoctorInfo>  x ,String NewCourseName )  {
 
 
         // Open the database for writing
@@ -731,7 +731,7 @@ public class DBManager {
 
 
                 values.put("DoctorName", x.get(i).getDoctorName());
-                values.put("CourseName", x.get(i).getCourseName());
+                values.put("CourseName", NewCourseName);
 
 
                 // Insert Row
