@@ -711,7 +711,7 @@ public class DBManager {
         db.close();
 
     }
-    public void updateDoctor_CoursesٍTable(ArrayList<DoctorInfo>  x)  {
+    public void updateDoctor_CoursesٍTable(ArrayList<DoctorInfo>  x ,String NewCourseName )  {
 
 
         // Open the database for writing
@@ -731,7 +731,7 @@ public class DBManager {
 
 
                 values.put("DoctorName", x.get(i).getDoctorName());
-                values.put("CourseName", x.get(i).getCourseName());
+                values.put("CourseName", NewCourseName);
 
 
                 // Insert Row
@@ -807,6 +807,52 @@ public class DBManager {
             // Close database
         }
     }
+    public void insertDataExistٍTable(String UserName,String UserID, int isUploaded,String CourseName)  {
+        // createTableProf();
+        createDataExistTable();
+
+        // Open the database for writing
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        // Start the transaction.
+        db.beginTransaction();
+        ContentValues values;
+
+        try
+        {
+            long k = 0;
+
+
+
+            values = new ContentValues();
+
+
+            values.put("UserName", UserName);
+            values.put("UserId", UserID);
+            values.put("Uploaded", isUploaded);
+            values.put("CourseName",CourseName);
+
+            // Insert Row
+            k = db.insert("DataExist", null, values);
+            Log.i("InsertedTheIdNumberNEW", k + "");
+
+
+            // Insert into database successfully.
+            db.setTransactionSuccessful();
+
+        }
+        catch (SQLiteException e)
+        {
+            e.printStackTrace();
+
+        }
+        finally
+        {
+            db.endTransaction();
+            // End the transaction.
+            db.close();
+            // Close database
+        }
+    }
     public ArrayList<String> getDataExistTable(){
 
         // Open the database for reading
@@ -830,12 +876,14 @@ public class DBManager {
                     prArr.add(0,cursor.getString(2));
                     prArr.add(1,cursor.getString(1));
                     prArr.add(2,cursor.getString(3));
+                    prArr.add(3,cursor.getString(4));
 
 
                     System.out.println(cursor.getString(2));
                     System.out.println(cursor.getString(1));
                     System.out.println(cursor.getString(3));
                     System.out.println(cursor.getString(0));
+                    System.out.println(cursor.getString(4));
 
 
 
@@ -875,11 +923,11 @@ public class DBManager {
         if (prArr.size()==0)return true;
         else return false;
     }
-//    public void DropTableDataExist(){
-//        SQLiteDatabase db = dbHelper.getReadableDatabase();
-//        db.execSQL("DROP TABLE IF EXISTS DataExist" );
-//        System.out.println("DataExist Table Deleted");
-//    }
+    public void DropTableDataExist(){
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS DataExist" );
+        System.out.println("DataExist Table Deleted");
+    }
     public void updateDataExistٍTable(String UserID, int isUploaded)  {
 
 
