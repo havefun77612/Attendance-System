@@ -8,11 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,8 +21,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.havefun.attendancesystem.HelperClass.InternetStatus;
 import com.havefun.attendancesystem.R;
 import com.shashank.sony.fancytoastlib.FancyToast;
-
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ShowAttendace extends AppCompatActivity {
     Spinner coursesList, dateList;
@@ -32,8 +31,8 @@ public class ShowAttendace extends AppCompatActivity {
     ArrayAdapter coursesListArrayAdapter, dateListArrayAdapter, attendanceListArrayAdapter;
     ArrayList<String> attendanceArrayList;
     ArrayList<String> coursesOptions, dateOptions;
-    public static String selectedCourse = "null";
-    public static String selectedDate = "null";
+    public String selectedCourse = "null";
+    public String selectedDate = "null";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,143 +110,173 @@ public class ShowAttendace extends AppCompatActivity {
             }
 
             @Override
-           public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-           }
-       });
-   }
+            }
+        });
+    }
 
-   private void addOptionsToCoursesList() {
-       coursesListArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, coursesOptions);
-       coursesListArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-       coursesList.setAdapter(coursesListArrayAdapter);
+    private void addOptionsToCoursesList() {
+        coursesListArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, coursesOptions);
+        coursesListArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        coursesList.setAdapter(coursesListArrayAdapter);
 
-       queryTheDates();
-   }
+        queryTheDates();
+    }
 
-   private void queryTheDates() {
-       dateOptions.clear();
-       Query query = FirebaseDatabase.getInstance().getReference().child("Attendance/" + selectedCourse);
-       query.addListenerForSingleValueEvent(new ValueEventListener() {
-           @Override
-           public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+    private void queryTheDates() {
+        dateOptions.clear();
+        Query query = FirebaseDatabase.getInstance().getReference().child("Attendance/" + selectedCourse);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-               if (dataSnapshot.exists()) {
-                   for (DataSnapshot data : dataSnapshot.getChildren()) {
-                       if (!dateOptions.contains(data.getKey()))
-                           dateOptions.add(data.getKey());
-                       else Log.i("ShowAttendance", "onDataChange: dataExist");
-                   }
-                   selectedDate = dateOptions.get(0);
-                   if (!dateOptions.contains("Semester Attendance"))
-                       dateOptions.add("Semester Attendance");
-                   addOptionsToDateList();
-                   FancyToast.makeText(getApplicationContext(), "data Fetched Successfully",
-                           FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
-                   Log.i("dataConverted", "onDataChange: coursesOptions" + dateOptions.toString());
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot data : dataSnapshot.getChildren()) {
+                        if (!dateOptions.contains(data.getKey()))
+                            dateOptions.add(data.getKey());
+                        else Log.i("ShowAttendance", "onDataChange: dataExist");
+                    }
+                    selectedDate = dateOptions.get(0);
+                    if (!dateOptions.contains("Semester Attendance"))
+                        dateOptions.add("Semester Attendance");
+                    addOptionsToDateList();
+                    FancyToast.makeText(getApplicationContext(), "data Fetched Successfully",
+                            FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
+                    Log.i("dataConverted", "onDataChange: coursesOptions" + dateOptions.toString());
 
-               } else {
-                   Toast.makeText(ShowAttendace.this, "Sorry No courses exists", Toast.LENGTH_SHORT).show();
-               }
-           }
+                } else {
+                    Toast.makeText(ShowAttendace.this, "Sorry No courses exists", Toast.LENGTH_SHORT).show();
+                }
+            }
 
-           @Override
-           public void onCancelled(@NonNull DatabaseError databaseError) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-           }
-       });
-   }
+            }
+        });
+    }
 
-   private void addOptionsToDateList() {
-       dateListArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, dateOptions);
-       dateListArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-       dateList.setAdapter(dateListArrayAdapter);
-       setDataToAttendanceListView();
-   }
+    private void addOptionsToDateList() {
+        dateListArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, dateOptions);
+        dateListArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dateList.setAdapter(dateListArrayAdapter);
+        setDataToAttendanceListView();
+    }
 
-  private void setDataToAttendanceListView() {
-      attendanceArrayList.clear();
-      DatabaseReference reference;
-      if (selectedDate.equals("Semester Attendance")) {
-          reference = FirebaseDatabase.getInstance().getReference().child("Attendance/" + selectedCourse + "/");
-          reference.addChildEventListener(new ChildEventListener() {
-              @Override
-              public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                  if (!selectedDate.equals("null")) {
-                      for (DataSnapshot data : dataSnapshot.getChildren()) {
-                          // AttendanceModel value = dataSnapshot.getValue(AttendanceModel.class);
-                          String formatedDataForNameAndID = data.child("StudentName").getValue().toString() + "\n" + data.child("StudentID").getValue().toString();
-                              attendanceArrayList.add(formatedDataForNameAndID);
-                          attendanceListArrayAdapter.notifyDataSetChanged();
-                          Log.i("dataContent", "onChildAdded: " + dataSnapshot.getChildren() + "   " + data.getValue());
-                      }
-                  } else {
-                      FancyToast.makeText(getApplicationContext(), "Sorry No Attendance To This course appear yet", FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
-                  }
-              }
+    private void setDataToAttendanceListView() {
+        attendanceArrayList.clear();
+        DatabaseReference reference;
+        if (selectedDate.equals("Semester Attendance")) {
+            reference = FirebaseDatabase.getInstance().getReference().child("Attendance/" + selectedCourse + "/");
+            reference.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    if (!selectedDate.equals("null")) {
+                        for (DataSnapshot data : dataSnapshot.getChildren()) {
+                            // AttendanceModel value = dataSnapshot.getValue(AttendanceModel.class);
+                            String formatedDataForNameAndID = data.child("StudentName").getValue().toString() + "\n"
+                                    + data.child("StudentID").getValue().toString()+ "\n"
+                                    +data.child("StudentEmail").getValue().toString();
+                            attendanceArrayList.add(formatedDataForNameAndID);
+                            Log.i("dataContent", "onChildAdded: " + dataSnapshot.getChildren() + "   " + data.getValue());
+                        }
 
-              @Override
-              public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                        attendanceListArrayAdapter.notifyDataSetChanged();
+                        countAttendance();
+                    } else {
+                        FancyToast.makeText(getApplicationContext(), "Sorry No Attendance To This course appear yet", FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
+                    }
+                }
 
-              }
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-              @Override
-              public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                }
 
-              }
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
 
-              @Override
-              public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                }
 
-              }
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-              @Override
-              public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
 
-              }
-          });
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-      } else {
-          reference = FirebaseDatabase.getInstance().getReference().child("Attendance/" + selectedCourse + "/" + selectedDate);
-          reference.addChildEventListener(new ChildEventListener() {
-              @Override
-              public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                  if (!selectedDate.equals("null")) {
-                      if (dataSnapshot.exists()) {
-                          AttendanceModel value = dataSnapshot.getValue(AttendanceModel.class);
-                          String formatedDataForNameAndID = value.getStudentName() + "\n" + value.getStudentID();
-                           if (!attendanceArrayList.contains(formatedDataForNameAndID))
-                               attendanceArrayList.add(formatedDataForNameAndID);
-                           attendanceListArrayAdapter.notifyDataSetChanged();
-                           Log.i("dataContent", "onChildAdded: " + dataSnapshot.getChildren() + "   " + value.getStudentID());
-                       }
-                   } else {
-                       FancyToast.makeText(getApplicationContext(), "Sorry No Attendance To This course appear yet", FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
-                   }
-               }
+                }
+            });
 
-               @Override
-               public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+        } else {
+            reference = FirebaseDatabase.getInstance().getReference().child("Attendance/" + selectedCourse + "/" + selectedDate);
+            reference.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    if (!selectedDate.equals("null")) {
+                        if (dataSnapshot.exists()) {
+                            AttendanceModel value = dataSnapshot.getValue(AttendanceModel.class);
+                            String formatedDataForNameAndID = value.getStudentName() + "\n" + value.getStudentID()+"\n"+value.getStudentEmail();
+                            if (!attendanceArrayList.contains(formatedDataForNameAndID))
+                                attendanceArrayList.add(formatedDataForNameAndID);
+                            attendanceListArrayAdapter.notifyDataSetChanged();
+                            Log.i("dataContent", "onChildAdded: " + dataSnapshot.getChildren() + "   " + value.getStudentID());
+                        }
+                    } else {
+                        FancyToast.makeText(getApplicationContext(), "Sorry No Attendance To This course appear yet", FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
+                    }
+                }
 
-               }
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-               @Override
-               public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                }
 
-               }
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
 
-               @Override
-               public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                }
 
-               }
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-               @Override
-               public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
 
-               }
-           });
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
 
 
-       }
-   }
+        }
+    }
+    private void countAttendance(){
+
+        Map<String, Integer> duplicates = new HashMap<String, Integer>();
+
+        for (String str : attendanceArrayList) {
+            if (duplicates.containsKey(str)) {
+                duplicates.put(str, duplicates.get(str) + 1);
+            } else {
+                duplicates.put(str, 1);
+            }
+        }
+        attendanceArrayList.clear();
+        for (Map.Entry<String, Integer> entry : duplicates.entrySet()) {
+            attendanceArrayList.add(entry.getKey() + "\nAttend: " + entry.getValue());
+
+        }
+        attendanceListArrayAdapter.notifyDataSetChanged();
+    }
+
+
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
+    }
 }

@@ -1,15 +1,27 @@
 package com.havefun.attendancesystem.QueryFirebase;
 
 public class AttendanceModel {
-    String StudentID,StudentName;
-
+    String StudentID;
+    String StudentName;
+    String StudentEmail;
     public AttendanceModel() {
     }
 
-    public AttendanceModel(String studentID, String studentName) {
+    public AttendanceModel(String studentID, String studentName, String studentEmail) {
         StudentID = studentID;
         StudentName = studentName;
+        StudentEmail=studentEmail;
+
     }
+
+    public String getStudentEmail() {
+        return StudentEmail;
+    }
+
+    public void setStudentEmail(String studentEmail) {
+        StudentEmail = studentEmail;
+    }
+
 
     public String getStudentID() {
         return StudentID;

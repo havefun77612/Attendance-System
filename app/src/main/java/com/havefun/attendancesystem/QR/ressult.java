@@ -43,15 +43,17 @@ public class ressult extends AppCompatActivity {
         initialState();
         prepareAdapter();
         intialvariables();
-        retrievedata();
-        deletedata();
-        checktable();
+
     }
     private void intialvariables(){
         delete = (Button)findViewById( R.id.delete );
         retrieve = (Button)findViewById( R.id.retrieve );
         insert = (Button) findViewById( R.id.insert );
         checkdata = (Button)findViewById( R.id.check_data );
+        insertdata();
+        retrievedata();
+        deletedata();
+        checktable();
     }
 
     private void prepareAdapter() {
@@ -163,7 +165,6 @@ public class ressult extends AppCompatActivity {
                 FancyToast.makeText(getApplicationContext(), "No Course Code Selected", FancyToast.LENGTH_LONG, FancyToast.WARNING, true).show();
 
         } else {
-            insertdata();
             Log.i(TAG, "testNetwork: ");
         }
 
@@ -177,6 +178,7 @@ public class ressult extends AppCompatActivity {
         for (int i = 0; i < ScanQr.scanData.size(); i++) {
             hashMap.put("StudentName", scanQr.scanData.get(i).getName());
             hashMap.put("StudentID", scanQr.scanData.get(i).getID());
+            hashMap.put("StudentEmail",scanQr.scanData.get(i).getEmail());
             writeToFirebase.addNewAttendanceData(courseCode, String.valueOf(i+1),hashMap);
         }
     }
