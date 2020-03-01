@@ -8,9 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,18 +23,22 @@ import com.google.firebase.database.ValueEventListener;
 import com.havefun.attendancesystem.HelperClass.InternetStatus;
 import com.havefun.attendancesystem.R;
 import com.shashank.sony.fancytoastlib.FancyToast;
+
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ShowAttendace extends AppCompatActivity {
     Spinner coursesList, dateList;
     ListView attendanceList;
     ArrayAdapter coursesListArrayAdapter, dateListArrayAdapter, attendanceListArrayAdapter;
     ArrayList<String> attendanceArrayList;
+    ArrayList<AttendanceModel> listData;
     ArrayList<String> coursesOptions, dateOptions;
-    public String selectedCourse = "null";
-    public String selectedDate = "null";
+    String selectedCourse = "null";
+    String selectedDate = "null";
+    int counter = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +57,7 @@ public class ShowAttendace extends AppCompatActivity {
         attendanceArrayList = new ArrayList<>();
         coursesOptions = new ArrayList<>();
         dateOptions = new ArrayList<>();
+        listData = new ArrayList<>();
         attendanceListArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, attendanceArrayList);
         attendanceList.setAdapter(attendanceListArrayAdapter);
         if (new InternetStatus(getApplicationContext()).checkNetworkStatus()) {
@@ -61,6 +68,7 @@ public class ShowAttendace extends AppCompatActivity {
     }
 
     private void addListners() {
+        // listner for first spinner Courses
         coursesList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -74,11 +82,17 @@ public class ShowAttendace extends AppCompatActivity {
 
             }
         });
+
+        /// listener for the second spinner  date
         dateList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedDate = parent.getItemAtPosition(position).toString();
-                setDataToAttendanceListView();
+                try {
+                    setDataToAttendanceListView();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -86,8 +100,13 @@ public class ShowAttendace extends AppCompatActivity {
 
             }
         });
+
+
     }
 
+    /*
+    |||||| this query made for getting the available courses with attendance
+     */
     private void queryTheCourses() {
         coursesOptions.clear();
         Query query = FirebaseDatabase.getInstance().getReference().child("Attendance");
@@ -99,13 +118,16 @@ public class ShowAttendace extends AppCompatActivity {
                     for (DataSnapshot data : dataSnapshot.getChildren()) {
                         coursesOptions.add(data.getKey());
                     }
-
-                    selectedCourse = coursesOptions.get(0);
-                    addOptionsToCoursesList();
+                    if (coursesOptions.size()>0){
+                       // selectedCourse = coursesOptions.get(0);
+                        addOptionsToCoursesList();}
                     Log.i("dataConverted", "onDataChange: coursesOptions" + coursesOptions.toString());
 
                 } else {
-                    Toast.makeText(ShowAttendace.this, "Sorry No courses exists", Toast.LENGTH_SHORT).show();
+                  /*
+                  *** This part was having the crashin problem of gettin 0 index of couseslist array
+                   */
+                    //  Toast.makeText(ShowAttendace.this, "Sorry No courses exists", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -124,6 +146,7 @@ public class ShowAttendace extends AppCompatActivity {
         queryTheDates();
     }
 
+    // this query for getting the available dates for each course selected
     private void queryTheDates() {
         dateOptions.clear();
         Query query = FirebaseDatabase.getInstance().getReference().child("Attendance/" + selectedCourse);
@@ -131,22 +154,26 @@ public class ShowAttendace extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                if (dataSnapshot.exists()) {
-                    for (DataSnapshot data : dataSnapshot.getChildren()) {
-                        if (!dateOptions.contains(data.getKey()))
-                            dateOptions.add(data.getKey());
-                        else Log.i("ShowAttendance", "onDataChange: dataExist");
+                try {
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot data : dataSnapshot.getChildren()) {
+                            if (!dateOptions.contains(data.getKey()))
+                                dateOptions.add(data.getKey());
+                            else Log.i("ShowAttendance", "onDataChange: dataExist");
+                        }
+                        if (dateOptions.size()>0){
+                           // selectedDate = dateOptions.get(0);
+                            if (!dateOptions.contains("Semester Attendance"))
+                                dateOptions.add("Semester Attendance");
+                            addOptionsToDateList();
+                            FancyToast.makeText(getApplicationContext(), "data Fetched Successfully",
+                                    FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();}
+                        Log.i("dataConverted", "onDataChange: coursesOptions" + dateOptions.toString());
+                    } else {
+                        Toast.makeText(ShowAttendace.this, "Sorry No courses exists", Toast.LENGTH_SHORT).show();
                     }
-                    selectedDate = dateOptions.get(0);
-                    if (!dateOptions.contains("Semester Attendance"))
-                        dateOptions.add("Semester Attendance");
-                    addOptionsToDateList();
-                    FancyToast.makeText(getApplicationContext(), "data Fetched Successfully",
-                            FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
-                    Log.i("dataConverted", "onDataChange: coursesOptions" + dateOptions.toString());
-
-                } else {
-                    Toast.makeText(ShowAttendace.this, "Sorry No courses exists", Toast.LENGTH_SHORT).show();
+                }catch (Exception e){
+                    System.out.println("You can find error here :"+e.getMessage());
                 }
             }
 
@@ -158,15 +185,25 @@ public class ShowAttendace extends AppCompatActivity {
     }
 
     private void addOptionsToDateList() {
-        dateListArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, dateOptions);
-        dateListArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dateList.setAdapter(dateListArrayAdapter);
-        setDataToAttendanceListView();
-    }
+        try {
+            dateListArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, dateOptions);
+            dateListArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            dateList.setAdapter(dateListArrayAdapter);
+            setDataToAttendanceListView();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
-    private void setDataToAttendanceListView() {
+    }
+    /*
+     *** this query to get attendance for selected date inside selected course
+     */
+
+    private void setDataToAttendanceListView()  {
         attendanceArrayList.clear();
+        listData.clear();
         DatabaseReference reference;
+        //  setting referance to get all the data of the course
         if (selectedDate.equals("Semester Attendance")) {
             reference = FirebaseDatabase.getInstance().getReference().child("Attendance/" + selectedCourse + "/");
             reference.addChildEventListener(new ChildEventListener() {
@@ -175,18 +212,30 @@ public class ShowAttendace extends AppCompatActivity {
                     if (!selectedDate.equals("null")) {
                         for (DataSnapshot data : dataSnapshot.getChildren()) {
                             // AttendanceModel value = dataSnapshot.getValue(AttendanceModel.class);
+                            // setting Data of the snapshoot to model
+                            AttendanceModel model = new AttendanceModel();
+                            model.setStudentID(data.child("StudentID").getValue().toString());
+                            model.setStudentName(data.child("StudentName").getValue().toString());
+                            model.setStudentEmail(data.child("StudentEmail").getValue().toString());
+                            listData.add(model);
+
                             String formatedDataForNameAndID = data.child("StudentName").getValue().toString() + "\n"
-                                    + data.child("StudentID").getValue().toString()+ "\n"
-                                    +data.child("StudentEmail").getValue().toString();
+                                    + data.child("StudentID").getValue().toString() + "\n"
+                                    + data.child("StudentEmail").getValue().toString();
+                            // if (!attendanceArrayList.contains(formatedDataForNameAndID))
                             attendanceArrayList.add(formatedDataForNameAndID);
                             Log.i("dataContent", "onChildAdded: " + dataSnapshot.getChildren() + "   " + data.getValue());
                         }
 
-                        attendanceListArrayAdapter.notifyDataSetChanged();
-                        countAttendance();
+                        counter++;
+                        if (counter == dataSnapshot.getChildrenCount()) {
+                            countAttendance();
+                        }
                     } else {
                         FancyToast.makeText(getApplicationContext(), "Sorry No Attendance To This course appear yet", FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
                     }
+
+
                 }
 
                 @Override
@@ -206,11 +255,13 @@ public class ShowAttendace extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
+                    System.out.println("You can find error here :"+databaseError.getMessage());
 
                 }
             });
 
         } else {
+            // setting refrance to get a pacific date attendance
             reference = FirebaseDatabase.getInstance().getReference().child("Attendance/" + selectedCourse + "/" + selectedDate);
             reference.addChildEventListener(new ChildEventListener() {
                 @Override
@@ -218,7 +269,8 @@ public class ShowAttendace extends AppCompatActivity {
                     if (!selectedDate.equals("null")) {
                         if (dataSnapshot.exists()) {
                             AttendanceModel value = dataSnapshot.getValue(AttendanceModel.class);
-                            String formatedDataForNameAndID = value.getStudentName() + "\n" + value.getStudentID()+"\n"+value.getStudentEmail();
+                            listData.add(value);
+                            String formatedDataForNameAndID = value.getStudentName() + "\n" + value.getStudentID() + "\n" + value.getStudentEmail();
                             if (!attendanceArrayList.contains(formatedDataForNameAndID))
                                 attendanceArrayList.add(formatedDataForNameAndID);
                             attendanceListArrayAdapter.notifyDataSetChanged();
@@ -246,37 +298,51 @@ public class ShowAttendace extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    System.out.println("You can find error here :"+databaseError.getMessage());
                 }
             });
 
 
         }
     }
-    private void countAttendance(){
 
-        Map<String, Integer> duplicates = new HashMap<String, Integer>();
+    private void countAttendance() {
 
-        for (String str : attendanceArrayList) {
-            if (duplicates.containsKey(str)) {
-                duplicates.put(str, duplicates.get(str) + 1);
-            } else {
-                duplicates.put(str, 1);
-            }
-        }
+        ArrayList<String> temp_array2 = new ArrayList<>(attendanceArrayList);
         attendanceArrayList.clear();
-        for (Map.Entry<String, Integer> entry : duplicates.entrySet()) {
-            attendanceArrayList.add(entry.getKey() + "\nAttend: " + entry.getValue());
+        Set<String> set = new HashSet<>(temp_array2);
 
+        ArrayList<String> temp_array = new ArrayList<>(set);
+        for (int i = 0; i < temp_array.size(); i++) {
+            Log.e(temp_array.get(i), "\nAttend: " + Collections.frequency(temp_array2, temp_array.get(i)) + " out of " + (dateList.getCount() - 1) + " lecture");
+            attendanceArrayList.add(temp_array.get(i) + "\nAttend: " + Collections.frequency(temp_array2, temp_array.get(i)) + " out of " + (dateList.getCount() - 1) + " lecture");
         }
-        attendanceListArrayAdapter.notifyDataSetChanged();
-    }
 
+        attendanceListArrayAdapter.notifyDataSetChanged();
+        counter = -1;
+
+
+    }
 
 
     @Override
     public void onBackPressed() {
         finish();
+        attendanceArrayList.clear();
+        dateOptions.clear();
+        //listData.clear();
+        coursesOptions.clear();
         super.onBackPressed();
     }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        try{
+            Runtime.getRuntime().gc();
+            finish();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }
