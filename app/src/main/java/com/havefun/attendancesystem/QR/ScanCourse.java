@@ -120,7 +120,8 @@ public class ScanCourse extends AppCompatActivity implements ZXingScannerView.Re
     public void onBackPressed() {
         if (zx != null) {
             zx.removeAllViews();//here comes the crash
-            startActivity(new Intent(getApplicationContext(), ScanQr.class));
+            //startActivity(new Intent(getApplicationContext(), ScanQr.class));
+            startActivity(new Intent(getApplicationContext(), ScanCourse.class));
             finish();
 
 
