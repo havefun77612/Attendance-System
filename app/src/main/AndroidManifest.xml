@@ -33,6 +33,7 @@
         <activity android:name=".Authentication.Login" />
         <activity android:name=".QR.Qrcour" />
         <activity android:name=".QR.ScanCourse" />
+
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

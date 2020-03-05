@@ -1,5 +1,8 @@
 package com.havefun.attendancesystem.QueryFirebase;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +25,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.havefun.attendancesystem.HelperClass.InternetStatus;
 import com.havefun.attendancesystem.R;
+//import com.havefun.attendancesystem.mail.CustomAdapter2;
+//import com.havefun.attendancesystem.mail.mail;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.ArrayList;
@@ -34,11 +39,15 @@ public class ShowAttendace extends AppCompatActivity {
     ListView attendanceList;
     ArrayAdapter coursesListArrayAdapter, dateListArrayAdapter, attendanceListArrayAdapter;
     ArrayList<String> attendanceArrayList;
-    ArrayList<AttendanceModel> listData;
+    public static ArrayList<AttendanceModel> listData;
     ArrayList<String> coursesOptions, dateOptions;
     String selectedCourse = "null";
     String selectedDate = "null";
     int counter = -1;
+    final String mes=",You have exceeded your absence days";
+    final Intent intent=new Intent(Intent.ACTION_SEND);
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +55,7 @@ public class ShowAttendace extends AppCompatActivity {
         setContentView(R.layout.show_attendace);
         initialVars();
         addListners();
+
 
     }
 
@@ -58,7 +68,9 @@ public class ShowAttendace extends AppCompatActivity {
         coursesOptions = new ArrayList<>();
         dateOptions = new ArrayList<>();
         listData = new ArrayList<>();
+
         attendanceListArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, attendanceArrayList);
+        //CustomAdapter2 adapter2=new CustomAdapter2(this,listData);
         attendanceList.setAdapter(attendanceListArrayAdapter);
         if (new InternetStatus(getApplicationContext()).checkNetworkStatus()) {
             queryTheCourses();
@@ -80,6 +92,36 @@ public class ShowAttendace extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+        // email listener
+        attendanceList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ShowAttendace.this);
+                builder.setTitle("Send email:");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+
+                        intent.putExtra(Intent.EXTRA_EMAIL,new String[]{listData.get(position).getStudentEmail()});
+                        intent.putExtra(Intent.EXTRA_SUBJECT,"Your Absence");
+                        intent.putExtra(Intent.EXTRA_TEXT,"Dear "+listData.get(position).getStudentName()+" "+mes);
+                        intent.setType("message/rfc822");
+                        startActivity(Intent.createChooser(intent,"Choose Mail App"));
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+
+                return true;
             }
         });
 

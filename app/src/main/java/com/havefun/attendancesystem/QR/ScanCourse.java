@@ -30,7 +30,7 @@ public class ScanCourse extends AppCompatActivity implements ZXingScannerView.Re
     TextView QrText;
     Button scan_btn;
     ZXingScannerView zx;
-    static boolean course=false;
+    public static boolean course=false;
    public static String currentCourseCode="",selectedLevel="";
 
 
