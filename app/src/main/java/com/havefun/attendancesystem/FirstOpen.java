@@ -57,10 +57,10 @@ public class FirstOpen extends AppCompatActivity {
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             if (curntscreen==4){
-                 skip.setVisibility(View.INVISIBLE);
-                 skip.setEnabled(false);
-             }
+                if (curntscreen==4){
+                    skip.setVisibility(View.INVISIBLE);
+                    skip.setEnabled(false);
+                }
                 startActivity(new Intent(getApplicationContext(),MainPage.class));
                 finish();
             }

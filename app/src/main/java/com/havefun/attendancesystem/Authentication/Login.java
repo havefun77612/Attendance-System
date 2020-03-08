@@ -3,6 +3,7 @@ package com.havefun.attendancesystem.Authentication;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -35,15 +36,18 @@ import java.util.regex.Pattern;
 
 public class Login extends AppCompatActivity {
     EditText password, email;
-    TextView gotosginupbtn, login_word;
+    TextView gotosginupbtn;
     Button loginbtn;
     String ErrorMessage = "";
     ProgressBar progressBar;
     FirebaseAuth mAuth;
     FirebaseUser user;
-    Animation Animate1, Animate2,Animate3;
-    ImageView register_image, login_image;
-     CardView card_login;
+    Animation Animate1;
+    ImageView  login_image;
+    CardView card_login;
+
+
+
     //CardView card;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +56,6 @@ public class Login extends AppCompatActivity {
         initializeVars();
         addVarsListner();
         addinganimation();
-        addinganimationbyclicking();
     }
 
     /*
@@ -199,30 +202,17 @@ public class Login extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         mAuth = FirebaseAuth.getInstance();
         login_image = (ImageView) findViewById(R.id.login_image);
-         card_login = (CardView)findViewById( R.id.card_login );
+        card_login = (CardView) findViewById(R.id.card_login);
+        /// used sharedprefrenaces to store the user type so that no need for the online
+
     }
 
     private void addinganimation() {
-        Animate1 = AnimationUtils.loadAnimation( Login.this,R.anim.zoomin );
-    //   Animate2 = AnimationUtils.loadAnimation( Login.this,R.anim.bounce );
-        login_image.startAnimation( Animate1 );
-        card_login.startAnimation( Animate1 );
+        Animate1 = AnimationUtils.loadAnimation(Login.this, R.anim.zoomin);
+        //   Animate2 = AnimationUtils.loadAnimation( Login.this,R.anim.bounce );
+        login_image.startAnimation(Animate1);
+        card_login.startAnimation(Animate1);
         //login_word.startAnimation( Animate1 );
-    }
-
-    private void addinganimationbyclicking(){
-        Animate2 = AnimationUtils.loadAnimation( Login.this,R.anim.bounce );
-        //Animate3 = AnimationUtils.loadAnimation( Login.this,R.anim.righttoleft );
-        loginbtn.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                // TODO Auto-generated method stub
-            loginbtn.startAnimation( Animate2 );
-           // email.startAnimation( Animate3 );
-         //   password.startAnimation( Animate3 );
-            }
-        });
     }
 
 

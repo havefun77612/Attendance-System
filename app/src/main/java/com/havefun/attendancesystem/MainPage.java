@@ -86,6 +86,8 @@ Remember to enable view depending on the user type comment  this line SplashScre
                     FancyToast.LENGTH_LONG,FancyToast.INFO,true).show();
         } else {
             Toast.makeText(this, "No UserType Exist", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getApplicationContext(),Login.class));
+            finish();
             System.out.println("No UserType Exist");
         }
     }

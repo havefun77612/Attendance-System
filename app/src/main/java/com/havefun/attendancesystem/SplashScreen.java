@@ -26,6 +26,7 @@ public class SplashScreen extends AppCompatActivity {
     FirebaseUser user;
     String TAG = "com.havefun.attendancesystem";
     public static String FirebaseUserType = "Student";
+    SharedPreferences mUserType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,7 @@ public class SplashScreen extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         firstOpenSharedPreferences = getApplicationContext().getSharedPreferences("FirstOpen", MODE_PRIVATE);
         userFirstOpen = firstOpenSharedPreferences.getBoolean("isFirstOpen", true);
+        mUserType=getApplicationContext().getSharedPreferences("mUserType",MODE_PRIVATE);
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,34 +101,41 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     public void getUserType() {
+        if (mUserType.getString("UserType", "null").equals("null")){
+            FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("UserId").equalTo(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot data : dataSnapshot.getChildren()) {
+                            try {
+                                FirebaseUserType = data.child("UserType").getValue().toString();
+                                mUserType.edit().putString("UserType",FirebaseUserType).apply();
+                                Toast.makeText(SplashScreen.this, data.child("UserType").getValue().toString(), Toast.LENGTH_SHORT).show();
+                            } catch (Exception e) {
+                                Toast.makeText(SplashScreen.this, "Old USer Structure", Toast.LENGTH_SHORT).show();
+                            }
+                            Log.i(TAG, "onDataChange: user type is " + FirebaseUserType);
+                        }
+                        // FancyToast.makeText(getApplicationContext(), "User type is " + FirebaseUserType,FancyToast.LENGTH_LONG, FancyToast.INFO, true).show();
+                        openMainPage();
+                    } else {
+                        Toast.makeText(SplashScreen.this, "No Data for this user", Toast.LENGTH_SHORT).show();
+                        openMainPage();
+                    }
+                }
 
-        FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("UserId").equalTo(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-           if (dataSnapshot.exists()){
-               for (DataSnapshot data : dataSnapshot.getChildren()) {
-                   try {
-                       FirebaseUserType = data.child("UserType").getValue().toString();
-                       Toast.makeText(SplashScreen.this, data.child("UserType").getValue().toString(), Toast.LENGTH_SHORT).show();
-                   }catch (Exception e){
-                       Toast.makeText(SplashScreen.this, "Old USer Structure", Toast.LENGTH_SHORT).show();
-                   }
-                   Log.i(TAG, "onDataChange: user type is "+ FirebaseUserType);
-               }
-               // FancyToast.makeText(getApplicationContext(), "User type is " + FirebaseUserType,FancyToast.LENGTH_LONG, FancyToast.INFO, true).show();
-               openMainPage();
-           }else {
-               Toast.makeText(SplashScreen.this, "No Data for this user", Toast.LENGTH_SHORT).show();
-               openMainPage();
-           }
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
 
-            }
-        });
 
+    }else {
+            FirebaseUserType=mUserType.getString("UserType","null");
+            openMainPage();
+
+        }
     }
 
     private void openLoginPage() {
