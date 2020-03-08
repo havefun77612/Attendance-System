@@ -34,6 +34,7 @@ public class ScanQr extends AppCompatActivity implements ZXingScannerView.Result
     TextView QrText;
     Button scan_btn, send;
     ZXingScannerView zx;
+    ScanCourse scanCourse=new ScanCourse();
 
     public static ArrayList<String> array = new ArrayList<String>();
     //static ArrayList<String[]> array2=new ArrayList<String[]>();
@@ -176,7 +177,11 @@ public class ScanQr extends AppCompatActivity implements ZXingScannerView.Result
             mp.start();
             Toast.makeText(getApplicationContext(), result.getText(), Toast.LENGTH_LONG).show();
             zx.resumeCameraPreview(this);
-        } else {
+        }else if(!scanCourse.course){
+            startActivity(new Intent(ScanQr.this, ScanCourse.class));
+
+        }
+        else {
             mp2.start();
             zx.resumeCameraPreview(this);
         }
