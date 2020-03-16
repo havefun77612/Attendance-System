@@ -17,8 +17,8 @@ import com.havefun.attendancesystem.R;
 public class Profiletest extends AppCompatActivity {
 
 Button backtohome;
-Animation Animate1;
-ImageView image;
+Animation Animate1,Animate2;
+ImageView profile_image,name_image,email_image,phone_image,address_image,date_image;
 TextView accountinfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +32,25 @@ TextView accountinfo;
 
   public void   IntialVar (){
     backtohome =(Button)findViewById( R.id.back_to_home );
-    image = (ImageView) findViewById( R.id.userImage );
+    profile_image = (ImageView) findViewById( R.id.userImage );
     accountinfo = (TextView)findViewById( R.id.accountinfo );
+    name_image = (ImageView)findViewById( R.id.name_image );
+    address_image = (ImageView)findViewById( R.id.address_image );
+    phone_image = (ImageView)findViewById( R.id.mobile_image );
+    date_image = (ImageView)findViewById( R.id.date_image );
+    email_image = (ImageView)findViewById( R.id.email_image );
     }
 
     public void addanimation(){
     Animate1 = AnimationUtils.loadAnimation( com.havefun.attendancesystem.Profile.Profiletest.this,R.anim.lefttoright );
+    Animate2 = AnimationUtils.loadAnimation( com.havefun.attendancesystem.Profile.Profiletest.this , R.anim.righttoleft );
     backtohome.startAnimation( Animate1 );
-    image.startAnimation( Animate1 );
+    profile_image.startAnimation( Animate1 );
     accountinfo.startAnimation( Animate1 );
+    name_image.startAnimation( Animate2 );
+    address_image.startAnimation( Animate2 );
+    phone_image.startAnimation( Animate2 );
+    date_image.startAnimation( Animate2 );
+    email_image.startAnimation( Animate2 );
     }
 }

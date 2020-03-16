@@ -4,8 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -15,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +38,7 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 public class Login extends AppCompatActivity {
     EditText password, email;
@@ -183,7 +189,30 @@ public class Login extends AppCompatActivity {
                 password.setEnabled(false);
                 progressBar.setVisibility(View.VISIBLE);
                 GetData();
-            }
+                /*AsyncTask<String,String,String> demo =new AsyncTask<String, String, String>() {
+                     @Override
+                     protected String doInBackground(String... params) {
+                         try {
+                             Thread.sleep( 3000 );
+
+                         } catch (InterruptedException e) {
+                             e.printStackTrace();
+                         }
+                         return "done";
+                     }
+
+                     protected void onPostExecute(String s) {
+                         if (s.equals( "done" )) {
+                             Toast.makeText( Login.this, "Done", Toast.LENGTH_SHORT ).show();
+                             loginbtn.doneLoadingAnimation( Color.parseColor( "#333639" ), BitmapFactory.decodeResource( getResources(), R.drawable.ic_done_white_48dp ) );
+
+                         }
+
+                     }
+                 };
+                loginbtn.startAnimation();
+                demo.execute();
+            */}
         });
         gotosginupbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,13 +238,37 @@ public class Login extends AppCompatActivity {
 
     private void addinganimation() {
         Animate1 = AnimationUtils.loadAnimation(Login.this, R.anim.zoomin);
-        //   Animate2 = AnimationUtils.loadAnimation( Login.this,R.anim.bounce );
         login_image.startAnimation(Animate1);
         card_login.startAnimation(Animate1);
-        //login_word.startAnimation( Animate1 );
+    }
+/*
+    private void circularbutton(){
+        @SuppressLint("StaticFieldLeak") AsyncTask<String,String,String> demo =new AsyncTask<String, String, String>() {
+            @Override
+            protected String doInBackground(String... strings) {
+                try {
+                    Thread.sleep( 3000 );
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return "done";
+            }
+
+            protected void onPostExecute(String s) {
+                if (s.equals( "done" )) {
+                    Toast.makeText( Login.this, "Done", Toast.LENGTH_SHORT ).show();
+                    loginbtn.doneLoadingAnimation( Color.parseColor( "#333639" ), BitmapFactory.decodeResource( getResources(), R.drawable.ic_done_white_48dp ) );
+
+                }
+
+            }
+        };
+        loginbtn.startAnimation();
+        demo.execute();
     }
 
-
+*/
     @Override
     public void onBackPressed() {
         startActivity(new Intent(getApplicationContext(), MainPage.class));

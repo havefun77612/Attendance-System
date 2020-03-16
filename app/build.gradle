@@ -84,4 +84,6 @@ dependencies {
     implementation 'net.sourceforge.jexcelapi:jxl:2.6'
 
 
+    //loading button
+//    implementation 'br.com.simplepass:loading-button-android:1.7.2'
 }

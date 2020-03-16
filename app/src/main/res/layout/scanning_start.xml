@@ -9,7 +9,7 @@
     android:background="@android:color/background_light"
     android:orientation="vertical"
     android:padding="12dp"
-    tools:context=".Scan">
+    tools:context=".QR.ScanQr">
 
     <Button
         android:id="@+id/scan_btn"

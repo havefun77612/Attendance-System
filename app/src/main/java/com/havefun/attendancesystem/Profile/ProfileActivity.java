@@ -13,6 +13,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -48,13 +49,13 @@ import java.util.ArrayList;
 public class ProfileActivity extends AppCompatActivity {
     final private String TAG="ProfileActivity";
     TextView nameText1, nameText2, mobileText1, mobileText2, emailText1, emailText2, addressText1, addressText2, dateText1, dateText2, userName, userEmail;
-    ImageView profile_image;
+    ImageView profile_image,name_image,email_image,phone_image,address_image,date_image;
     FirebaseUser user;
     ArrayList<UserInfo> UserInfoList;
     Button back_to_home;
     Bitmap bitmap;
     DBManager offlineDB;
-    Animation Animate1;
+    Animation Animate1,Animate2;
     TextView accountinfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -312,13 +313,25 @@ image intent section
         user = FirebaseAuth.getInstance().getCurrentUser();
         UserInfoList = new ArrayList<>();
         offlineDB =new DBManager(getApplicationContext());
+        name_image = (ImageView)findViewById( R.id.name_image );
+        address_image = (ImageView)findViewById( R.id.address_image );
+        phone_image = (ImageView)findViewById( R.id.mobile_image );
+        date_image = (ImageView)findViewById( R.id.date_image );
+        email_image = (ImageView)findViewById( R.id.email_image );
 
     }
     public void addanimation(){
-//        Animate1 = AnimationUtils.loadAnimation( com.havefun.attendancesystem.Profile.ProfileActivity.this,R.anim.lefttoright );
-//        back_to_home.startAnimation( Animate1 );
-//        profile_image.startAnimation( Animate1 );
-//        accountinfo.startAnimation( Animate1 );
+        Animate1 = AnimationUtils.loadAnimation( com.havefun.attendancesystem.Profile.ProfileActivity.this,R.anim.lefttoright );
+        Animate2 = AnimationUtils.loadAnimation( com.havefun.attendancesystem.Profile.ProfileActivity.this , R.anim.righttoleft );
+        back_to_home.startAnimation( Animate1 );
+        profile_image.startAnimation( Animate1 );
+        accountinfo.startAnimation( Animate1 );
+        name_image.startAnimation( Animate2 );
+        address_image.startAnimation( Animate2 );
+        phone_image.startAnimation( Animate2 );
+        date_image.startAnimation( Animate2 );
+        email_image.startAnimation( Animate2 );
+
 
     }
     private void addListners() {

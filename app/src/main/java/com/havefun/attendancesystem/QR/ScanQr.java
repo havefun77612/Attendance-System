@@ -7,6 +7,8 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +35,7 @@ import static com.havefun.attendancesystem.QR.ScanCourse.selectedLevel;
 public class ScanQr extends AppCompatActivity implements ZXingScannerView.ResultHandler {
     TextView QrText;
     Button scan_btn, send;
+    Animation Animate1;
     ZXingScannerView zx;
     ScanCourse scanCourse=new ScanCourse();
 
@@ -53,6 +56,7 @@ public class ScanQr extends AppCompatActivity implements ZXingScannerView.Result
         setContentView(R.layout.scanning_start);
         initialVariabels();
         addListners();
+      //  adding_animation();
 
     }
 

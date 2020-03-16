@@ -1,6 +1,7 @@
 package com.havefun.attendancesystem;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -50,7 +51,7 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
     FirebaseUser user;
     DBManager offlineDB;
     TextView main_page;
-    ImageView image_profile, image_login, image_service, image_qr, image_scan;
+    ImageView image_profile, image_login, image_service, image_qr, image_scan,imageSupervisorStudents,imageAttendanceList,imageNewUserType,course;
     Animation Animate1, Animate2;
 
     @Override
@@ -155,6 +156,10 @@ Remember to enable view depending on the user type comment  this line SplashScre
         image_qr = (ImageView) findViewById(R.id.image_qr);
         image_scan = (ImageView) findViewById(R.id.image_scan);
         main_page = (TextView) findViewById(R.id.main_page);
+        imageNewUserType = (ImageView) findViewById( R.id.imageNewUserType );
+        imageSupervisorStudents = (ImageView) findViewById( R.id.imageSupervisorStudents );
+        imageAttendanceList = (ImageView) findViewById( R.id.imageAttendanceList );
+        course = (ImageView) findViewById( R.id.course );
     }
 
 
@@ -228,13 +233,16 @@ Remember to enable view depending on the user type comment  this line SplashScre
      */
     private void addinganimation() {
         Animate1 = AnimationUtils.loadAnimation(MainPage.this, R.anim.zoomin);
-        // Animate2 = AnimationUtils.loadAnimation(MainPage.this, R.anim.zoomout);
         image_scan.startAnimation(Animate1);
         image_qr.startAnimation(Animate1);
         image_login.startAnimation(Animate1);
         image_profile.startAnimation(Animate1);
         image_service.startAnimation(Animate1);
-        //main_page.startAnimation(Animate2);
+        imageAttendanceList.startAnimation( Animate1 );
+        imageSupervisorStudents.startAnimation( Animate1 );
+        imageNewUserType.startAnimation( Animate1 );
+        course.startAnimation( Animate1 );
+
     }
 
     // Testing the Excell Sheet Values
