@@ -1,8 +1,9 @@
-<set xmlns:android="http://schemas.android.com/apk/res/android">
-    <translate android:fromXDelta="0"
-        android:toYDelta="-650"
+<set xmlns:android="http://schemas.android.com/apk/res/android" >
+
+
+    <translate
+        android:fromXDelta="0"
+        android:toYDelta="-450"
         android:duration="1500"/>
-
-
 
 </set>

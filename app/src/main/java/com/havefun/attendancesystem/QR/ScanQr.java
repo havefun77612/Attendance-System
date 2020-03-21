@@ -56,7 +56,7 @@ public class ScanQr extends AppCompatActivity implements ZXingScannerView.Result
         setContentView(R.layout.scanning_start);
         initialVariabels();
         addListners();
-      //  adding_animation();
+        adding_animation();
 
     }
 
@@ -82,13 +82,21 @@ public class ScanQr extends AppCompatActivity implements ZXingScannerView.Result
     :::::::: initialization Stage ::::::::::::
      */
     public void initialVariabels() {
-        scan_btn = (Button) findViewById(R.id.scan_btn);
+        scan_btn = (Button) findViewById( R.id.scan_btn );
         //QrText = (TextView) findViewById(R.id.QrText);
-        send = (Button) findViewById(R.id.send);
-        mp = MediaPlayer.create(ScanQr.this, R.raw.beep);
-        mp2 = MediaPlayer.create(ScanQr.this, R.raw.error);
+        send = (Button) findViewById( R.id.send );
+        mp = MediaPlayer.create( ScanQr.this, R.raw.beep );
+        mp2 = MediaPlayer.create( ScanQr.this, R.raw.error );
+    }
+
+    public void adding_animation(){
+
+        Animate1 = AnimationUtils.loadAnimation( ScanQr.this, R.anim.blink_anim );
+        scan_btn.startAnimation( Animate1 );
+        send.startAnimation( Animate1 );
 
     }
+
 
     public void addListners() {
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA)

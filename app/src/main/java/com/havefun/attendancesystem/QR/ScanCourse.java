@@ -50,7 +50,7 @@ public class ScanCourse extends AppCompatActivity implements ZXingScannerView.Re
         setContentView(R.layout.coursescan);
         initialVariabels();
         addListners();
-     //   adding_animation();
+        adding_animation();
     }
 
 
@@ -84,6 +84,10 @@ public class ScanCourse extends AppCompatActivity implements ZXingScannerView.Re
 
     }
 
+    public void adding_animation(){
+        Animate1 = AnimationUtils.loadAnimation( ScanCourse.this,R.anim.slide_up );
+        scan_btn.startAnimation( Animate1 );
+    }
     public void addListners() {
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_DENIED) {

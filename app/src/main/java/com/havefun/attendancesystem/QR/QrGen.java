@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -50,7 +52,7 @@ public class QrGen extends AppCompatActivity {
     String[] spinnerOptions={"الاولي","الثانية","الثالثة","خريج"};
     Spinner levelSpinner;
     String selected="null";
-
+    Animation Animate1,Animate2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +60,7 @@ public class QrGen extends AppCompatActivity {
         setContentView(R.layout.qr_image);
         vars();
         listener();
-
+         adding_animation();
 
     }
 
@@ -89,7 +91,14 @@ public class QrGen extends AppCompatActivity {
 
 
     }
+// adding animation
+    public void adding_animation(){
+        Animate1 = AnimationUtils.loadAnimation( QrGen.this , R.anim.rotate );
+        Animate2 = AnimationUtils.loadAnimation( QrGen.this , R.anim.bounce );
+        qr.startAnimation( Animate1 );
 
+
+    }
     public void listener() {
         dateset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +118,7 @@ public class QrGen extends AppCompatActivity {
                     }
                 }, year, month, day);
                 dateBD.show();
+                dateset.startAnimation( Animate2 );
             }
         });
         genbtn.setOnClickListener(new View.OnClickListener() {
@@ -138,7 +148,8 @@ public class QrGen extends AppCompatActivity {
 
 
                 qr.setImageBitmap(ffinal);
-            }
+                genbtn.startAnimation( Animate2 );
+                }
             }
         });
 
@@ -146,6 +157,7 @@ public class QrGen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 prepareQrToBeSaved();
+                saveQr.startAnimation( Animate2 );
             }
         });
 

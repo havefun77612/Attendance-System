@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -28,14 +30,14 @@ public class QrGeneration extends AppCompatActivity {
     String userDate;
     QRCodeWriter writer;
     String qrName,qrId,qrEmail,qrPnumber,qrAddress,qrDate;
-
+    Animation Animate1 ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.qr_generator);
         vars();
         listener();
-
+        adding_animation();
 
     }
     public void vars(){
@@ -49,6 +51,12 @@ public class QrGeneration extends AppCompatActivity {
         dateset=(Button) findViewById(R.id.dateset);
         genbtn=(Button) findViewById(R.id.genbtn);
         writer=new QRCodeWriter();
+
+
+    }
+    public void adding_animation(){
+        Animate1 = AnimationUtils.loadAnimation( QrGeneration.this , R.anim.rotate );
+        qr.startAnimation( Animate1 );
 
 
     }

@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -51,6 +53,7 @@ public class Qrcour extends AppCompatActivity {
     String[] spinnerOptions={"الاولي","الثانية","الثالثة","خريج"};
     Spinner levelSpinner;
     String selected="null";
+    Animation Animate1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,7 @@ public class Qrcour extends AppCompatActivity {
         setContentView(R.layout.coursegen);
         vars();
         listener();
-
+        adding_animation();
 
     }
     public void vars() {
@@ -77,6 +80,13 @@ public class Qrcour extends AppCompatActivity {
         ArrayAdapter arrayAdapter=new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,spinnerOptions);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         levelSpinner.setAdapter(arrayAdapter);
+
+
+    }
+
+    public void adding_animation(){
+        Animate1 = AnimationUtils.loadAnimation( Qrcour.this , R.anim.rotate );
+        qr.startAnimation( Animate1 );
 
 
     }

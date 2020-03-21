@@ -70,7 +70,7 @@ public class CompleteLogin extends AppCompatActivity {
         initializeVars();
         setAvailableData();
         setListners();
-      //  addingAnimation();
+  //      addingAnimation();
 
 
     }
@@ -221,19 +221,13 @@ public class CompleteLogin extends AppCompatActivity {
 
 
     }
-
+/*
     private void addingAnimation() {
-
-        animate1 = AnimationUtils.loadAnimation(CompleteLogin.this, R.anim.righttoleft);
-        username.startAnimation(animate1);
-        email.startAnimation(animate1);
-        phone.startAnimation(animate1);
-        address.startAnimation(animate1);
-        date.startAnimation(animate1);
-        dateofbirth.startAnimation(animate1);
+        animate2 = AnimationUtils.loadAnimation( CompleteLogin.this, R.anim.bounce );
+        animate1 = AnimationUtils.loadAnimation(CompleteLogin.this, R.anim.zoomin);
 
     }
-
+*/
     private void setListners() {
 
         image_profile.setOnClickListener(new View.OnClickListener() {
@@ -256,8 +250,7 @@ public class CompleteLogin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                Animation animate = AnimationUtils.loadAnimation(CompleteLogin.this, R.anim.fadein);
-                submit.startAnimation(animate);
+
                 String user = username.getText().toString();
                 String phoon = phone.getText().toString();
                 String emailf = email.getText().toString();
@@ -305,8 +298,7 @@ public class CompleteLogin extends AppCompatActivity {
                         writeToFirebase.addNewUserinfo(hash, bitmap, UserCompleteInfo);
                     }
                 }
-
-            }
+          }
         });
 
         // data pickicking
