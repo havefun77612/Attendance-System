@@ -70,7 +70,7 @@ public class CompleteLogin extends AppCompatActivity {
         initializeVars();
         setAvailableData();
         setListners();
-  //      addingAnimation();
+        addingAnimation();
 
 
     }
@@ -221,13 +221,20 @@ public class CompleteLogin extends AppCompatActivity {
 
 
     }
-/*
+
     private void addingAnimation() {
         animate2 = AnimationUtils.loadAnimation( CompleteLogin.this, R.anim.bounce );
         animate1 = AnimationUtils.loadAnimation(CompleteLogin.this, R.anim.zoomin);
-
+        username.startAnimation(animate1);
+        email.startAnimation(animate1);
+        phone.startAnimation(animate1);
+        address.startAnimation(animate1);
+        passwordForUserType.startAnimation( animate1 );
+        date.startAnimation(animate1);
+        dateofbirth.startAnimation(animate1);
+        image_profile.startAnimation( animate1 );
     }
-*/
+
     private void setListners() {
 
         image_profile.setOnClickListener(new View.OnClickListener() {
@@ -298,7 +305,8 @@ public class CompleteLogin extends AppCompatActivity {
                         writeToFirebase.addNewUserinfo(hash, bitmap, UserCompleteInfo);
                     }
                 }
-          }
+          submit.startAnimation( animate2 );
+            }
         });
 
         // data pickicking
