@@ -171,7 +171,4 @@ public class ScanCourse extends AppCompatActivity implements ZXingScannerView.Re
 
     }
 
-
-
-
 }

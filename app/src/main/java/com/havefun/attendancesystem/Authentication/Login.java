@@ -48,7 +48,7 @@ public class Login extends AppCompatActivity {
     ProgressBar progressBar;
     FirebaseAuth mAuth;
     FirebaseUser user;
-    Animation Animate1;
+    Animation Animate1,Animate2;
     ImageView  login_image;
     CardView card_login;
 
@@ -189,6 +189,7 @@ public class Login extends AppCompatActivity {
                 password.setEnabled(false);
                 progressBar.setVisibility(View.VISIBLE);
                 GetData();
+                loginbtn.startAnimation( Animate2 );
                 /*AsyncTask<String,String,String> demo =new AsyncTask<String, String, String>() {
                      @Override
                      protected String doInBackground(String... params) {
@@ -220,6 +221,7 @@ public class Login extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), SignUp.class));
             }
         });
+
     }
 
     @SuppressLint("WrongViewCast")
@@ -238,9 +240,10 @@ public class Login extends AppCompatActivity {
 
     private void addinganimation() {
         Animate1 = AnimationUtils.loadAnimation(Login.this, R.anim.zoomin);
+        Animate2 = AnimationUtils.loadAnimation( Login.this, R.anim.blink_anim );
         login_image.startAnimation(Animate1);
         card_login.startAnimation(Animate1);
-    }
+        }
 /*
     private void circularbutton(){
         @SuppressLint("StaticFieldLeak") AsyncTask<String,String,String> demo =new AsyncTask<String, String, String>() {

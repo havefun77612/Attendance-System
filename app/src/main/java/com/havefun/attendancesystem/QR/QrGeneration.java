@@ -1,6 +1,7 @@
 package com.havefun.attendancesystem.QR;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
+import com.havefun.attendancesystem.MainPage;
 import com.havefun.attendancesystem.R;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
@@ -108,6 +110,12 @@ public class QrGeneration extends AppCompatActivity {
                 qr.setImageBitmap(ffinal);
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), MainPage.class));
+        finish();
+        super.onBackPressed();
     }
 }
 

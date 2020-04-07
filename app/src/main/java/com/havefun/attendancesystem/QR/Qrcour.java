@@ -30,6 +30,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.havefun.attendancesystem.FirebaseClass.WriteToFirebase;
+import com.havefun.attendancesystem.MainPage;
 import com.havefun.attendancesystem.R;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.shashank.sony.fancytoastlib.FancyToast;
@@ -231,4 +232,11 @@ public class Qrcour extends AppCompatActivity {
         c.sendBroadcast(intent);
         Toast.makeText(c, "Image saved ", Toast.LENGTH_SHORT).show();
     }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), MainPage.class));
+        finish();
+        super.onBackPressed();
+    }
 }
+
