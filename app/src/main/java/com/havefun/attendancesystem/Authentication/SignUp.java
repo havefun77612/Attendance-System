@@ -7,8 +7,11 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -51,6 +54,7 @@ import java.util.regex.Pattern;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 public class SignUp extends AppCompatActivity {
     TextView gotologinbtn;
@@ -65,6 +69,9 @@ public class SignUp extends AppCompatActivity {
     CallbackManager callbackManager;
     LoginButton loginButton;
     String TAG = "SignUp: ";
+    Animation Animate1,Animate2;
+    CardView cardview ;
+    ImageView image;
     private static final String EMAIL = "email";
 
     @Override
@@ -74,7 +81,8 @@ public class SignUp extends AppCompatActivity {
         initializeVars();
         addVarsListner();
         facebookConnecton();
-    }
+        addingAnimation();
+     }
 
     /*
      ** preparing data stage
@@ -355,6 +363,7 @@ void checkifUserCompeletLoginOrNot(){
                 disableBtns();
                 GetData();
                 returnContentControle();
+                sginupbtn.startAnimation( Animate2 );
             }
         });
         google.setOnClickListener(new View.OnClickListener() {
@@ -383,10 +392,16 @@ void checkifUserCompeletLoginOrNot(){
         mAuth = FirebaseAuth.getInstance();
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.login_button);
-
+         cardview = (CardView) findViewById( R.id.card );
+         image = (ImageView) findViewById( R.id.image );
 
     }
-
+      public void addingAnimation(){
+       Animate1 = AnimationUtils.loadAnimation( SignUp.this, R.anim.zoomout );
+       Animate2 = AnimationUtils.loadAnimation( SignUp.this, R.anim.blink_anim );
+       cardview.startAnimation( Animate1 );
+       image.startAnimation( Animate1 );
+    }
     void disableBtns() {
         google.setEnabled(false);
         sginupbtn.setEnabled(false);

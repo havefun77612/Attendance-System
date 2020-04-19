@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -30,6 +32,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import com.havefun.attendancesystem.MainPage;
 import com.havefun.attendancesystem.R;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.shashank.sony.fancytoastlib.FancyToast;
@@ -50,7 +53,7 @@ public class QrGen extends AppCompatActivity {
     String[] spinnerOptions={"الاولي","الثانية","الثالثة","خريج"};
     Spinner levelSpinner;
     String selected="null";
-
+    Animation Animate1,Animate2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,7 @@ public class QrGen extends AppCompatActivity {
         setContentView(R.layout.qr_image);
         vars();
         listener();
-
+         adding_animation();
 
     }
 
@@ -89,7 +92,14 @@ public class QrGen extends AppCompatActivity {
 
 
     }
+// adding animation
+    public void adding_animation(){
+        Animate1 = AnimationUtils.loadAnimation( QrGen.this , R.anim.rotate );
+        Animate2 = AnimationUtils.loadAnimation( QrGen.this , R.anim.bounce );
+        qr.startAnimation( Animate1 );
 
+
+    }
     public void listener() {
         dateset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +119,7 @@ public class QrGen extends AppCompatActivity {
                     }
                 }, year, month, day);
                 dateBD.show();
+                dateset.startAnimation( Animate2 );
             }
         });
         genbtn.setOnClickListener(new View.OnClickListener() {
@@ -138,7 +149,8 @@ public class QrGen extends AppCompatActivity {
 
 
                 qr.setImageBitmap(ffinal);
-            }
+                genbtn.startAnimation( Animate2 );
+                }
             }
         });
 
@@ -146,6 +158,7 @@ public class QrGen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 prepareQrToBeSaved();
+                saveQr.startAnimation( Animate2 );
             }
         });
 
@@ -249,5 +262,11 @@ public class QrGen extends AppCompatActivity {
         intent.setData(Uri.fromFile(f));
         c.sendBroadcast(intent);
         Toast.makeText(c, "Image saved ", Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), MainPage.class));
+        finish();
+        super.onBackPressed();
     }
 }

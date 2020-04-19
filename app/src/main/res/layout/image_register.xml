@@ -30,6 +30,7 @@
                 android:background="@drawable/centre_background">
 
                 <ImageView
+                    android:id="@+id/image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -55,5 +56,7 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/layout_register"/>
+    <include
+        android:id="@+id/card"
+        layout="@layout/layout_register" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

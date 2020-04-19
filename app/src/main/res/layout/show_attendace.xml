@@ -9,7 +9,7 @@
         android:id="@+id/coursesLists"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="#45757575"
+        android:background="#00a5ff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -18,7 +18,7 @@
         android:id="@+id/dateList"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="#70757575"
+        android:background="#00a5ff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/coursesLists"/>

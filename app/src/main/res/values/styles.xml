@@ -79,6 +79,7 @@
         <item name="android:textColor">@color/whiteTextColor</item>
         <item name="android:textStyle">bold</item>
     </style>
+    <style name="backgr" parent="parent"><item name="android:background">@drawable/background_style</item></style>
 
 
     <style name="modifiedEditText" parent="parent">

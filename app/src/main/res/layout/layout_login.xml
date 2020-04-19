@@ -72,7 +72,8 @@
             style="@style/loginButton"
             android:text="Login"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/loginViewsMargin"/>
+            android:layout_marginTop="@dimen/loginViewsMargin"
+             />
 
         <TextView
             android:id="@+id/gotosginupbtn"

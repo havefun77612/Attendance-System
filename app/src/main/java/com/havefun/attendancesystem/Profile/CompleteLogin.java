@@ -32,6 +32,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.havefun.attendancesystem.HelperClass.InternetStatus;
+import com.havefun.attendancesystem.MainPage;
 import com.havefun.attendancesystem.R;
 import com.havefun.attendancesystem.FirebaseClass.WriteToFirebase;
 import com.shashank.sony.fancytoastlib.FancyToast;
@@ -43,7 +44,7 @@ import java.util.HashMap;
 public class CompleteLogin extends AppCompatActivity {
     Button submit, date;
     EditText username, email, phone, address, dateofbirth,passwordForUserType;
-    Animation animate1, animate2;
+    Animation animate1, animate2, animate3;
     ImageView image_profile;
     Switch checkTheUserType;
     FirebaseAuth mAuth;
@@ -70,7 +71,7 @@ public class CompleteLogin extends AppCompatActivity {
         initializeVars();
         setAvailableData();
         setListners();
-      //  addingAnimation();
+        addingAnimation();
 
 
     }
@@ -223,15 +224,17 @@ public class CompleteLogin extends AppCompatActivity {
     }
 
     private void addingAnimation() {
-
-        animate1 = AnimationUtils.loadAnimation(CompleteLogin.this, R.anim.righttoleft);
+        animate2 = AnimationUtils.loadAnimation( CompleteLogin.this, R.anim.bounce );
+        animate1 = AnimationUtils.loadAnimation(CompleteLogin.this, R.anim.fadeout);
+        animate3 = AnimationUtils.loadAnimation( CompleteLogin.this , R.anim.zoomin );
         username.startAnimation(animate1);
         email.startAnimation(animate1);
         phone.startAnimation(animate1);
         address.startAnimation(animate1);
-        date.startAnimation(animate1);
+        date.startAnimation( animate1 );
+        passwordForUserType.startAnimation( animate1 );
         dateofbirth.startAnimation(animate1);
-
+        image_profile.startAnimation( animate1 );
     }
 
     private void setListners() {
@@ -249,6 +252,7 @@ public class CompleteLogin extends AppCompatActivity {
                 } else {
                     pickM();
                 }
+                image_profile.startAnimation( animate3 );
             }
         });
 
@@ -256,8 +260,7 @@ public class CompleteLogin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                Animation animate = AnimationUtils.loadAnimation(CompleteLogin.this, R.anim.fadein);
-                submit.startAnimation(animate);
+
                 String user = username.getText().toString();
                 String phoon = phone.getText().toString();
                 String emailf = email.getText().toString();
@@ -305,7 +308,7 @@ public class CompleteLogin extends AppCompatActivity {
                         writeToFirebase.addNewUserinfo(hash, bitmap, UserCompleteInfo);
                     }
                 }
-
+          submit.startAnimation( animate2 );
             }
         });
 
@@ -330,6 +333,7 @@ public class CompleteLogin extends AppCompatActivity {
                     }
                 }, year, month, day);
                 dateBD.show();
+                date.startAnimation( animate2 );
 
 
             }
@@ -404,5 +408,10 @@ public class CompleteLogin extends AppCompatActivity {
         date.setEnabled(false);
     }
 
-
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), MainPage.class));
+        finish();
+        super.onBackPressed();
+    }
 }

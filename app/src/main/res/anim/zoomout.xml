@@ -1,15 +1,15 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android"
-    android:fillAfter="true" >
+    android:fillAfter="false" >
 
     <scale
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:duration="3700"
-        android:fromXScale="3"
-        android:fromYScale="3"
+        android:duration="3000"
+        android:fromXScale="1.7"
+        android:fromYScale="1.7"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:toXScale="1"
-        android:toYScale="1" >
+        android:toXScale="0.5"
+        android:toYScale="0.5" >
     </scale>
 
 </set>
