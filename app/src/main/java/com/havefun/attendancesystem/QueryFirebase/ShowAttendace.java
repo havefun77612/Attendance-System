@@ -270,7 +270,7 @@ public class ShowAttendace extends AppCompatActivity {
                         }
 
                         counter++;
-                        if (counter == dataSnapshot.getChildrenCount()) {
+                        if (counter >= dataSnapshot.getChildrenCount()) {
                             countAttendance();
                         }
                     } else {
