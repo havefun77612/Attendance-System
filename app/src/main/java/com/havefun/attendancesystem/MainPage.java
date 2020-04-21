@@ -50,7 +50,7 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
     GridLayout mainPageMainContainer;
     FirebaseUser user;
     DBManager offlineDB;
-    TextView main_page;
+    TextView main_page,newUserType;
     ImageView image_profile, image_login, image_service, image_qr, image_scan,imageSupervisorStudents,imageAttendanceList,imageNewUserType,course;
     Animation Animate1, Animate2;
 
@@ -77,6 +77,8 @@ Remember to enable view depending on the user type comment  this line SplashScre
             mainPageMainContainer.removeView(cardQrGeneration);
             mainPageMainContainer.removeView(cardQrCourseGeneration);
             mainPageMainContainer.removeView(cardAddNewUserType);
+            newUserType.setText("Complete\nLogin");
+
         } else if (SplashScreen.FirebaseUserType.equals("Doctor")) {
             mainPageMainContainer.removeView(cardQrGeneration);
             mainPageMainContainer.removeView(cardQrCourseGeneration);
@@ -123,7 +125,7 @@ Remember to enable view depending on the user type comment  this line SplashScre
      ** Initialization Stage
      */
     private void initializeVars() {
-        loginActivity = (LinearLayout) findViewById(R.id.loginactivity);
+        //loginActivity = (LinearLayout) findViewById(R.id.loginactivity);
         profile_page = (LinearLayout) findViewById(R.id.profile_page);
         scaner = (LinearLayout) findViewById(R.id.Scaner);
         chatting = (LinearLayout) findViewById(R.id.chattingCard);
@@ -132,7 +134,7 @@ Remember to enable view depending on the user type comment  this line SplashScre
         addNewDoctorOrAdmin = findViewById(R.id.addNewDoctorOrAdmin);
         showSupervisorStudents=findViewById(R.id.showSupervisorStudents);
         cardChat=findViewById(R.id.cardChat);
-        cardLogin=findViewById(R.id.cardLogin);
+        //cardLogin=findViewById(R.id.cardLogin);
         cardProfile=findViewById(R.id.cardProfile);
         cardAddNewUserType=findViewById(R.id.cardAddNewUserType);
         cardQrCourseGeneration=findViewById(R.id.cardCourseGeneration);
@@ -151,7 +153,7 @@ Remember to enable view depending on the user type comment  this line SplashScre
         NavigationView navigationView = (NavigationView) findViewById(R.id.draw_dev);
         navigationView.setNavigationItemSelectedListener(this);
         image_profile = (ImageView) findViewById(R.id.image_profile);
-        image_login = (ImageView) findViewById(R.id.image_login);
+        //image_login = (ImageView) findViewById(R.id.image_login);
         image_service = (ImageView) findViewById(R.id.image_service);
         image_qr = (ImageView) findViewById(R.id.image_qr);
         image_scan = (ImageView) findViewById(R.id.image_scan);
@@ -160,18 +162,19 @@ Remember to enable view depending on the user type comment  this line SplashScre
         imageSupervisorStudents = (ImageView) findViewById( R.id.imageSupervisorStudents );
         imageAttendanceList = (ImageView) findViewById( R.id.imageAttendanceList );
         course = (ImageView) findViewById( R.id.course );
+        newUserType=(TextView) findViewById(R.id.newUserTypeText);
     }
 
 
     private void addListners() {
-        loginActivity.setOnClickListener(new View.OnClickListener() {
+/*        loginActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), Login.class));
 
 
             }
-        });
+        });*/
 
         profile_page.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -235,7 +238,7 @@ Remember to enable view depending on the user type comment  this line SplashScre
         Animate1 = AnimationUtils.loadAnimation(MainPage.this, R.anim.zoomin);
         image_scan.startAnimation(Animate1);
         image_qr.startAnimation(Animate1);
-        image_login.startAnimation(Animate1);
+//        image_login.startAnimation(Animate1);
         image_profile.startAnimation(Animate1);
         image_service.startAnimation(Animate1);
         imageAttendanceList.startAnimation( Animate1 );
