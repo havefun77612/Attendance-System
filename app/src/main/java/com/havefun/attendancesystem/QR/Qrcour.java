@@ -59,7 +59,7 @@ public class Qrcour extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.coursegen);
+        setContentView(R.layout.course_image);
         vars();
         listener();
         adding_animation();
