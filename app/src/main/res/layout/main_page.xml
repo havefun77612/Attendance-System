@@ -330,7 +330,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="10dp"
-                                android:text="Add New \n User"
+                                android:text="Complete \n Login"
                                 android:textAlignment="center"
                                 android:textColor="@color/blackTextColor"
                                 android:textSize="20sp"
@@ -368,7 +368,7 @@
                                 android:layout_height="84dp"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="10dp"
-                                android:src="@drawable/datasheeticon" />
+                                android:src="@drawable/supervisor" />
 
                             <TextView
                                 android:id="@+id/newSupervisorStudents"
@@ -376,7 +376,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="10dp"
-                                android:text="Add New \n User"
+                                android:text="Show Supervisor \n Students"
                                 android:textAlignment="center"
                                 android:textColor="@color/blackTextColor"
                                 android:textSize="20sp"
@@ -420,7 +420,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="10dp"
-                                android:text="Show \n Attendane"
+                                android:text="Show \n Attendance"
                                 android:textAlignment="center"
                                 android:textColor="@color/blackTextColor"
                                 android:textSize="20sp"
