@@ -54,7 +54,7 @@ public class Qrcour extends AppCompatActivity {
     String[] spinnerOptions={"الاولي","الثانية","الثالثة","خريج"};
     Spinner levelSpinner;
     String selected="null";
-    Animation Animate1;
+    Animation Animate1 , Animate2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +87,7 @@ public class Qrcour extends AppCompatActivity {
 
     public void adding_animation(){
         Animate1 = AnimationUtils.loadAnimation( Qrcour.this , R.anim.rotate );
+        Animate2 = AnimationUtils.loadAnimation(Qrcour.this , R.anim.bounce) ;
         qr.startAnimation( Animate1 );
 
 
@@ -117,6 +118,7 @@ public class Qrcour extends AppCompatActivity {
 
                     qr.setImageBitmap(ffinal);
                 }
+        gen.startAnimation( Animate2 );
             }
         });
         levelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -135,6 +137,7 @@ public class Qrcour extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 prepareQrToBeSaved();
+                saveQr.startAnimation( Animate2 );
             }
         });
     }
