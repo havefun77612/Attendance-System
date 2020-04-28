@@ -31,7 +31,7 @@
             android:layout_marginTop="15dp"
             android:paddingLeft="35dp"
             android:paddingRight="35dp"
-            android:text="All what you need as a student or doctor \n access your info and manage it"
+            android:text="The system is able to show attendance data to professors \n and take some actions like sending warning emails to \n students that reach the limited number of absence."
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="12sp" />

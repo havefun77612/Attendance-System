@@ -20,7 +20,7 @@
 <TextView
     android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="University attendance system"
+            android:text="Automated University \nAttendance System"
             android:textColor="@android:color/white"
             android:textSize="25sp"
             android:textStyle="bold" />
@@ -31,7 +31,7 @@
             android:layout_marginTop="15dp"
             android:paddingLeft="35dp"
             android:paddingRight="35dp"
-            android:text="It's a greate idea to help pepole saving their time \n our system work on saveing yours ^__^"
+            android:text="Welcome!\n Our application provide a punch of features that help   \n saving a lot of work for both professors and students \n as it is take less time now to take the attendance. "
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="12sp" />

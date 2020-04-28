@@ -31,7 +31,7 @@
             android:layout_marginTop="15dp"
             android:paddingLeft="35dp"
             android:paddingRight="35dp"
-            android:text="We are always pleased to share our idea with your friends \n let's save our time let's use technology"
+            android:text="The chatting feature to apply requests without the need for physical exist."
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="12sp" />
