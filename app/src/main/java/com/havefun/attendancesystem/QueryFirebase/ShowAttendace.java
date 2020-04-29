@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -28,6 +30,9 @@ import com.havefun.attendancesystem.R;
 //import com.havefun.attendancesystem.mail.CustomAdapter2;
 //import com.havefun.attendancesystem.mail.mail;
 import com.shashank.sony.fancytoastlib.FancyToast;
+import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
+import com.squareup.otto.ThreadEnforcer;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,9 +48,10 @@ public class ShowAttendace extends AppCompatActivity {
     ArrayList<String> coursesOptions, dateOptions;
     String selectedCourse = "null";
     String selectedDate = "null";
-    int counter = -1;
+    int counter = 0;
     final String mes=",You have exceeded your absence days";
     final Intent intent=new Intent(Intent.ACTION_SEND);
+    public static Bus bus;
 
 
 
@@ -64,6 +70,8 @@ public class ShowAttendace extends AppCompatActivity {
         coursesList = (Spinner) findViewById(R.id.coursesLists);
         dateList = (Spinner) findViewById(R.id.dateList);
         attendanceList = (ListView) findViewById(R.id.attendanceList);
+        bus = new Bus(ThreadEnforcer.MAIN);
+        bus.register(this);
         attendanceArrayList = new ArrayList<>();
         coursesOptions = new ArrayList<>();
         dateOptions = new ArrayList<>();
@@ -131,6 +139,8 @@ public class ShowAttendace extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedDate = parent.getItemAtPosition(position).toString();
                 try {
+                    attendanceArrayList.clear();
+                    listData.clear();
                     setDataToAttendanceListView();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -244,14 +254,17 @@ public class ShowAttendace extends AppCompatActivity {
     private void setDataToAttendanceListView()  {
         attendanceArrayList.clear();
         listData.clear();
+        counter=0;
         DatabaseReference reference;
         //  setting referance to get all the data of the course
         if (selectedDate.equals("Semester Attendance")) {
-            reference = FirebaseDatabase.getInstance().getReference().child("Attendance/" + selectedCourse + "/");
+
+            reference = FirebaseDatabase.getInstance().getReference().child("Attendance/"+selectedCourse);
             reference.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     if (!selectedDate.equals("null")) {
+                       final int childCount= (int) dataSnapshot.getChildrenCount();
                         for (DataSnapshot data : dataSnapshot.getChildren()) {
                             // AttendanceModel value = dataSnapshot.getValue(AttendanceModel.class);
                             // setting Data of the snapshoot to model
@@ -269,16 +282,14 @@ public class ShowAttendace extends AppCompatActivity {
                             Log.i("dataContent", "onChildAdded: " + dataSnapshot.getChildren() + "   " + data.getValue());
                         }
 
-                        counter++;
-                        if (counter >= dataSnapshot.getChildrenCount()) {
-                            countAttendance();
-                        }
+
                     } else {
                         FancyToast.makeText(getApplicationContext(), "Sorry No Attendance To This course appear yet", FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
                     }
 
-
                 }
+
+
 
                 @Override
                 public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -297,10 +308,12 @@ public class ShowAttendace extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    System.out.println("You can find error here :"+databaseError.getMessage());
 
                 }
-            });
+            }
+
+            );
+            countAttendance();
 
         } else {
             // setting refrance to get a pacific date attendance
@@ -349,20 +362,34 @@ public class ShowAttendace extends AppCompatActivity {
     }
 
     private void countAttendance() {
+        new CountDownTimer(5000,1000){
+            @Override
+            public void onTick(long l) {
 
-        ArrayList<String> temp_array2 = new ArrayList<>(attendanceArrayList);
-        attendanceArrayList.clear();
-        Set<String> set = new HashSet<>(temp_array2);
+            }
 
-        ArrayList<String> temp_array = new ArrayList<>(set);
-        for (int i = 0; i < temp_array.size(); i++) {
-            Log.e(temp_array.get(i), "\nAttend: " + Collections.frequency(temp_array2, temp_array.get(i)) + " out of " + (dateList.getCount() - 1) + " lecture");
-            attendanceArrayList.add(temp_array.get(i) + "\nAttend: " + Collections.frequency(temp_array2, temp_array.get(i)) + " out of " + (dateList.getCount() - 1) + " lecture");
-        }
+            @Override
+            public void onFinish() {
+                if (attendanceArrayList.size()>6){
+                    ArrayList<String> temp_array2 = new ArrayList<>(attendanceArrayList);
+                    attendanceArrayList.clear();
+                    Set<String> set = new HashSet<>(temp_array2);
 
-        attendanceListArrayAdapter.notifyDataSetChanged();
-        counter = -1;
+                    ArrayList<String> temp_array = new ArrayList<>(set);
+                    for (int i = 0; i < temp_array.size(); i++) {
+                        Log.e(temp_array.get(i), "\nAttend: " + Collections.frequency(temp_array2, temp_array.get(i)) + " out of " + (dateList.getCount() - 1) + " lecture");
+                        attendanceArrayList.add(temp_array.get(i) + "\nAttend: " + Collections.frequency(temp_array2, temp_array.get(i)) + " out of " + (dateList.getCount() - 1) + " lecture");
+                    }
 
+                    attendanceListArrayAdapter.notifyDataSetChanged();
+                    // counter = 0;
+
+
+                }else {
+                    countAttendance();
+                }
+            }
+        }.start();
 
     }
 
