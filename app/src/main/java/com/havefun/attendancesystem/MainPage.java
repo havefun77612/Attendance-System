@@ -262,7 +262,8 @@ Remember to enable view depending on the user type comment  this line SplashScre
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            new StoreReview(getApplicationContext(),this).showReviewDialog();
+
         }
     }
 
