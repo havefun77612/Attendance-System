@@ -105,6 +105,7 @@ Remember to enable view depending on the user type comment  this line SplashScre
                 logOut();
                 break;
             }
+
         }
 
         return true;
