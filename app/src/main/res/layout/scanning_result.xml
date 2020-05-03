@@ -4,83 +4,140 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QR.ressult">
+    tools:context=".QR.ressult"
+    android:background="@color/bluegrey50"
+
+
+    >
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/centre_background"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+
+
+
+
 
     <ListView
         android:id="@+id/list"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/uploadCourseData"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="83dp"
-        android:divider="#000"
-        android:dividerHeight="1dp"
+
+
+
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="-5in"
+        android:layout_marginTop="10mm"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="137dp"
+        android:divider="#408bff"
+        android:dividerHeight="7dp"
+        android:background="@color/cardview_light_background"
         android:footerDividersEnabled="false"
         android:headerDividersEnabled="false" />
+
+
+    <!-- <LinearLayout
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+
+         android:orientation="horizontal">-->
+
     <Button
         android:id="@+id/uploadCourseData"
+        style="@style/TextAppearance.AppCompat.Widget.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:textColor="@color/text_color_dark"
-        android:text="@string/upload_data_form_scan_page"
-        style="@style/TextAppearance.AppCompat.Widget.Button.Colored"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-1dp"
+        android:layout_marginLeft="-1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/profile_back_button"
         android:onClick="testNetwork"
+        android:text="@string/upload_data_form_scan_page"
+        android:textColor="@color/black"
+
         />
+
     <Button
         android:id="@+id/insert"
-        android:layout_width="wrap_content"
+        android:layout_width="98dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
+
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="319dp"
         android:layout_marginRight="319dp"
-        android:layout_marginBottom="73dp"
+        android:layout_marginBottom="116dp"
+        android:background="@drawable/login_button_bk"
+        android:fitsSystemWindows="true"
+
+
         android:text="insert" />
 
     <Button
-        android:id="@+id/delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="122dp"
-        android:layout_marginRight="122dp"
-        android:layout_marginBottom="73dp"
-        android:text="delete " />
 
-    <Button
         android:id="@+id/retrieve"
-        android:layout_width="wrap_content"
+        android:layout_width="98dp"
         android:layout_height="wrap_content"
+
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="220dp"
-        android:layout_marginRight="220dp"
-        android:layout_marginBottom="73dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="102dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginEnd="213dp"
+        android:layout_marginRight="213dp"
+        android:layout_marginBottom="116dp"
+        android:background="@drawable/login_button_bk"
         android:text="retrieve" />
 
     <Button
-        android:id="@+id/check_data"
-        android:layout_width="wrap_content"
+        android:id="@+id/delete"
+        android:layout_width="98dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="6dp"
-        android:layout_marginRight="6dp"
-        android:layout_marginBottom="74dp"
+        android:layout_marginEnd="110dp"
+
+        android:layout_marginRight="110dp"
+        android:layout_marginBottom="116dp"
+        android:background="@drawable/login_button_bk"
+        android:text="delete " />
+
+    <Button
+        android:id="@+id/check_data"
+        android:layout_width="98dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginBottom="116dp"
+        android:background="@drawable/login_button_bk"
         android:text="check_data" />
+    <!--</LinearLayout>-->
+    <!-- </androidx.appcompat.widget.LinearLayoutCompat>-->
+
 </RelativeLayout>
+

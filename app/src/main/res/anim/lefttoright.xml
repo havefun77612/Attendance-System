@@ -1,5 +1,5 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android" >
   <translate android:fromXDelta="-200%" android:toXDelta="0%"
              android:fromYDelta="-200%" android:toYDelta="0%"
-             android:duration="2900"/>
+             android:duration="2500"/>
 </set>

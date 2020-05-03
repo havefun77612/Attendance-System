@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,8 +35,10 @@ public class ressult extends AppCompatActivity {
     static ArrayList<UserData> array = new ArrayList<UserData>();//arraylist holding objects of users
     //static ArrayList<String> array2 = new ArrayList<String>();
     ScanQr scanQr = new ScanQr();
-    Button insert, retrieve, delete, checkdata;
+    Button insert, retrieve, delete, checkdata , upload;
     String edit;
+    ListView list;
+    Animation Animate1 , Animate2 , Animate3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,7 @@ public class ressult extends AppCompatActivity {
         prepareAdapter();
         intialvariables();
         intlisteners();
+        adding_animation();
     }
 
     private void intialvariables() {
@@ -51,7 +56,22 @@ public class ressult extends AppCompatActivity {
         retrieve = (Button) findViewById(R.id.retrieve);
         insert = (Button) findViewById(R.id.insert);
         checkdata = (Button) findViewById(R.id.check_data);
+        upload = (Button)findViewById( R.id.uploadCourseData );
+        list = (ListView)findViewById( R.id.list );
     }
+
+    private void adding_animation(){
+     Animate1 = AnimationUtils.loadAnimation( ressult.this , R.anim.righttoleft );
+     Animate2 = AnimationUtils.loadAnimation( ressult.this , R.anim.lefttoright );
+     Animate3 = AnimationUtils.loadAnimation( ressult.this , R.anim.bounce );
+     insert.startAnimation( Animate1 );
+     retrieve.startAnimation( Animate1 );
+     delete.startAnimation( Animate1 );
+     checkdata.startAnimation( Animate1);
+     upload.startAnimation( Animate2 );
+     list.startAnimation( Animate1 );
+    }
+
 
     private void prepareAdapter() {
 
@@ -192,6 +212,7 @@ public class ressult extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 new DBManager(getApplicationContext()).insertScanٍTable(ScanQr.scanData);
+                insert.startAnimation( Animate3 );
             }
         });
 
@@ -200,6 +221,7 @@ public class ressult extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 new DBManager(getApplicationContext()).getScanTable();
+                retrieve.startAnimation( Animate3 );
             }
         });
 
@@ -210,7 +232,7 @@ public class ressult extends AppCompatActivity {
             public void onClick(View view) {
 
                 new DBManager(getApplicationContext()).deleteAllRecordScan();
-
+                 delete.startAnimation( Animate3 );
             }
         });
 
@@ -220,7 +242,7 @@ public class ressult extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 System.out.println(new DBManager(getApplicationContext()).isEmptyTableScan());
-
+                checkdata.startAnimation( Animate3 );
             }
         });
     }
