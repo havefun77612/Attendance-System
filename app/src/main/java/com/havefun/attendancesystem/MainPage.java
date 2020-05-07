@@ -1,6 +1,7 @@
 package com.havefun.attendancesystem;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -53,6 +54,7 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
     TextView main_page,newUserType;
     ImageView image_profile, image_login, image_service, image_qr, image_scan,imageSupervisorStudents,imageAttendanceList,imageNewUserType,course;
     Animation Animate1, Animate2;
+    SharedPreferences mUserType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +120,7 @@ Remember to enable view depending on the user type comment  this line SplashScre
         offlineDB.deleteAllRecordProf();
         Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
         FirebaseAuth.getInstance().signOut();
+        mUserType.edit().putString("UserType","null").apply();
         startActivity(new Intent(getApplicationContext(),Login.class));
         finish();
     }
@@ -164,6 +167,7 @@ Remember to enable view depending on the user type comment  this line SplashScre
         imageAttendanceList = (ImageView) findViewById( R.id.imageAttendanceList );
         course = (ImageView) findViewById( R.id.course );
         newUserType=(TextView) findViewById(R.id.newUserTypeText);
+        mUserType=getApplicationContext().getSharedPreferences("mUserType",MODE_PRIVATE);
     }
 
 

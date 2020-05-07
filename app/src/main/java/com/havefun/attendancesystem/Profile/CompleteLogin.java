@@ -35,6 +35,7 @@ import com.havefun.attendancesystem.HelperClass.InternetStatus;
 import com.havefun.attendancesystem.MainPage;
 import com.havefun.attendancesystem.R;
 import com.havefun.attendancesystem.FirebaseClass.WriteToFirebase;
+import com.havefun.attendancesystem.SplashScreen;
 import com.shashank.sony.fancytoastlib.FancyToast;
 import com.squareup.picasso.Picasso;
 
@@ -410,7 +411,7 @@ public class CompleteLogin extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(getApplicationContext(), MainPage.class));
+        startActivity(new Intent(getApplicationContext(), SplashScreen.class));
         finish();
         super.onBackPressed();
     }

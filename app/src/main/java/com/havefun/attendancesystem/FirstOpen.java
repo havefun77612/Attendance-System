@@ -7,6 +7,8 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.havefun.attendancesystem.Authentication.Login;
+
 public class FirstOpen extends AppCompatActivity {
     int[] layouts;
     int curntscreen = 1;
@@ -47,7 +49,7 @@ public class FirstOpen extends AppCompatActivity {
                     curntscreen++;
                     next.setText("SKIP");
                 }else if (curntscreen==4){
-                    startActivity(new Intent(getApplicationContext(),MainPage.class));
+                    startActivity(new Intent(getApplicationContext(), Login.class));
                     finish();
                 }
                 initializeVars();
@@ -61,7 +63,7 @@ public class FirstOpen extends AppCompatActivity {
                     skip.setVisibility(View.INVISIBLE);
                     skip.setEnabled(false);
                 }
-                startActivity(new Intent(getApplicationContext(),MainPage.class));
+                startActivity(new Intent(getApplicationContext(),Login.class));
                 finish();
             }
         });
