@@ -2,8 +2,8 @@ package com.havefun.attendancesystem;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -27,9 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.havefun.attendancesystem.Authentication.Login;
 import com.havefun.attendancesystem.Chat.MainChat;
-import com.havefun.attendancesystem.HelperClass.ReadExcelData;
 import com.havefun.attendancesystem.OfflineDB.DBManager;
-import com.havefun.attendancesystem.OfflineDB.DatabaseAccess;
 import com.havefun.attendancesystem.Profile.CompleteLogin;
 import com.havefun.attendancesystem.Profile.ProfileActivity;
 import com.havefun.attendancesystem.QR.QrGen;
@@ -38,21 +36,20 @@ import com.havefun.attendancesystem.QR.ScanCourse;
 import com.havefun.attendancesystem.QueryFirebase.ShowAttendace;
 import com.havefun.attendancesystem.QueryFirebase.SupervisorStudents;
 import com.shashank.sony.fancytoastlib.FancyToast;
-
-import java.util.List;
+import com.squareup.picasso.Picasso;
 
 
 public class MainPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
     DrawerLayout drawer;
     ActionBarDrawerToggle toggle;
-    LinearLayout loginActivity, profile_page, scaner, chatting, qrgeneration, qrCourse, addNewDoctorOrAdmin,showSupervisorStudents,showAttendanceList;
-    CardView cardLogin,cardProfile,cardQrGeneration,cardChat,cardQrScan,cardQrCourseGeneration,cardAddNewUserType;
+    LinearLayout loginActivity, profile_page, scaner, chatting, qrgeneration, qrCourse, addNewDoctorOrAdmin, showSupervisorStudents, showAttendanceList;
+    CardView cardLogin, cardProfile, cardQrGeneration, cardChat, cardQrScan, cardQrCourseGeneration, cardAddNewUserType;
     GridLayout mainPageMainContainer;
     FirebaseUser user;
     DBManager offlineDB;
-    TextView main_page,newUserType;
-    ImageView image_profile, image_login, image_service, image_qr, image_scan,imageSupervisorStudents,imageAttendanceList,imageNewUserType,course;
+    TextView main_page, newUserType;
+    ImageView image_profile, image_login, image_service, image_qr, image_scan, imageSupervisorStudents, imageAttendanceList, imageNewUserType, course;
     Animation Animate1, Animate2;
     SharedPreferences mUserType;
 
@@ -65,14 +62,15 @@ public class MainPage extends AppCompatActivity implements NavigationView.OnNavi
         addListners();
         addinganimation();
 
-       // testExcellFile();
+        // testExcellFile();
     }
-/*
-Remember to enable view depending on the user type comment  this line SplashScreen.FirebaseUserType="Admin";
- */
+
+    /*
+    Remember to enable view depending on the user type comment  this line SplashScreen.FirebaseUserType="Admin";
+     */
     private void prepareContentDependingOnTheUserType() {
         // to Disable the user type uncomment for Debugging the below line ==>
-       // SplashScreen.FirebaseUserType="Admin";
+        // SplashScreen.FirebaseUserType="Admin";
         if (SplashScreen.FirebaseUserType.equals("Student")) {
             mainPageMainContainer.removeView(cardLogin);
             mainPageMainContainer.removeView(cardQrScan);
@@ -86,12 +84,12 @@ Remember to enable view depending on the user type comment  this line SplashScre
             mainPageMainContainer.removeView(cardQrCourseGeneration);
             mainPageMainContainer.removeView(cardAddNewUserType);
         } else if (SplashScreen.FirebaseUserType.equals("Admin")) {
-           //mainPageMainContainer.removeView(cardLogin);
-            FancyToast.makeText(getApplicationContext(),"Hello Admin",
-                    FancyToast.LENGTH_LONG,FancyToast.INFO,true).show();
+            //mainPageMainContainer.removeView(cardLogin);
+            FancyToast.makeText(getApplicationContext(), "Hello Admin",
+                    FancyToast.LENGTH_LONG, FancyToast.INFO, true).show();
         } else {
             Toast.makeText(this, "No UserType Exist", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(getApplicationContext(),Login.class));
+            startActivity(new Intent(getApplicationContext(), Login.class));
             finish();
             System.out.println("No UserType Exist");
         }
@@ -108,6 +106,19 @@ Remember to enable view depending on the user type comment  this line SplashScre
                 break;
             }
 
+            case R.id.menuChat: {
+                openChatActivity();
+                break;
+            }
+
+            case R.id.menuProfile: {
+                openProfileActivity();
+                break;
+            }
+            default: {
+                break;
+            }
+
         }
 
         return true;
@@ -120,9 +131,30 @@ Remember to enable view depending on the user type comment  this line SplashScre
         offlineDB.deleteAllRecordProf();
         Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
         FirebaseAuth.getInstance().signOut();
-        mUserType.edit().putString("UserType","null").apply();
-        startActivity(new Intent(getApplicationContext(),Login.class));
+        mUserType.edit().putString("UserType", "null").apply();
+        startActivity(new Intent(getApplicationContext(), Login.class));
         finish();
+    }
+
+    private void openChatActivity() {
+        startActivity(new Intent(getApplicationContext(), MainChat.class));
+    }
+
+    private void openProfileActivity() {
+        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+    }
+    private void addDataToDrawerMenu(){
+        FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.draw_dev);
+        View view =  navigationView.getHeaderView(0);
+        ImageView image= view.findViewById(R.id.menuProfileImage);
+        TextView username=view.findViewById(R.id.menuUsername);
+        TextView userEmail=view.findViewById(R.id.menuEmail);
+        if (user!=null){
+            Picasso.get().load(user.getPhotoUrl()).placeholder(R.drawable.profile5).into(image);
+            userEmail.setText(user.getEmail());
+            username.setText(user.getDisplayName());
+        }
     }
 
     /*
@@ -136,14 +168,14 @@ Remember to enable view depending on the user type comment  this line SplashScre
         qrgeneration = (LinearLayout) findViewById(R.id.qrgeneration);
         showAttendanceList = (LinearLayout) findViewById(R.id.showAttendanceList);
         addNewDoctorOrAdmin = findViewById(R.id.addNewDoctorOrAdmin);
-        showSupervisorStudents=findViewById(R.id.showSupervisorStudents);
-        cardChat=findViewById(R.id.cardChat);
+        showSupervisorStudents = findViewById(R.id.showSupervisorStudents);
+        cardChat = findViewById(R.id.cardChat);
         //cardLogin=findViewById(R.id.cardLogin);
-        cardProfile=findViewById(R.id.cardProfile);
-        cardAddNewUserType=findViewById(R.id.cardAddNewUserType);
-        cardQrCourseGeneration=findViewById(R.id.cardCourseGeneration);
-        cardQrGeneration=findViewById(R.id.cardQrGeneration);
-        cardQrScan=findViewById(R.id.cardScan);
+        cardProfile = findViewById(R.id.cardProfile);
+        cardAddNewUserType = findViewById(R.id.cardAddNewUserType);
+        cardQrCourseGeneration = findViewById(R.id.cardCourseGeneration);
+        cardQrGeneration = findViewById(R.id.cardQrGeneration);
+        cardQrScan = findViewById(R.id.cardScan);
         qrCourse = findViewById(R.id.QrCourse);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         mainPageMainContainer = findViewById(R.id.mainPageMainContainer);
@@ -162,12 +194,14 @@ Remember to enable view depending on the user type comment  this line SplashScre
         image_qr = (ImageView) findViewById(R.id.image_qr);
         image_scan = (ImageView) findViewById(R.id.image_scan);
         main_page = (TextView) findViewById(R.id.main_page);
-        imageNewUserType = (ImageView) findViewById( R.id.imageNewUserType );
-        imageSupervisorStudents = (ImageView) findViewById( R.id.imageSupervisorStudents );
-        imageAttendanceList = (ImageView) findViewById( R.id.imageAttendanceList );
-        course = (ImageView) findViewById( R.id.course );
-        newUserType=(TextView) findViewById(R.id.newUserTypeText);
-        mUserType=getApplicationContext().getSharedPreferences("mUserType",MODE_PRIVATE);
+        imageNewUserType = (ImageView) findViewById(R.id.imageNewUserType);
+        imageSupervisorStudents = (ImageView) findViewById(R.id.imageSupervisorStudents);
+        imageAttendanceList = (ImageView) findViewById(R.id.imageAttendanceList);
+        course = (ImageView) findViewById(R.id.course);
+        newUserType = (TextView) findViewById(R.id.newUserTypeText);
+        mUserType = getApplicationContext().getSharedPreferences("mUserType", MODE_PRIVATE);
+
+        addDataToDrawerMenu();
     }
 
 
@@ -236,6 +270,7 @@ Remember to enable view depending on the user type comment  this line SplashScre
         });
 
     }
+
     /*
      * inializing animation
      */
@@ -246,18 +281,18 @@ Remember to enable view depending on the user type comment  this line SplashScre
 //        image_login.startAnimation(Animate1);
         image_profile.startAnimation(Animate1);
         image_service.startAnimation(Animate1);
-        imageAttendanceList.startAnimation( Animate1 );
-        imageSupervisorStudents.startAnimation( Animate1 );
-        imageNewUserType.startAnimation( Animate1 );
-        course.startAnimation( Animate1 );
+        imageAttendanceList.startAnimation(Animate1);
+        imageSupervisorStudents.startAnimation(Animate1);
+        imageNewUserType.startAnimation(Animate1);
+        course.startAnimation(Animate1);
 
     }
 
     // Testing the Excell Sheet Values
     private void testExcellFile() {
-       // ReadExcelData readExcelData = new ReadExcelData(getApplicationContext());
+        // ReadExcelData readExcelData = new ReadExcelData(getApplicationContext());
         // uncomment the below link for testing ==>
-      //  readExcelData.order();
+        //  readExcelData.order();
 
     }
 
@@ -266,7 +301,7 @@ Remember to enable view depending on the user type comment  this line SplashScre
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            new StoreReview(getApplicationContext(),this).showReviewDialog();
+            new StoreReview(getApplicationContext(), this).showReviewDialog();
 
         }
     }

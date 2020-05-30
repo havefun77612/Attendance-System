@@ -5,29 +5,18 @@
 
     <group>
         <item
-            android:id="@+id/menufirstitem"
+            android:id="@+id/menuChat"
             android:icon="@drawable/menu_chat"
-            android:title="First item" />
+            android:title="Chat with us" />
         <item
-            android:id="@+id/menuseconditem"
+            android:id="@+id/menuProfile"
             android:icon="@drawable/menu_mail"
-            android:title="Second item" />
-        <item
-            android:id="@+id/menuthirditem"
-            android:icon="@drawable/menu_phone"
-            android:title="Third item" />
+            android:title="My profile" />
+
     </group>
-    <item android:title="Main Feature" />
-    <item android:title="Communicate">
+    <item android:title="Switch account">
         <menu>
-            <item
-                android:id="@+id/menushare"
-                android:icon="@drawable/menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/menusend"
-                android:icon="@drawable/menu_send"
-                android:title="Send" />
+
             <item
                 android:id="@+id/menulogout"
                 android:icon="@drawable/menu_logout"
